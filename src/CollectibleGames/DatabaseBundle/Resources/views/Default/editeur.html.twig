@@ -1,0 +1,13 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		<div id='description'>{{ editeur.description }}</div>
+		<div class="listPlateformes" id="center">
+		{% for plateforme in plateformes %}
+			<span class='logoPlateforme'><a href="{{ path('show_plateforme', { 'id': plateforme.id }) }}" ><img height=100 src='{{ img_root }}{{ plateforme.imageUrl }}' title='{{ plateforme.name }}' ></a>
+			<!----<span><a href="" >Afficher les listes détaillées (peut être long à charger)</a></span>---></span>
+		{% endfor %}
+		</div>
+		{% if modo %}
+			<div class='lienAdmin'><a href=''>Modifier la marque</a></div>
+		{% endif %}
+{% endblock %}
