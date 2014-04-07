@@ -197,6 +197,6 @@ class VersionAccessoire
 	protected function getUploadRootDir()
 	{
 		// On retourne le chemin relatif vers l'image pour notre code PHP
-		return __DIR__.'/../../../../'.$this->getUploadDir();
+		return './../../../../'.$this->getUploadDir();
 	}
 }
