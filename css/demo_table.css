@@ -1,0 +1,1578 @@
+/* 
+ *  File:         demo_table.css
+ *  CVS:          $Id$
+ *  Description:  CSS descriptions for DataTables demo pages
+ *  Author:       Allan Jardine
+ *  Created:      Tue May 12 06:47:22 BST 2009
+ *  Modified:     $Date$ by $Author$
+ *  Language:     CSS
+ *  Project:      DataTables
+ *
+ *  Copyright 2009 Allan Jardine. All Rights Reserved.
+ *
+ * ***************************************************************************
+ * DESCRIPTION
+ *
+ * The styles given here are suitable for the demos that are used with the standard DataTables
+ * distribution (see www.datatables.net). You will most likely wish to modify these styles to
+ * meet the layout requirements of your site.
+ *
+ * Common issues:
+ *   'full_numbers' pagination - I use an extra selector on the body tag to ensure that there is
+ *     no conflict between the two pagination types. If you want to use full_numbers pagination
+ *     ensure that you either have "example_alt_pagination" as a body class name, or better yet,
+ *     modify that selector.
+ *   Note that the path used for Images is relative. All images are by default located in
+ *     ../images/ - relative to this CSS file.
+ */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables features
+ */
+
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
+	zoom: 1; /* Feeling sorry for IE */
+}
+
+.dataTables_processing {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 250px;
+	height: 30px;
+	margin-left: -125px;
+	margin-top: -15px;
+	padding: 14px 0 2px 0;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 14px;
+	background-color: white;
+}
+
+.dataTables_length {
+	width: 40%;
+	float: left;
+}
+
+.dataTables_filter {
+	width: 50%;
+	float: right;
+	text-align: right;
+}
+
+.dataTables_info {
+	width: 60%;
+	float: left;
+}
+
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
+/* Pagination nested */
+.paginate_disabled_previous, .paginate_enabled_previous,
+.paginate_disabled_next, .paginate_enabled_next {
+	height: 19px;
+	float: left;
+	cursor: pointer;
+	*cursor: hand;
+	color: #111 !important;
+}
+.paginate_disabled_previous:hover, .paginate_enabled_previous:hover,
+.paginate_disabled_next:hover, .paginate_enabled_next:hover {
+	text-decoration: none !important;
+}
+.paginate_disabled_previous:active, .paginate_enabled_previous:active,
+.paginate_disabled_next:active, .paginate_enabled_next:active {
+	outline: none;
+}
+
+.paginate_disabled_previous,
+.paginate_disabled_next {
+	color: #666 !important;
+}
+.paginate_disabled_previous, .paginate_enabled_previous {
+	padding-left: 23px;
+}
+.paginate_disabled_next, .paginate_enabled_next {
+	padding-right: 23px;
+	margin-left: 10px;
+}
+
+.paginate_disabled_previous {
+	background: url('../images/back_disabled.png') no-repeat top left;
+}
+
+.paginate_enabled_previous {
+	background: url('../images/back_enabled.png') no-repeat top left;
+}
+.paginate_enabled_previous:hover {
+	background: url('../images/back_enabled_hover.png') no-repeat top left;
+}
+
+.paginate_disabled_next {
+	background: url('../images/forward_disabled.png') no-repeat top right;
+}
+
+.paginate_enabled_next {
+	background: url('../images/forward_enabled.png') no-repeat top right;
+}
+.paginate_enabled_next:hover {
+	background: url('../images/forward_enabled_hover.png') no-repeat top right;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables display
+ */
+table.display {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+	
+	/* Note Firefox 3.5 and before have a bug with border-collapse
+	 * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
+	 * border-spacing: 0; is one possible option. Conditional-css.com is
+	 * useful for this kind of thing
+	 *
+	 * Further note IE 6/7 has problems when calculating widths with border width.
+	 * It subtracts one px relative to the other browsers from the first column, and
+	 * adds one to the end...
+	 *
+	 * If you want that effect I'd suggest setting a border-top/left on th/td's and 
+	 * then filling in the gaps with other borders.
+	 */
+}
+
+table.display thead th {
+	padding: 3px 18px 3px 10px;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+	cursor: pointer;
+	* cursor: hand;
+}
+
+table.display tfoot th {
+	padding: 3px 18px 3px 10px;
+	border-top: 1px solid black;
+	font-weight: bold;
+}
+
+table.display tr.heading2 td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.display td {
+	padding: 3px 10px;
+}
+
+table.display td.center {
+	text-align: center;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables sorting
+ */
+
+.sorting_asc {
+	background: url('../images/sort_asc.png') no-repeat center right;
+}
+
+.sorting_desc {
+	background: url('../images/sort_desc.png') no-repeat center right;
+}
+
+.sorting {
+	background: url('../images/sort_both.png') no-repeat center right;
+}
+
+.sorting_asc_disabled {
+	background: url('../images/sort_asc_disabled.png') no-repeat center right;
+}
+
+.sorting_desc_disabled {
+	background: url('../images/sort_desc_disabled.png') no-repeat center right;
+}
+ 
+table.display thead th:active,
+table.display thead td:active {
+	outline: none;
+}
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables row classes
+ */
+table.display tr.odd.gradeA {
+	background-color: #ccccff;
+}
+
+table.display tr.even.gradeA {
+	background-color: #bbbbee;
+}
+
+table.display tr.odd.gradeC {
+	background-color: #bbeebb;
+}
+
+table.display tr.even.gradeC {
+	background-color: #b0d6b0;
+}
+
+
+tr.odd {
+	background-color: #E2E4FF;
+}
+
+tr.even {
+	background-color: white;
+}
+
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Misc
+ */
+.dataTables_scroll {
+	clear: both;
+}
+
+.dataTables_scrollBody {
+	*margin-top: -1px;
+	-webkit-overflow-scrolling: touch;
+}
+
+.top .dataTables_info {
+	float: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.dataTables_empty {
+	text-align: center;
+}
+
+tfoot input {
+	margin: 0.5em 0;
+	width: 100%;
+	color: #444;
+}
+
+tfoot input.search_init {
+	color: #999;
+}
+
+td.group {
+	background-color: #d1cfd0;
+	border-bottom: 2px solid #A19B9E;
+	border-top: 2px solid #A19B9E;
+}
+
+td.details {
+	background-color: #d1cfd0;
+	border: 2px solid #A19B9E;
+}
+
+
+.example_alt_pagination div.dataTables_info {
+	width: 40%;
+}
+
+.paging_full_numbers {
+	width: 400px;
+	height: 22px;
+	line-height: 22px;
+}
+
+.paging_full_numbers a:active {
+	outline: none
+}
+
+.paging_full_numbers a:hover {
+	text-decoration: none;
+}
+
+.paging_full_numbers a.paginate_button,
+ 	.paging_full_numbers a.paginate_active {
+	border: 1px solid #aaa;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 2px 5px;
+	margin: 0 3px;
+	cursor: pointer;
+	*cursor: hand;
+	color: #333 !important;
+}
+
+.paging_full_numbers a.paginate_button {
+	background-color: #ddd;
+}
+
+.paging_full_numbers a.paginate_button:hover {
+	background-color: #ccc;
+	text-decoration: none !important;
+}
+
+.paging_full_numbers a.paginate_active {
+	background-color: #99B3FF;
+}
+
+table.display tr.even.row_selected td {
+	background-color: #B0BED9;
+}
+
+table.display tr.odd.row_selected td {
+	background-color: #9FAFD1;
+}
+
+
+
+tr.odd.gradeA td.sorting_1 {
+	background-color: #ccccff;
+}
+
+tr.odd.gradeA td.sorting_2 {
+	background-color: #ccccff;
+}
+
+tr.odd.gradeA td.sorting_3 {
+	background-color: #ccccff;
+}
+
+tr.even.gradeA td.sorting_1 {
+	background-color: #bbbbee;
+}
+
+tr.even.gradeA td.sorting_2 {
+	background-color: #bbbbee;
+}
+
+tr.even.gradeA td.sorting_3 {
+	background-color: #bbbbee;
+}
+tr.odd.gradeC td.sorting_1 {
+	background-color: #bbeebb;
+}
+
+tr.odd.gradeC td.sorting_2 {
+	background-color: #bbeebb;
+}
+
+tr.odd.gradeC td.sorting_3 {
+	background-color: #bbeebb;
+}
+
+tr.even.gradeC td.sorting_1 {
+	background-color: #b0d6b0;
+}
+
+tr.even.gradeC td.sorting_2 {
+	background-color: #b0d6b0;
+}
+
+
+
+/*
+ * Row highlighting example
+ */
+.ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+.ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+.ex_highlight_row #example tr.even:hover {
+	background-color: #ECFFB3;
+}
+
+.ex_highlight_row #example tr.even:hover td.sorting_1 {
+	background-color: #DDFF75;
+}
+
+.ex_highlight_row #example tr.even:hover td.sorting_2 {
+	background-color: #E7FF9E;
+}
+
+.ex_highlight_row #example tr.even:hover td.sorting_3 {
+	background-color: #E2FF89;
+}
+
+.ex_highlight_row #example tr.odd:hover {
+	background-color: #E6FF99;
+}
+
+.ex_highlight_row #example tr.odd:hover td.sorting_1 {
+	background-color: #D6FF5C;
+}
+
+.ex_highlight_row #example tr.odd:hover td.sorting_2 {
+	background-color: #E0FF84;
+}
+
+.ex_highlight_row #example tr.odd:hover td.sorting_3 {
+	background-color: #DBFF70;
+}
+
+
+/*
+ * KeyTable
+ */
+table.KeyTable td {
+	border: 3px solid transparent;
+}
+
+table.KeyTable td.focus {
+	border: 3px solid #3366FF;
+}
+
+table.display tr.gradeA {
+	background-color: #ccccff;
+}
+table.display tr.gradeC {
+	background-color: #bbeebb;
+}
+
+
+table.display tr.grade0 {
+	background-color: #66FF66;
+	color: #000000;
+}
+table.display tr.grade1 {
+	background-color: #CCFF00;
+	color: #000000;
+}
+table.display tr.grade2 {
+	background-color: #FFFF00;
+	color: #000000;
+}
+table.display tr.grade3 {
+	background-color: #FFAA33;
+	color: #000000;
+}
+table.display tr.grade4 {
+	background-color: #FF8855;
+	color: #000000;
+}
+table.display tr.grade5 {
+	background-color: #FF4444;
+	color: #000000;
+}
+table.display tr.gradeU {
+	background-color: #fff;
+	color: #000000;
+}
+
+div.box {
+	height: 100px;
+	padding: 10px;
+	overflow: auto;
+	border: 1px solid #8080FF;
+	background-color: #E5E5FF;
+}
+
+#center
+{
+	text-align: center;
+}
+#description
+{
+	text-align: center;
+}
+#photo
+{
+	float: right;
+	text-align: center;
+}
+#version
+{
+	float: left;
+}
+#jeu
+{
+	float: left;
+	max-width: 70%;
+}
+#accessoire
+{
+	float: left;
+	max-width: 70%;
+}
+#console
+{
+	float: left;
+	max-width: 70%;
+}
+#infosV
+{
+	clear: both;
+}
+#infos
+{
+	clear: both;
+}
+
+.Titre
+{
+	font-size: 20px;
+}
+
+.GrosTitre
+{
+	font-size: 36px;
+	font-weight:bold;
+	line-height: normal;
+}
+
+.InfosObligatoires
+{
+	font-weight:bold;
+}
+
+.sousTitre
+{
+	font-size: 18px;
+}
+
+.fPlateforme:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divplateforme:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divplateforme span {display: none;}
+.divplateforme:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fDeveloppeur:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divdeveloppeur:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divdeveloppeur span 
+{
+display: none;
+}
+.divdeveloppeur:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fType:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divtype:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divtype span {display: none;}
+.divtype:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fGroupe:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divgroupe:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divgroupe span {display: none;}
+.divgroupe:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fRegion:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divregion:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divregion span {display: none;}
+.divregion:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fEdition:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divedition:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divedition span {display: none;}
+.divedition:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;tr.
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fEditeur:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divediteur:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divediteur span {display: none;}
+.divediteur:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fSupport:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divsupport:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divsupport span {display: none;}
+.divsupport:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fFormat:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divformat:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divformat span {display: none;}
+.divformat:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fCommande:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divcommande:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divcommande span {display: none;}
+.divcommande:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fAutrePlateforme:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divautreplateforme:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divautreplateforme span {display: none;}
+.divautreplateforme:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+
+.fLangue:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divlangue:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divlangue span {display: none;}
+.divlangue:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.titre {
+	font-size:16px;
+	float:center;
+	text-align:center;
+}
+
+.titreBlanc {
+	font-size:30px;
+	color:#fff;
+}
+
+.titreFiltres {
+	float:center;
+	text-align:center;
+}
+
+.fPla{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fAPla{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fDev{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fTyp{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fGro{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fReg{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fEd1{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fEd2{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fSup{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fFor{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fLan{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fCom{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.nbGreen{
+	color:#00ff00;
+}
+.nbRed{
+	color:#ff0000;
+}
+.lienAdmin {
+	text-align:center;
+	display:block;
+	clear:both;
+}
+.right {
+	float:right;
+	text-align:right;
+}
+
+#commande
+{
+	text-align:center;
+}
+#developpeur
+{
+	text-align:center;
+}
+#editeur
+{
+	text-align:center;
+}
+#edition
+{
+	text-align:center;
+}
+#format
+{
+	text-align:center;
+}
+#groupe
+{
+	text-align:center;
+}
+#langue
+{
+	text-align:center;
+}
+#plateforme
+{
+	text-align:center;
+}
+#region
+{
+	text-align:center;
+}
+#support
+{
+	text-align:center;
+}
+#type_jeu
+{
+	text-align:center;
+}
+#supprcommande
+{
+	text-align:center;
+}
+#supprdeveloppeur
+{
+	text-align:center;
+}
+#supprediteur
+{
+	text-align:center;
+}
+#suppredition
+{
+	text-align:center;
+}
+#supprformat
+{
+	text-align:center;
+}
+#supprgroupe
+{
+	text-align:center;
+}
+#supprlangue
+{
+	text-align:center;
+}
+#supprplateforme
+{
+	text-align:center;
+}
+#supprregion
+{
+	text-align:center;
+}
+#supprsupport
+{
+	text-align:center;
+}
+#supprtype_jeu
+{
+	text-align:center;
+}
+#jeux
+{
+	text-align:center;
+}
+#versions
+{
+	text-align:center;
+}
+
+
+.fAccPlateforme:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divAccPlateforme:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divAccPlateforme span {display: none;}
+.divAccPlateforme:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fAccType:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divAccType:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divAccType span {display: none;}
+.divAccType:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fAccRegion:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divAccRegion:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divAccRegion span {display: none;}
+.divAccRegion:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fAccEditeur:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divAccEditeur:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divAccEditeur span {display: none;}
+.divAccEditeur:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+
+.fAccZone:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divAccZone:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divAccZone span {display: none;}
+.divAccZone:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+
+.fAccZon{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fAccPla{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fAccTyp{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fAccReg{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fAccEdi{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+
+
+.fConPlateforme:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divConPlateforme:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divConPlateforme span {display: none;}
+.divConPlateforme:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fConRegion:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divConRegion:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divConRegion span {display: none;}
+.divConRegion:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+.fConEditeur:hover
+{
+	background-color: #ff7777;
+	cursor: pointer;
+}
+.divConEditeur:hover
+{
+	background-color: #ccffcc;
+	cursor: pointer;
+}
+.divConEditeur span {display: none;}
+.divConEditeur:hover span {
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 200px;
+	padding: 5px;
+	margin: 10px;
+	z-index: 100;
+	color: #0000CC;
+	background: #FFFFCC;
+	font: 10px Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	border: 1px solid #666666;
+	text-decoration: none;
+}
+
+
+
+
+.fConPla{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fConReg{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+.fConEdi{
+	vertical-align:top;
+	overflow: auto;
+	height:200px;
+}
+
+.txtGras{
+	font-weight : bold;
+}
+
+a:hover
+{
+	cursor: pointer;
+}
+
+.infosPossessionUser
+{
+	position:relative; 
+}
+.infosPossessionUser span
+{
+	display: none;
+}
+.infosPossessionUser:hover span
+{
+	background-image: url('../img/collection_back.png');
+	display: inline;
+	z-index: 100;
+	position: absolute;
+	left:0px; 
+	top:0px; 
+	width: 500px;
+	height: 277px;
+}
+.infosPossessionUser span .edit
+{
+	position: relative;
+	z-index: 120;
+	left:50px; 
+	top:150px; 
+}
+.infosPossessionUser span .suppr
+{
+	position: relative;
+	z-index: 120;
+	left:30px; 
+	top:136px; 
+}
+.infosPossessionUser:hover span table
+{
+	background: #FFFFFF;
+	background-color: #FFFFFF;
+	position: relative;
+	left:135px; 
+	top:-22px; 
+	width: 215px;
+	height: 125px;
+}
+.infosPossession
+{
+	position:relative; 
+}
+.infosPossession span
+{
+	display: none;
+}
+.infosPossession:hover span
+{
+	background-image: url('../img/collection_back.png');
+	display: inline;
+	z-index: 100;
+	position: absolute;
+	left:0px; 
+	top:0px; 
+	width: 500px;
+	height: 277px;
+}
+.infosPossession:hover span table
+{
+	background: #FFFFFF;
+	background-color: #FFFFFF;
+	position: relative;
+	left:135px; 
+	top:68px; 
+	width: 215px;
+	height: 125px;
+}
+
+.hidden
+{
+	display: none;
+}
+
+
+.formulaire
+{
+	width : 100%;
+}
+.formulaire td
+{
+	width : 50%;
+}
+
+.formulaire #plateforme
+{
+	text-align : left;
+}
+.formulaire #type_jeu
+{
+	text-align : left;
+}
+.formulaire #developpeur
+{
+	text-align : left;
+}
+.formulaire #editeur
+{
+	text-align : left;
+}
+
+.imageBig
+{
+	position: absolute;
+	right:5%; 
+	text-align: center;
+	z-index: 100;
+	display: none;
+	background-color: #FFFFFF;
+}
+
+.marques img
+{
+   padding:20px;
+}
+.listPlateformes img
+{
+   padding:20px;
+}
+
+.showFiltres
+{
+	text-align: center;
+}
+
+.connectRight a
+{
+	color: #FFFFFF;
+}
+.content img
+{
+   margin-bottom:0px;
+}
+
+
+.logoPlateforme
+{
+	position:relative; 
+}
+.logoPlateforme span
+{
+	display: none;
+}
+.logoPlateforme:hover span
+{
+	background-color: #FFFFFF;
+	display: inline;
+	z-index: 100;
+	position: absolute;
+	left:0px; 
+	top:0px; 
+}
+
+.multiselect {
+    height:5em;
+    border:solid 1px #c0c0c0;
+    overflow:auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+ 
+.multiselect label {
+    display:block;
+}
+ 
+.multiselect-on {
+    color:#ffffff;
+    background-color:#000099;
+}
+
+.src
+{
+	width: 100%;
+	vertical-align: top;
+}
+.src tr
+{
+	width: 100%;
+}
+.src th
+{
+	width: 30%;
+	vertical-align: top;
+}
+.srcJeu
+{
+	text-align: center;
+}
+.supprPhoto
+{
+	display: none;
+	position: relative;
+	top: -92px;
+	left: -8px;
+}
+.photoAlbumUser:hover .supprPhoto
+{
+	display: inline;
+}
+.photoAlbum
+{
+	display: inline-block;
+	padding-right:15px;
+	padding-left:15px;
+}
+.photoAlbumUser
+{
+	display: inline-block;
+	padding:15px;
+}
+.photoAlbumUser:hover
+{
+	padding-right:0px;
+	padding-left:0px;
+}
+.editPhoto
+{
+	display: none;
+	position: relative;
+	top: -92px;
+	left: 8px;
+}
+.photoAlbumUser:hover .editPhoto
+{
+	display: inline;
+}
+.titleAlbum
+{
+	position: relative;
+	top: -18px;
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+}

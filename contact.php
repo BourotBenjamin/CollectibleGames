@@ -1,0 +1,164 @@
+<?php
+
+ 
+define('IN_PHPBB', true);
+$phpbb_root_path = './forum/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.php');
+         
+// Start session management
+$user->session_begin();
+$auth->acl($user->data);
+$user->setup();
+//$user->data['userid']
+//$user->data['username']
+//print_header($navbits, $headeralerts, $navbar, $pagetitle);
+
+if(isset($_POST['logout']))
+{
+		$user->session_kill();
+		$user->session_begin();
+		$headeralerts = '<script>
+				$(function(){
+					alertify.success("Au revoir");
+				});
+			</script>';
+}
+if(isset($_POST['login']))
+{
+	$result = $auth->login($_POST['username'], $_POST['password']);
+	if ($result['status'] == LOGIN_SUCCESS)
+	{
+		$headeralerts = '<script>
+				$(function(){
+					alertify.success("Connexion réussie");
+				});
+			</script>';
+	}
+	else
+	{
+		$headeralerts = '<script>
+				$(function(){
+					alertify.error("Erreur lors de la connexion");
+				});
+			</script>';
+	}
+}
+
+include 'bddjv/controller.php';
+if(isset($_POST["validerAjoutBug"]))
+{
+	$headeralerts = $headeralerts.ajoutBug();
+}
+print_header(null, $headeralerts, null, $user, 1);
+
+		echo '<div id="templatemo_main">
+		<h2>Contact</h2>
+		<form action="" method=POST>
+		<TEXTAREA NAME="description_bug" ROWS=3 COLS=100 ></TEXTAREA><br>
+		<input type=hidden name="type_bug" value=3 /><br>
+		<input type=submit name="validerAjoutBug" value="Valider" />
+		</form>
+		<div class="cleaner"></div><br>
+		<h2>FAQ</h2>
+		<h3>Collectible Games ? C\'est quoi ?</h3>
+		Collectible Games est un site regroupant un ensemble de modules vous permettant de gérer votre passion.<br>
+		Les modules actuellement disponibles sont :<br>
+		La base de donnée des jeux vidéos : Elle essaye de regrouper tout les jeux / consoles et accessoires existant dans toutes les variations possibles.
+		Les gestionnaire de collection : Il vous permet de gérer votre collection avec plus de précision que les systèmes actuels vous proposant ainsi jeux, consoles, accessoires mais il vous permet de choisir par exemple chacune des versions de votre objet.<br>
+		
+		<h3> Et tout ça, comment ça fonctionne ? </h3>
+		<h4>La base de donnée</h4>
+		<img src="images/FAQ/bddjv_01.png" /><br>
+		Voici comment se présente la base de donnée du site.<br>
+		Pour votre informations, certaines fonctionnalités, comme la gestion de votre collection ne sont disponibles que si vous êtes connectés.<br>
+		Les comptes utilisés par le site sont les mêmes que ceux utilisés pour le forum. Vous n\'avez donc pas à vous créer deux comptes.<br>
+		Le formulaire d\'inscription (Lien encadré en rouge) et celui de connexion (encadré en orange) sont disponibles su toutes les pages si vous n\'êtes pas connecté.<br>
+		Vous pouvez effectuer une recherche dans la base de donnée, le lien encadré en bleu vous enverra vers le moteur de recherche du site.<br>
+		Ou alors, vous pouvez décider de naviguer dans la base de donnée en cliquant sur une marque disponible.<br>
+		<br><br><img src="images/FAQ/bddjv_02.png" /><br>
+		Le moteur de recherche vous permet de rechercher une information par nom dans la base de donnée.<br>
+		<br><br><img src="images/FAQ/bddjv_02b.png" /><br>
+		Si vous naviguez vous arriverez à la page consacré à la marque.<br>
+		Vous trouverez en haut de la page le logo ainsi que la description de la marque.<br>
+		Il se peut que cette partie sois blanche si la marque à été ajoutée récemment.<br>
+		En dessous, vous verrez les logos des différentes plateformes de la marque.<br>
+		En passant la souris dessus, vous verrez le lien (encadré vert) apparaitre.<br>
+		En cliquant sur le logo, vous accéderez alors à la page dédiée à la console avec une liste des jeux / accessoires / consoles<br>
+		En cliquant sur le lien, vous accéderez alors à la page dédiée à la console avec une liste détaillé des jeux / accessoires / consoles avec des filtres et d\'autres options de tri<br>
+		La page avec les liste détaillées peut être longue à charger car votre navigateur va devoir mettre en forme un grand nombre de données.<br>
+		<br><br><img src="images/FAQ/bddjv_03.png" /><br>
+		Sur la page dédiez à une plateforme, vous retrouverez, en haut, sa description<br>
+		Puis en dessous, vous trouverez des liens pour afficher les packs / jeux / accessoires de cette console<br>
+		<br><br><img src="images/FAQ/bddjv_04.png" /><br>
+		En cliquant sur un des liens, un tableau va apparaître juste en dessous<br>
+		La page "de base"  (vous y accédez en cliquant sur le logo) ne contient que les noms de jeux / accessoires / consoles (première colone de l\'image).<br>
+		Elle ne contient pas les filtres que vous voyez sur l\'image (contrairement à la page détaillée).<br>
+		Alors que le tableau que vous voyez est le tableau détaillé (vous y accédez en cliquant sur le lien).<br>
+		C\'est aussi ce tableau que vous trouverez si vous faites une recherche par nom. <br>
+		Comme vous pouvez le voir, le tableau contient beaucoup d\'informations et certaines recherches sont possibles.<br>
+		Tout d\'abord vous trouvez les filtres (encadrés en mauve).<br>
+		Vous pouvez cliquer dessus pour n\'afficher que les jeux correspondants.<br>
+		Toutefois, même si vous pouvez activer plusieurs filtres à la fois, c\'est un "ET" qui est appliqué entre les filtres.<br>
+		Donc si vous cliquez par exemple dans région sur "Europe" et "Brésil", le site va uniquement afficher les jeux vendus en Europe et au Brésil.<br>
+		Pour activer des filtres, vous pouvez aussi activer des filtres en cliquant directement sur le tableau des jeux (encadré en jaune).
+		Vous pouvez aussi rechercher un jeu avec un nombre de joueur minimum (encadré en rouge).<br>
+		Si vous souhaitez effectuer une recherche personnalisée, un champ de recherche est disponible en haut à gauche du tableau (encadré en orange). Il recherche dans toutes les colones du tableau.
+		Et vous pouvez également changé le nombre d\'élément visible sur une page (encadré bleu).<br>
+		Pour avoir plus d\'informations sur un jeu, vous n\'avez qu\'à sur le titre de ce dernier pour accéder à sa fiche (encadré brun). <br>		
+		<br><br><img src="images/FAQ/bddjv_05.png" /><br>
+		Quand vous avez sélectionné un filtre vous pouvez le désélectionner de trios manières différentes (encadrés verts): <br>
+		En cliquant dessus dans le tableau des filtres.<br>
+		En cliquant dessus dans la liste des filtre actifs.<br>
+		En cliquant dessus dans le tableau de jeux.<br>
+		En bas de la page vous trouverez les boutons pour changer la page du tableau. (encadré rouge)<br>
+		Si vous avez envie de nous aider et que vous ne trouvez pas les informations que vous souhaitez, vous pouvez ajouter un jeu dans notre base de donnée en cliquant sur le lien encadré en bleu.<br>
+		Les liens sont également disponibles en fond de chaque pages.<br>
+		<br><br><img src="images/FAQ/bddjv_06.png" /><br>
+		Si vous êtes connectés, vous pourrez également gérer votre collection grâce à ce tableau.<br>
+		Vous pourrez ajouter un ou plusieurs jeux en sélectionnant les cases (entourées en rouge) à cocher puis en cliquant sur le bouton en dessous.(entouré en orange)<br> 	
+		Seuls les jeux affichés seront ajoutés, mais si vous effectuez une recherche, les cases ne seront pas décochées.<br>
+		Mon conseil : Cherchez les jeux que vous voulez ajouter grâce aux outils, mais désactivez les filtres, et affichez tout les jeux sur la page quand vous souhaitez ajouter des jeux.<br>
+		<br><br><img src="images/FAQ/bddjv_07.png" /><br>
+		Sur une fiche de jeu, vous trouverez les informations dur consacré au jeu (encadré en mauve), puis les différentes versions.<br>
+		Pour afficher les versions du jeu, vous n\'avez qu\'à cliquer sur afficher.<br>
+		Si vous voyez qu\'une information est erronée, vous pouvez éditer le jeu<br>
+		Et si une information est manquante, vous pouvez l\'ajouter.<br>
+		<br><br><img src="images/FAQ/bddjv_08.png" /><br>
+		Sur une version, vous y trouverez toutes les informations à gauche (encadré vert) et les photos à droite(encadré bleu).<br>
+		En cliquant sur une image, vous pourrez la voir en taille rééle, comme dans l\'exemple.<br>
+		Pour refermer l\'image, il vous suffit de cliquer dessus.<br>
+		<br><br><img src="images/FAQ/bddjv_09.png" /><br>
+		Pour ajouter des informations, c\'est un simple formulaire. Il contient seulement deux spécificités :<br>
+		Les "+" (encadrés en vert) vous permettent d\'ajouter plusieurs informations d\'un même type. Pour rappel : 1 case = 1 information uniquement.<br>
+		Le lien entouré en bleu vous permet d\'ajouter une version à ce que vous ajoutez ou modifiez.<br>
+		<br><h4>La gestion de collection</h4>
+		<br><img src="images/FAQ/collection_02.png" /><br>
+		Quand vous ajoutez une informations dans votre collections vous indiquez : <br>
+		- L\'état de l\'objet<br>
+		- Sa version<br>
+		- Ce que vous avez avec<br>
+		- Et vous pouvez ajouter un commentaire par rapport à cet objet.<br>
+		Vous pouvez ensuite valider, mais si les informations que vous avez rentrés sont identiques pour tout les autres objets que vous voulez ajouter, alors le bouton encadré en bleu vous le permet.<br>
+		Si un jeu n\'existe pas dans la version demandée, alors, ce informations vous seront demandés pour ce jeu. (Comme ici).<br>
+		<br><br><img src="images/FAQ/collection_01.png" /><br>
+		Enfin, voici l\'affichage de votre collection.<br>
+		Ici vous verrez tout vos jeux dans la version et dans le niveau de complétion ( boite / jeu / notice ) que vous l\'avez.<br>
+		Dans cette exemple, on peux voir que j\'ai mario 64 en boite, mario 64 en loose et la notice de mario 64 seule.<br>
+		Si vous passez sur l\'image d\'une possession, vous pourrez alors voir cette GBA (encadré vert) apparaître avec les informations :<br>
+		- Le titre<br>
+		- Le niveau de complétion (Logo très clair = absent / Logo foncé = présent)<br>
+		(Vous pouvez passer votre souris sur le logo si vous ne savez pas à quoi il correspond, comme sur la plupart des images du site).<br>
+		- L\'état<br>
+		- Le commentaire (si vous en avez mis un)<br>
+		Vous pourrez aussi trouver, si c\'est votre collection que vous être en train de visionner) les boutons "Edit" et "Suppr" qui vont vous permettre de modifier votre collection.<br>
+		Enfin, vous pouvez exporter votre collection en fichier texte avec le lien en bas de page (encadré mauve).
+		<br><br><br>
+		<h3> Mais ? Tout ces points d\'interrogations, c\'est quoi ? </h3>
+		Ce sont les images manquantes dans notre base de donnée. Nous sommes en train de compléter les informations, mais si vous souhaitez nous aider, allez y.
+		
+		</div> <!-- END of templatemo_main -->';
+		
+		
+print_footer();
+?>

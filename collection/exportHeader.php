@@ -1,0 +1,1 @@
+<?php	header('Content-type: text/html', true);	header('Content-Disposition: attachment; filename="'.$nom.'.txt"',true);	?>
