@@ -1,0 +1,35 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		{% autoescape false %}
+			<div id='description'>{{ plateforme.description }}</div>
+		{% endautoescape %}
+		<br>
+		<div id=center><a onclick="openConsoles();return false;">Rechercher un pack</a> / <a onclick="openJeux();return false;">Rechercher un jeu </a> / <a onclick="openAccessoires();return false;">Rechercher un accessoire</a></div><br>
+		{% include 'CollectibleGamesDatabaseBundle:Default:table_jeux.html.twig' %}
+		{% include 'CollectibleGamesDatabaseBundle:Default:table_consoles.html.twig' %}
+		{% include 'CollectibleGamesDatabaseBundle:Default:table_accessoires.html.twig' %}
+		<div id="clear"></div>
+		{% if modo %}
+			<div class='lienAdmin'><a href=''>Modifier la plateforme</a></div>
+		{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+		<script language="Javascript">
+			function openJeux() {
+					document.getElementById("ListeJeux").style.display="block";
+					document.getElementById("ListeAccessoires").style.display="none";
+					document.getElementById("ListeConsoles").style.display="none";
+			}
+			function openAccessoires() {
+					document.getElementById("ListeJeux").style.display="none";
+					document.getElementById("ListeAccessoires").style.display="block";
+					document.getElementById("ListeConsoles").style.display="none";
+			}
+			function openConsoles() {
+					document.getElementById("ListeConsoles").style.display="block";
+					document.getElementById("ListeJeux").style.display="none";
+					document.getElementById("ListeAccessoires").style.display="none";
+			}
+		</script>
+{% endblock %} 

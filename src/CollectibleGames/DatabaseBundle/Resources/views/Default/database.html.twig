@@ -1,0 +1,16 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		<div id='center'> <h1>Base de donnée des jeux vidéos</h1> </div>
+		<div class='right'><a href='bddjv.php?action=find'><h3>Recherche avancée<h3></a></div><div class='clear'></div><div class='marques' id='center'>
+		{% for editeur in editeurs %}
+			{% if editeur.id != 0 %}
+				<a href="{{ path('show_editeur', {'id': editeur.id }) }}"><img height=50 src='{{ img_root }}{{ editeur.imageUrl }}' title='{{ editeur.name }}' ></a>
+			{% endif %}
+		{% endfor %}
+		</div><br><br>
+		<div id='center'>Collectible games, c'est :<br>
+				{{nbPlateformes}} plateformes réparties dans {{editeurs|length}} marques. <br>
+				{{nbJeux}} jeux déclinés en {{nbVersionsJeux}} versions. <br>
+				{{nbConsoles}} packs déclinés en {{nbVersionsConsoles}} versions. <br>
+				{{nbAccessoires}} accessoires déclinés en {{nbVersionsAccessoires}} versions. </div>";
+{% endblock %}

@@ -1,0 +1,5 @@
+collectible_games_database:
+    resource: "@CollectibleGamesDatabaseBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

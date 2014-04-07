@@ -1,0 +1,230 @@
+{% block head %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		{% block head_content %}
+			<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+			<meta name="keywords" content="collection, retro, gaming, retrogaming, games, jeu, jeux, vidéo, vidéos, jeux-videos, jeuxvideo, nintendo, sega, sony, microsoft, xbox, playstation, nes, megadrive, sonic, mario, gta, ps" />
+			<meta name="description" content="Bienvenue sur Collectible Games ! Ici, vous pourrez vous renseigner sur certaines versions de jeux vidéos, vous pourrez gérer votre collection et vous pourrez partager votre passion sur le forum." />
+			<meta name="robots" content="index, follow" />
+			<title>{% block title %}Collectible Games{% endblock %}</title>
+			{% block stylesheets %}
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/templatemo_style.css') }}" />
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/dropzone.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/ddsmoothmenu.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/alertify.bootstrap.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/alertify.core.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/alertify.default.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/demo_table.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/js/zoombox/zoombox.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/js/select2/select2.css') }}"/>
+				<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+			{% endblock %}
+			<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		{% endblock %}
+    </head>
+{% endblock %}
+{% block page %}
+	<body id="home" onLoad="waitPreloadPage();">
+	<DIV id="prepage" style="z-index:30000; position:absolute; font-family:arial; font-size:16; left:0px; top:0px; background-color:white; layer-background-color:white; height:1000%; width:100%;"> 
+	<TABLE height=400px></TABLE>
+	<TABLE width=100% style="text-align:center;"><TR><TD><B>Chargement en cours ... Veuillez patienter.</B></TD></TR></TABLE>
+	</DIV>
+        {% block body %}
+			{% block body_head %}
+			<div id="templatemo_header_wrapper">';
+					<!----if(isset($user->data['user_id']) && $user->data['user_id']!=1)
+					{
+						echo '<br><div class="connectRight"><br><form action="" method=POST> 
+						Bienvenue '.$user->data['username'].'<br>
+						<a href="./forum/ucp.php?i=pm&folder=inbox">'.$user->data['user_new_privmsg'].' nouveaux MP<br>'.$user->data['user_unread_privmsg'].' non lus</a><br>
+						<input type=submit name=logout value="Déconnexion">
+						</form></div>';
+					}
+					else
+					{
+					
+						echo '----->
+						</ul><br><div class="connectRight"><br>
+						<form action="" method=POST> 
+						<input type=TEXT name=username value="Pseudo" size=15 onclick="this.value='';" /><br>
+						<input type=password name=password value="password" size=15 onclick="this.value='';" /><br>
+						<input type=submit name=login value="Connexion">
+						</form></div>
+						<!----';
+					}----->
+					<div id="site_title"><h1><a href="{{ path('index')}}">Collectible Games</a></h1></div>
+						<div class="cleaner"></div>
+						<div id="templatemo_menu" class="ddsmoothmenu">
+						<ul>
+							<li><a href="{{ path('index')}}">Accueil</a></li>
+							<li><a href="{{ path('bddjv')}}">Base de donnée</a>
+								<ul>
+									<li><a href="{{ path('bddjv')}}">Voir la base</a></li>
+									<li><a href="{{ path('create_jeu')}}">Ajouter un jeu</a></li>
+									<li><a href="{{ path('create_console')}}">Ajouter une console</a></li>
+									<li><a href="{{ path('create_accessoire')}}">Ajouter un accessoire</a></li>
+								</ul>
+							</li>
+							<li><a href="collection.php">Collection</a>                
+								<ul>
+									<li><span class="top"></span><span class="bottom"></span></li>
+									<li><a rel="nofollow" href="collection.php">Votre collection</a></li>
+									<li><a rel="nofollow" href="collection.php?action=listMembers">Liste des membres</a></li>
+								</ul>
+							</li>
+							<li><a href="{{ path('index')}}../../forum/index.php">Forum</a></li>
+							<li><a href="{{ path('index')}}../../forum/ucp.php?mode=register" style="text-align=center" >Inscription</a></li>
+						</ul>
+						<br />
+					</div> <!-- end of templatemo_menu -->
+					<div class="cleaner"></div><!-- END of templatemo_header_wrapper -->
+				{% block body_head_infos %}
+				
+				{% endblock %}
+				</div>
+				<div id="templatemo_main">
+				<!---if(is_array($navbits))
+				{
+					echo 'Vous êtes ici';
+					foreach($navbits as $url=>$description)
+					{
+						echo ' > <a href="'.$url.'">'.$description.'</a>';
+					}
+				}---->
+				<br>
+			{% endblock %}
+			{% block body_center %}
+			{% endblock %}
+				</div>
+			{% block body_foot %}
+				<div class="cleaner"></div></div><div id="templatemo_bottom_wrapper">
+					<div id="templatemo_bottom">
+						<div class="col one_third">
+							<h4><span></span>Collectible Games ? Kézako ?</h4>
+							<div class="bottom_box">
+								<p><em>Collectible Games représente une philosophie simple. Des outils pour des passionnés faits par des passionnés. Il sont faits pour vous aider à partager votre passion et pour vous aider à la vivre pleinement.</em></p><br />              
+
+							</div>
+						</div>
+						<div class="col one_third">
+							<h4><span></span>Infos pratiques</h4>
+							<div class="bottom_box">
+								<ul class="twitter_post">
+									<li><a href="{{ path('team')}}">L'équipe</a></li>
+									<li><a target="_blank" href="mailto:admin@collectible-games.com">Contact</a></li>
+									<li><a href="{{ path('faq')}}">FAQ</a></li>
+									<li><a href="{{ path('suggestion')}}">Une suggestion ? Un bug ?</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col one_third no_margin_right">
+						<h4><span></span>Aidez nous</h4>
+							<div id="center" class="bottom_box">
+								Aidez nous à financer le serveur :<br>
+								<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+									<input type="hidden" name="cmd" value="_s-xclick">
+									<input type="hidden" name="hosted_button_id" value="X5W3MALDPY7CG">
+									<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+									<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+								</form>
+								<br>
+								Retrouvez nous sur les réseaux sociaux<br>
+								<a href="https://www.facebook.com/collectible.games" ><img height=50 width=50 src="{{ asset('bundles/collectiblegamesdatabase/images/facebook.png') }}" title="Facebook" /></a>
+								<a href="https://twitter.com/CollectibleGame" ><img height=50 width=50 src="{{ asset('bundles/collectiblegamesdatabase/images/twitter.png') }}" title="Twitter" /></a>
+							</div>
+							
+						</div>
+						<div class="cleaner"></div>
+					</div> <!-- END of tempatemo_bottom -->
+				</div> <!-- END of tempatemo_bottom_wrapper -->
+
+				<div id="templatemo_footer_wrapper">
+					<div id="templatemo_footer">
+						Copyright © 2014
+					</div> <!-- END of templatemo_footer_wrapper -->
+				</div> <!-- END of templatemo_footer -->
+
+				</body>
+				</html>
+			{% endblock %}
+		{% endblock %}
+        {% block javascripts %}
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/ddsmoothmenu.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-1.9.1.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-ui.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-migrate-1.2.1.min.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery.mousewheel.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/alertify.min.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery.dataTables.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/dropzone.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/zoombox/zoombox.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/select2/select2.js') }}"></script> 
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/cloud-carousel.1.0.5.js') }}"></script> 
+			<script type="text/javascript">
+			ddsmoothmenu.init({
+				mainmenuid: "templatemo_menu", //menu DIV id
+				orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+				classname: 'ddsmoothmenu', //class added to menu's outer DIV
+				//customtheme: ["#1c5a80", "#18374a"],
+				contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+			})
+			</script> 
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$("a.zoombox").zoombox();
+					$("#carousel1").CloudCarousel(		
+						{			
+							reflHeight: 40,
+							reflGap:2,
+							titleBox: $('#da-vinci-title'),
+							altBox: $('#da-vinci-title'),
+							buttonLeft: $('#slider-left-but'),
+							buttonRight: $('#slider-right-but'),
+							yRadius:30,
+							xPos: 480,
+							yPos: 32,
+							speed:0.15,
+						}
+					);
+				});
+			</script>
+			<script>
+				(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+				ga("create", "UA-48763424-1", "collectible-games.com");
+				ga("send", "pageview");
+			</script>
+			<SCRIPT TYPE="text/javascript" LANGUAGE="javascript">
+				function waitPreloadPage() {
+				  if (document.getElementById){
+					document.getElementById('prepage').style.visibility='hidden';
+					  $("#prepage").css("height", '1%');
+				window.scrollTo(0,0);
+				  }else{
+					if (document.layers){ //NS4
+					  document.prepage.visibility = 'hidden';
+					  $("#prepage").css("height", '1%');
+				window.scrollTo(0,0);
+					}
+					else { //IE4
+					  document.all.prepage.style.visibility = 'hidden';
+					  $("#prepage").css("height", '1%');
+				window.scrollTo(0,0);
+					}
+				  }
+				}
+			</SCRIPT>
+			{% if headeralerts is defined %}
+				{{headeralerts}}
+			{% endif %}
+			{% if user_new_privmsg is defined and user_new_privmsg > 0 %}
+				<script>
+					$(function(){
+						alertify.alert("Vous avez un nouveau MP");
+					});
+				</script>
+			{% endif %}
+		{% endblock %}
+    </body>
+{% endblock %}
+</html>

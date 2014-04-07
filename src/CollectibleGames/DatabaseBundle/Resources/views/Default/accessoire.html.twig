@@ -1,0 +1,83 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		<div>
+			<div id="infos">
+				<div id="accessoire">
+					{% if accessoire.valide==1 %}
+						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
+					{% endif %}
+					<span class="GrosTitre">{{ accessoire.name}}</span><br>
+					{% if accessoire.plateforme.imageUrl!="img/inconnu.png" %}
+							Plateforme : <img height=35 src="{{ img_root }}{{accessoire.plateforme.imageUrl}}" title="{{accessoire.plateforme.name}}" /><br>
+					{% else %}
+							Plateforme : {{accessoire.plateforme.name}}<br>
+					{% endif %}
+					{% if accessoire.editeur.imageUrl!="img/inconnu.png" %}
+							Editeur : <img height=35 src="{{ img_root }}{{accessoire.editeur.imageUrl}}" title="{{accessoire.editeur.name}}" /><br>
+					{% else %}
+							Editeur : {{accessoire.editeur.name}}<br>
+					{% endif %}
+					{% if accessoire.type.imageUrl!="img/inconnu.png" %}
+							Type : <img height=35 src="{{ img_root }}{{accessoire.type.imageUrl}}" title="{{accessoire.type.name}}" /><br>
+					{% else %}
+							Type : {{accessoire.type.name}}<br>
+					{% endif %}
+					{% if accessoire.remarqueAccessoire!="" %}
+						<br>Remarque : {{ accessoire.remarqueAccessoire }}
+					{% endif %}
+					{% if accessoire.zone %}
+						<br>Cet accessoire est zoné.
+					{% endif %}
+				</div>
+			</div><br><br>
+			{% for version in accessoire.versions %}
+				<div id="infosV">
+					<div id="version">
+						<br>
+						<div class="sousTitre">
+							<img height=25 src="{{ img_root }}{{ version.region.imageUrl }}" title="{{ version.region.name }}" /> {{ accessoire.name }}
+						</div><br>
+						<div class="quotecontent">
+							Référence : {{version.referenceAccessoire}}<br>
+							Code Barre : {{version.codeBarreAccessoire}}<br>
+							Prix : {{version.prix}}<br>
+							{% if version.dateSortieAccessoire is not null %}
+								Date de sortie : {{version.dateSortieAccessoire|date('d/m/Y')}}<br>
+							{% endif %}
+							<!--if(sizeof($version['accessoires'])>0)
+							{
+								echo'<br>Accessoire(s) inclus : ';
+								foreach($version['accessoires'] as $accessoire)
+								{
+									echo'<a href="bddjv.php?action=viewAccessoire&id='.$accessoire['id_accessoire'].'" />'.$accessoire['nom_accessoire'].'</a> ';
+								}
+							}-->
+							{% if version.remarqueVersionAccessoire!="" %}
+								<br>Remarque : {{version.remarqueVersionAccessoire}}
+							{% endif %}	
+							{% if modo %}
+								{% if version.valide ==0 %}
+									<br><a href=''>Valider la version</a>
+								{% endif %}
+								<br><a href=''>Supprimer la version</a>
+							{% endif %}	
+						</div>
+					</div>
+					<div id="photo" class="quotecontent">
+						<a href="{{ img_root }}{{version.photoUrl}}" class="zoombox zgallery1"><img height=200 src="{{ img_root }}{{version.photoUrl}}" /></a>
+					</div>
+				</div>
+				<div id="clear"></div>
+			{% endfor %}
+			<br>
+		</div>
+		<div class="clear"></div>
+		<br><div class="lienAdmin"><a href="{{ path('add_version_accessoire', { 'id': accessoire.id }) }}" >Ajouter une version a l'accessoire</a></div>
+		{% if modo %}
+			<div class='lienAdmin'><a href='bddjv.php?action=adm&supprJeu='>Supprimer l'accessoire</a></div>
+			{% if modo %}
+				<div class='lienAdmin'><a href='bddjv.php?action=adm&validerJeu='>Valider l'accessoire</a></div>
+			{% endif %}	
+		{% endif %}	
+		<div class='lienAdmin'><a href="{{ path('modifier_accessoire', { 'id': accessoire.id }) }}">Modifier l'accessoire</a></div>
+{% endblock %}

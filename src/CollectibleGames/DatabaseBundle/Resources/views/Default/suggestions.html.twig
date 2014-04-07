@@ -1,0 +1,68 @@
+{% extends '::layout.html.twig' %}					
+{% block body_head_infos %}
+<div id="templatemo_slider">
+			<br><div class="titreBlanc">Bugs et Suggestions actuels : </div><br><br>
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="tableSggestions" width="100%">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Bug</th>
+					<th>Type</th>
+					<th>Priorité</th>
+					<th>Résolu</th>
+				</tr>
+			</thead>
+			<tbody>
+		{% set priorite = '0 : N/A' %}
+		{% for bug in suggestions %}
+			{% if bug.resolu==1 %}
+				<tr class="grade0">
+			{% elseif bug.priorite==0 %}
+				{% set priorite = '6 : Inconnu' %}
+				<tr class="gradeU">
+			{% elseif bug.priorite==1 %}
+				{% set priorite = '1 : Basse' %}
+				<tr class="grade1">
+			{% elseif bug.priorite==2 %}
+				{% set priorite = '2 : Normale' %}
+				<tr class="grade2">
+			{% elseif bug.priorite==3 %}
+				{% set priorite = '3 : Haute' %}
+				<tr class="grade3">
+			{% elseif bug.priorite==4 %}
+				{% set priorite = '4 : Urgent' %}
+				<tr class="grade4">
+			{% elseif bug.priorite==5 %}
+				{% set priorite = '5 : Critique' %}
+				<tr class="grade5">
+			{% else %}
+				{% set priorite = '6 : Inconnu' %}
+				<tr class="gradeU">
+			{% endif %}
+			<td class="center">{{ bug.id }}</td>
+			<td class="center">{{ bug.description }}</td>
+			<td class="center">{% if bug.type==2 %}Bug{% else %}Suggestion{% endif %}</td>
+			<td class="center">{{ priorite }}</td>
+			<td class="center">{% if bug.resolu==0 %}Non{% else %}Oui{% endif %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		</table><br><br>
+		
+{% endblock %}
+{% block body_center %}			
+		<br><h1>Proposez une idée / Signalez un bug</h1><br>
+		  <form method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form) }}
+			<input type="submit" class="btn btn-primary" />
+		  </form>
+{% endblock %}		
+{% block javascripts %}
+		{{ parent() }}
+		<script type="text/javascript">
+			/*$(document).ready(function()  
+			{
+				$('#tableSggestions').dataTable();
+			});*/
+		</script>
+{% endblock %}		

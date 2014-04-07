@@ -1,0 +1,160 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		<div>
+			<div id="infos">
+				<div id="jeu">
+					{% if jeu.valide==1 %}
+						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
+					{% endif %}
+					<span class="GrosTitre">{{ jeu.name.name }}</span><br>
+					{% if jeu.plateforme.imageUrl!="img/inconnu.png" %}
+							Plateforme : <img height=35 src="{{ img_root }}{{jeu.plateforme.imageUrl}}" title="{{jeu.plateforme.name}}" /><br>
+					{% else %}
+							Plateforme : {{jeu.plateforme.name}}<br>
+					{% endif %}
+					{% if jeu.developpeur.imageUrl!="img/inconnu.png" %}
+							Developpeur : <img height=35 src="{{ img_root }}{{jeu.developpeur.imageUrl}}" title="{{jeu.developpeur.name}}" /><br>
+					{% else %}
+							Developpeur : {{jeu.developpeur.name}}<br>
+					{% endif %}
+					{% if jeu.type.imageUrl!="img/inconnu.png" %}
+							Type : <img height=35 src="{{ img_root }}{{jeu.type.imageUrl}}" title="{{jeu.type.name}}" /><br>
+					{% else %}
+							Type : {{jeu.type.name}}<br>
+					{% endif %}
+					{% if jeu.groupe.imageUrl!="img/inconnu.png" %}
+							Groupe : <img height=35 src="{{ img_root }}{{jeu.groupe.imageUrl}}" title="{{jeu.groupe.name}}" /><br>
+					{% else %}
+							Groupe : {{jeu.groupe.name}}<br>
+					{% endif %}
+					Nombre De Joueurs : 
+					{% if jeu.nombreJoueurs == 0 %}
+						Inconnu
+					{% else %}
+						{% for i in 1..jeu.nombreJoueurs %}
+							<img height=35 width=35 src="{{ img_root }}img/joueur.png" title="{{ jeu.nombreJoueurs }}" />
+						{% endfor %}
+					{% endif %}
+					{% if jeu.autresPlateformes|length > 0 %}
+						<br>Existe aussi sur : 
+						{% for plateforme in jeu.autresPlateformes %}
+							{% if plateforme.imageUrl!="img/inconnu.png" %}
+									<img height=35 src="{{ img_root }}{{plateforme.imageUrl}}" title="{{plateforme.name}}" />
+							{% else %}
+									{{plateforme.name}}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					<br>Jouable avec :
+					{% for commande in jeu.commandes %}
+						{% if commande.imageUrl!="img/inconnu.png" %}
+								<img height=35 src="{{ img_root }}{{commande.imageUrl}}" title="{{commande.name}}" />
+						{% else %}
+								{{commande.name}}
+						{% endif %}
+					{% endfor %}
+					{% if jeu.remarqueJeu!="" %}
+						<br>Remarque : {{ jeu.remarqueJeu }}
+					{% endif %}
+					{% if jeu.accessoires|length > 0 %}
+						<br>Accessoire inclus :
+						{% for accessoire in jeu.accessoires %}
+							<a href="{{path('show_accessoire', { 'id': accessoire.id })}}">{{accessoire.name}}</a>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div><br><br>
+			{% for version in jeu.versions %}
+				<div id="infosV">
+					<div id="version">
+						{% set edition = "" %}
+						{% set nom = jeu.name.name %}
+						{% if version.autreNomJeu|length > 0 %}
+							{% for n in version.autreNomJeu %}
+								{% set nom = n.name %}
+							{% endfor %}
+						{% endif %}
+						{% if version.edition.name!="Classique" %}
+							{% set edition = ' - Edition '~version.edition.name %}
+						{% endif %}
+						<br>
+						<div class="sousTitre">
+							<img height=25 src="{{ img_root }}{{ version.region.imageUrl }}" title="{{ version.region.name }}" /> {{ nom }} {{ edition }}
+						</div><br>
+						<div class="quotecontent">
+							{% if version.format.imageUrl!="img/inconnu.png" %}
+									Format : <img height=35 src="{{ img_root }}{{version.format.imageUrl}}" title="{{version.format.name}}" /><br>
+							{% else %}
+									Format : {{version.format.name}}<br>
+							{% endif %}
+							{% if version.edition.name!="Classique" %}
+								{% if version.edition.imageUrl!="img/inconnu.png" %}
+									Edition : <img height=35 src="{{ img_root }}{{version.edition.imageUrl}}" title="{{version.edition.name}}" /><br>
+								{% else %}
+									Edition : {{version.edition.name}}<br>
+								{% endif %}
+							{% endif %}
+							{% if version.editeur.imageUrl!="img/inconnu.png" %}
+									Editeur : <img height=35 src="{{ img_root }}{{version.editeur.imageUrl}}" title="{{version.editeur.name}}" /><br>
+							{% else %}
+									Editeur : {{version.editeur.name}}<br>
+							{% endif %}
+							{% if version.support.imageUrl!="img/inconnu.png" %}
+									Support : <img height=35 src="{{ img_root }}{{version.support.imageUrl}}" title="{{version.support.name}}" /><br>
+							{% else %}
+									Support : {{version.support.name}}<br>
+							{% endif %}
+							Référence : {{version.referenceJeu}}<br>
+							Code Barre : {{version.codeBarreJeu}}<br>
+							{% if version.dateSortieJeu is not null %}
+								Date de sortie : {{version.dateSortieJeu|date('d/m/Y')}}<br>
+							{% endif %}
+							Langues :
+							{% for langue in version.languesJeu %}
+								{% if langue.imageUrl!="img/inconnu.png" %}
+										<img height=35 src="{{ img_root }}{{langue.imageUrl}}" title="{{langue.name}}" />
+								{% else %}
+										{{langue.name}}
+								{% endif %}
+							{% endfor %}
+							<!--if(sizeof($version['accessoires'])>0)
+							{
+								echo'<br>Accessoire(s) inclus : ';
+								foreach($version['accessoires'] as $accessoire)
+								{
+									echo'<a href="bddjv.php?action=viewAccessoire&id='.$accessoire['id_accessoire'].'" />'.$accessoire['nom_accessoire'].'</a> ';
+								}
+							}-->
+							{% if version.remarqueVersionJeu!="" %}
+								<br>Remarque : {{version.remarqueVersionJeu}}
+							{% endif %}	
+							{% if modo %}
+								{% if version.valide ==0 %}
+									<br><a href=''>Valider la version</a>
+								{% endif %}
+								<br><a href=''>Supprimer la version</a>
+							{% endif %}	
+						</div>
+					</div>
+					<div id="photo" class="quotecontent">
+						<a href="{{ img_root }}{{version.photoBoiteUrl}}" class="zoombox zgallery1"><img height=200 src="{{ img_root }}{{version.photoBoiteUrl}}" /></a><br>
+						<a href="{{ img_root }}{{version.photoDosBoiteUrl}}" class="zoombox zgallery1"><img height=50 src="{{ img_root }}{{version.photoDosBoiteUrl}}" /></a>
+						<a href="{{ img_root }}{{version.photoNoticeUrl}}" class="zoombox zgallery1"><img height=50 src="{{ img_root }}{{version.photoNoticeUrl}}" /></a>
+						<a href="{{ img_root }}{{version.photoLooseUrl}}" class="zoombox zgallery1"><img height=50  src="{{ img_root }}{{version.photoLooseUrl}}" /></a>
+						<a href="{{ img_root }}{{version.photoMiscUrl}}" class="zoombox zgallery1"><img height=50  src="{{ img_root }}{{version.photoMiscUrl}}" /></a>
+					</div>
+				</div>
+				<div id="clear"></div>
+			{% endfor %}
+			<br>
+		</div>
+		<div class="clear"></div>
+		<br><div class="lienAdmin"><a href="{{ path('add_version_jeu', { 'id': jeu.id }) }}" >Ajouter une version au jeu</a></div>
+		{% if modo %}
+			<div class='lienAdmin'><a href='bddjv.php?action=adm&supprJeu='>Supprimer le jeu</a></div>
+			{% if modo %}
+				<div class='lienAdmin'><a href='bddjv.php?action=adm&validerJeu='>Valider le jeu</a></div>
+			{% endif %}	
+		{% endif %}	
+		<div class='lienAdmin'><a href="{{ path('modifier_jeu', { 'id': jeu.id }) }}">Modifier le jeu</a></div>
+{% endblock %}
