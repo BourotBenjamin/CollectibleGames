@@ -9,8 +9,8 @@
 		{% endfor %}
 		</div><br><br>
 		<div id='center'>Collectible games, c'est :<br>
-				{{nbPlateformes}} plateformes réparties dans {{editeurs|length}} marques. <br>
-				{{nbJeux}} jeux déclinés en {{nbVersionsJeux}} versions. <br>
-				{{nbConsoles}} packs déclinés en {{nbVersionsConsoles}} versions. <br>
-				{{nbAccessoires}} accessoires déclinés en {{nbVersionsAccessoires}} versions. </div>";
+				{{counts.nbPlateformes}} plateformes réparties dans {{editeurs|length}} marques. <br>
+				{{counts.nbJeux}} jeux déclinés en {{counts.nbVersionsJeux}} versions. <br>
+				{{counts.nbConsoles}} packs déclinés en {{counts.nbVersionsConsoles}} versions. <br>
+				{{counts.nbAccessoires}} accessoires déclinés en {{counts.nbVersionsAccessoires}} versions. </div>";
 {% endblock %}
