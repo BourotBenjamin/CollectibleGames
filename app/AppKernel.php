@@ -19,6 +19,10 @@ class AppKernel extends Kernel
             new CollectibleGames\DatabaseBundle\CollectibleGamesDatabaseBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
             new CollectibleGames\UserBundle\CollectibleGamesUserBundle(),
+            new CollectibleGames\CollectionBundle\CollectibleGamesCollectionBundle(),
+			new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+			new Brown298\DataTablesBundle\Brown298DataTablesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

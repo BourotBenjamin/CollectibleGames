@@ -1,0 +1,13 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}			
+		<h1>Resultats de la recherche : "{{src}}"</h1>
+		<br>
+		{% include 'CollectibleGamesDatabaseBundle:Default:table_jeux.html.twig' %}
+		<div id="clear"></div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+		<script language="Javascript">
+					document.getElementById("ListeJeux").style.display="block";
+		</script>
+{% endblock %} 

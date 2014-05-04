@@ -19,9 +19,45 @@ use CollectibleGames\DatabaseBundle\Entity\VersionAccessoire;
 use CollectibleGames\DatabaseBundle\Form\VersionAccessoireType;
 use CollectibleGames\DatabaseBundle\Entity\Suggestion;
 use CollectibleGames\DatabaseBundle\Form\SuggestionType;
+use CollectibleGames\DatabaseBundle\Form\SearchByNameType;
 
 class GameController extends Controller
 {
+	
+	/**
+     * @Route("/bddjv/search-game/", name="search_game")
+     * @Template("CollectibleGamesDatabaseBundle:Default:simple_form.html.twig")
+     */
+    public function searchAction()
+    {
+		$request = $this->get('request');
+		$form = $this->createForm(new SearchByNameType);
+		if ($request->getMethod() == 'POST') {
+			$em = $this->getDoctrine()->getManager();
+			$src = $request->request->get('collectiblegames_databasebundle_searchtype')['name'];
+			$jeux = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findByPartialName($src);
+			$collection = array();
+			$user = $this->container->get('security.context')->getToken()->getUser();
+			if($user)
+			{
+				$collection['jeux'] = $user->getJeuxIdList();
+			}
+			else
+			{	
+				$collection['jeux'] = array();
+			}
+			return $this->render('CollectibleGamesDatabaseBundle:Default:search_results_game.html.twig', array(
+				'jeux' => $jeux,
+				'src' => $src,
+				'collection' => $collection
+			));
+		}
+		return array
+		(
+			'title' => "Rechercher un jeu",
+			'form' => $form->createView()
+		);
+    }
 	
 	/**
      * @Route("/bddjv/jeu/{id}", name="show_jeu")
@@ -47,13 +83,25 @@ class GameController extends Controller
      */
     public function createJeuAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['plateformes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findAll();
+        $autocomplete['types'] = $em->getRepository('CollectibleGamesDatabaseBundle:TypeJeu')->findAll();
+        $autocomplete['groupes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Groupe')->findAll();
+        $autocomplete['developpeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Developpeur')->findAll();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
+        $autocomplete['editions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Edition')->findAll();
+        $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
+        $autocomplete['formats'] = $em->getRepository('CollectibleGamesDatabaseBundle:Format')->findAll();
+        $autocomplete['supports'] = $em->getRepository('CollectibleGamesDatabaseBundle:Support')->findAll();
+        $autocomplete['langues'] = $em->getRepository('CollectibleGamesDatabaseBundle:Langue')->findAll();
+        $autocomplete['commandes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Commande')->findAll();
 		$jeu = new Jeu();
-		$form = $this->createForm(new JeuType, $jeu);
+		$form = $this->createForm(new JeuType, $jeu, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
 		  if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($jeu);
 			$em->flush();
 			foreach($jeu->getVersions() as $version)
@@ -68,6 +116,7 @@ class GameController extends Controller
 		}	
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_jeu.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 	
@@ -78,8 +127,20 @@ class GameController extends Controller
     public function editJeuAction($id)
     {
 		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['plateformes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findAll();
+        $autocomplete['types'] = $em->getRepository('CollectibleGamesDatabaseBundle:TypeJeu')->findAll();
+        $autocomplete['groupes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Groupe')->findAll();
+        $autocomplete['developpeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Developpeur')->findAll();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
+        $autocomplete['editions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Edition')->findAll();
+        $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
+        $autocomplete['formats'] = $em->getRepository('CollectibleGamesDatabaseBundle:Format')->findAll();
+        $autocomplete['supports'] = $em->getRepository('CollectibleGamesDatabaseBundle:Support')->findAll();
+        $autocomplete['langues'] = $em->getRepository('CollectibleGamesDatabaseBundle:Langue')->findAll();
+        $autocomplete['commandes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Commande')->findAll();
         $jeu = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findOneById($id);
-		$form = $this->createForm(new JeuType, $jeu);
+		$form = $this->createForm(new JeuType, $jeu, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -107,6 +168,14 @@ class GameController extends Controller
     public function addVersionJeuAction($id)
     {
 		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
+        $autocomplete['editions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Edition')->findAll();
+        $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
+        $autocomplete['formats'] = $em->getRepository('CollectibleGamesDatabaseBundle:Format')->findAll();
+        $autocomplete['supports'] = $em->getRepository('CollectibleGamesDatabaseBundle:Support')->findAll();
+        $autocomplete['langues'] = $em->getRepository('CollectibleGamesDatabaseBundle:Langue')->findAll();
+        $autocomplete['commandes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Commande')->findAll();
 		$version = new VersionJeu();
         $jeu = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findOneById($id);
 		$version->setJeu($jeu);

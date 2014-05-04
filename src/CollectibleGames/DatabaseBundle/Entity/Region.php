@@ -47,6 +47,14 @@ class Region
 	protected $image;
 
 
+	function __construct()
+	{
+		$this->imageUrl = "img/inconnu.png";
+		$this->description = "";
+		$this->valide = false;
+		$this->ordre_region = 100;
+	}
+
     /**
      * Get id
      *

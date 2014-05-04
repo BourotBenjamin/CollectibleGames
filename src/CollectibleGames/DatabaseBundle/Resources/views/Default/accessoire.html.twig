@@ -44,22 +44,8 @@
 							{% if version.dateSortieAccessoire is not null %}
 								Date de sortie : {{version.dateSortieAccessoire|date('d/m/Y')}}<br>
 							{% endif %}
-							<!--if(sizeof($version['accessoires'])>0)
-							{
-								echo'<br>Accessoire(s) inclus : ';
-								foreach($version['accessoires'] as $accessoire)
-								{
-									echo'<a href="bddjv.php?action=viewAccessoire&id='.$accessoire['id_accessoire'].'" />'.$accessoire['nom_accessoire'].'</a> ';
-								}
-							}-->
 							{% if version.remarqueVersionAccessoire!="" %}
 								<br>Remarque : {{version.remarqueVersionAccessoire}}
-							{% endif %}	
-							{% if modo %}
-								{% if version.valide ==0 %}
-									<br><a href=''>Valider la version</a>
-								{% endif %}
-								<br><a href=''>Supprimer la version</a>
 							{% endif %}	
 						</div>
 					</div>
@@ -72,12 +58,6 @@
 			<br>
 		</div>
 		<div class="clear"></div>
-		<br><div class="lienAdmin"><a href="{{ path('add_version_accessoire', { 'id': accessoire.id }) }}" >Ajouter une version a l'accessoire</a></div>
-		{% if modo %}
-			<div class='lienAdmin'><a href='bddjv.php?action=adm&supprJeu='>Supprimer l'accessoire</a></div>
-			{% if modo %}
-				<div class='lienAdmin'><a href='bddjv.php?action=adm&validerJeu='>Valider l'accessoire</a></div>
-			{% endif %}	
-		{% endif %}	
+		<br><div class="lienAdmin"><a href="{{ path('add_version_accessoire', { 'id': accessoire.id }) }}" >Ajouter une version a l'accessoire</a></div>	
 		<div class='lienAdmin'><a href="{{ path('modifier_accessoire', { 'id': accessoire.id }) }}">Modifier l'accessoire</a></div>
 {% endblock %}

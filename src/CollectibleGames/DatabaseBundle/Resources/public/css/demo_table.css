@@ -1349,12 +1349,12 @@ a:hover
 }
 .infosPossessionUser:hover span
 {
-	background-image: url('../img/collection_back.png');
+	background-image: url('/CollectibleGames/img/collection_back.png');
 	display: inline;
 	z-index: 100;
 	position: absolute;
 	left:0px; 
-	top:0px; 
+	top:-40px; 
 	width: 500px;
 	height: 277px;
 }
@@ -1392,12 +1392,12 @@ a:hover
 }
 .infosPossession:hover span
 {
-	background-image: url('../img/collection_back.png');
+	background-image: url('/CollectibleGames/img/collection_back.png');
 	display: inline;
 	z-index: 100;
 	position: absolute;
 	left:0px; 
-	top:0px; 
+	top:-40px; 
 	width: 500px;
 	height: 277px;
 }

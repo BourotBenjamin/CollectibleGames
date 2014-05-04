@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use CollectibleGames\DatabaseBundle\Form\VersionConsoleType;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\EditeurToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\PlateformeToNameTransformer;
 
 class ConsoleType extends AbstractType
 {
@@ -13,11 +15,9 @@ class ConsoleType extends AbstractType
   {
     $builder
 			->add('name',        'text')
-			->add('plateforme',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Plateforme', 'property' => 'name', 'multiple' => false))
-			->add('editeur',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Editeur', 'property' => 'name', 'multiple' => false))
+			->add($builder->create('plateforme', 'text', array('attr' => array('class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
+			->add($builder->create('editeur', 'text', array('attr' => array('class'=>'editeur'), 'required' => false))->addModelTransformer(new EditeurToNameTransformer($options['em'])))
 			->add('remarque_console',        'textarea', array('required'  => false))
-			->add('jeux',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Jeu', 'property' => 'name.name', 'multiple' => true))
-			->add('accessoires',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Accessoire', 'property' => 'name', 'multiple' => true))
 			->add('versions', 'collection', array('type' => new VersionConsoleType(), 'allow_add' => true))
     ;
   }

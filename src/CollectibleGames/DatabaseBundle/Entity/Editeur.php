@@ -51,6 +51,14 @@ class Editeur
      */
     protected $plateformes;	
 
+	function __construct()
+	{
+		$plateformes = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->imageUrl = "img/inconnu.png";
+		$this->description = "";
+		$this->valide = false;
+	}
+
     /**
      * Get id
      *

@@ -6,23 +6,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use CollectibleGames\DatabaseBundle\Form\VersionJeuType;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\PlateformeToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\TypeJeuToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\GroupeToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\DeveloppeurToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\CommandesToNameTransformer;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\PlateformesToNameTransformer;
 
 class JeuType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-			->add('name',        'entity', array('class'    => 'CollectibleGamesDatabaseBundle:NomJeu', 'property' => 'name', 'multiple' => false))
-			->add('plateforme',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Plateforme', 'property' => 'name', 'multiple' => false))
-			->add('type',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:TypeJeu', 'property' => 'name', 'multiple' => false))
-			->add('groupe',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Groupe', 'property' => 'name', 'multiple' => false))
-			->add('developpeur',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Developpeur', 'property' => 'name', 'multiple' => false))
-			->add('commandes',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Commande', 'property' => 'name', 'multiple' => true))
-			->add('autres_plateformes',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Plateforme', 'property' => 'name', 'multiple' => true))
+			->add('name',        'text', array('required'    => true))
+			->add($builder->create('plateforme', 'text', array('attr' => array('class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
+			->add($builder->create('type', 'text', array('attr' => array('class'=>'type'), 'required' => false))->addModelTransformer(new TypeJeuToNameTransformer($options['em'])))
+			->add($builder->create('groupe', 'text', array('attr' => array('class'=>'groupe'), 'required' => false))->addModelTransformer(new GroupeToNameTransformer($options['em'])))
+			->add($builder->create('developpeur', 'text', array('attr' => array('class'=>'developpeur'), 'required' => false))->addModelTransformer(new DeveloppeurToNameTransformer($options['em'])))
+			->add($builder->create('commandes', 'text', array('attr' => array('class'=>'commandes'), 'required' => false))->addModelTransformer(new CommandesToNameTransformer($options['em'])))
+			->add($builder->create('autres_plateformes', 'text', array('attr' => array('class'=>'plateformes'), 'required' => false))->addModelTransformer(new PlateformesToNameTransformer($options['em'])))
 			->add('nombre_joueurs',        'integer', array('required'  => false))
 			->add('remarque_jeu',        'textarea', array('required'  => false))
-			->add('accessoires',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Accessoire', 'property' => 'name', 'multiple' => true))
-			->add('versions', 'collection', array('type' => new VersionJeuType(), 'allow_add' => true))
+			->add('versions', 'collection', array('type' => new VersionJeuType(), 'options'  => array('em'=>$options['em']), 'allow_add' => true))
     ;
   }
 
@@ -30,6 +35,13 @@ class JeuType extends AbstractType
   {
     $resolver->setDefaults(array(
       'data_class' => 'CollectibleGames\DatabaseBundle\Entity\Jeu'
+    ));
+    $resolver->setRequired(array(
+        'em',
+    ));
+
+    $resolver->setAllowedTypes(array(
+        'em' => 'Doctrine\Common\Persistence\ObjectManager',
     ));
   }
 

@@ -6,7 +6,7 @@
 					{% if jeu.valide==1 %}
 						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
 					{% endif %}
-					<span class="GrosTitre">{{ jeu.name.name }}</span><br>
+					<span class="GrosTitre">{{ jeu.name }}</span><br>
 					{% if jeu.plateforme.imageUrl!="img/inconnu.png" %}
 							Plateforme : <img height=35 src="{{ img_root }}{{jeu.plateforme.imageUrl}}" title="{{jeu.plateforme.name}}" /><br>
 					{% else %}
@@ -56,23 +56,15 @@
 					{% if jeu.remarqueJeu!="" %}
 						<br>Remarque : {{ jeu.remarqueJeu }}
 					{% endif %}
-					{% if jeu.accessoires|length > 0 %}
-						<br>Accessoire inclus :
-						{% for accessoire in jeu.accessoires %}
-							<a href="{{path('show_accessoire', { 'id': accessoire.id })}}">{{accessoire.name}}</a>
-						{% endfor %}
-					{% endif %}
 				</div>
 			</div><br><br>
 			{% for version in jeu.versions %}
 				<div id="infosV">
 					<div id="version">
 						{% set edition = "" %}
-						{% set nom = jeu.name.name %}
-						{% if version.autreNomJeu|length > 0 %}
-							{% for n in version.autreNomJeu %}
-								{% set nom = n.name %}
-							{% endfor %}
+						{% set nom = jeu.name %}
+						{% if version.autreNomJeu and version.autreNomJeu !="" %}
+								{% set nom = version.autreNomJeu %}
 						{% endif %}
 						{% if version.edition.name!="Classique" %}
 							{% set edition = ' - Edition '~version.edition.name %}
@@ -117,22 +109,14 @@
 										{{langue.name}}
 								{% endif %}
 							{% endfor %}
-							<!--if(sizeof($version['accessoires'])>0)
-							{
-								echo'<br>Accessoire(s) inclus : ';
-								foreach($version['accessoires'] as $accessoire)
-								{
-									echo'<a href="bddjv.php?action=viewAccessoire&id='.$accessoire['id_accessoire'].'" />'.$accessoire['nom_accessoire'].'</a> ';
-								}
-							}-->
+							{% if version.accessoires|length > 0 %}
+								<br>Accessoire inclus :
+								{% for accessoire in version.accessoires %}
+									<a href="{{path('show_accessoire', { 'id': accessoire.id })}}">{{accessoire.name}}</a>
+								{% endfor %}
+							{% endif %}
 							{% if version.remarqueVersionJeu!="" %}
 								<br>Remarque : {{version.remarqueVersionJeu}}
-							{% endif %}	
-							{% if modo %}
-								{% if version.valide ==0 %}
-									<br><a href=''>Valider la version</a>
-								{% endif %}
-								<br><a href=''>Supprimer la version</a>
 							{% endif %}	
 						</div>
 					</div>
@@ -150,11 +134,5 @@
 		</div>
 		<div class="clear"></div>
 		<br><div class="lienAdmin"><a href="{{ path('add_version_jeu', { 'id': jeu.id }) }}" >Ajouter une version au jeu</a></div>
-		{% if modo %}
-			<div class='lienAdmin'><a href='bddjv.php?action=adm&supprJeu='>Supprimer le jeu</a></div>
-			{% if modo %}
-				<div class='lienAdmin'><a href='bddjv.php?action=adm&validerJeu='>Valider le jeu</a></div>
-			{% endif %}	
-		{% endif %}	
 		<div class='lienAdmin'><a href="{{ path('modifier_jeu', { 'id': jeu.id }) }}">Modifier le jeu</a></div>
 {% endblock %}

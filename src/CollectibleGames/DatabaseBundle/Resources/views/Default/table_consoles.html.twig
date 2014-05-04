@@ -1,21 +1,27 @@
 <div id="ListeConsoles" style="display:none;">
 	<br><div class=titre>Liste des consoles</div>
-	<form action="" method=POST>
+	<form action="{{ path('collection_add_consoles')}}" method=POST>
 		<table cellpadding="0" cellspacing="0" border="0" class="display" id="tableConsoles" width="100%">
 			<thead>
 				<tr>
 					<th>Console</th>
-					<!---'.($canAdd==1?'<th>Ajouter</th>':'').'--->
+					{% if app.user %}<th>Ajouter</th>{% endif %}
 				</tr>
 			</thead>
 			<tbody>
+				{% set odd = false %}
 				{% for console in consoles %}
-					<tr class="gradeA odd">
+				{% set odd = not odd %}
+					<tr class="{% if console.id in collection.consoles %}gradeC{% else %}gradeA{% endif %} {% if odd %}odd{% else %}even{% endif %}">
 						<td> 
 							<a href="{{ path('show_console', { 'id': console.id }) }}">{{ console.name }}</a> 
 						</td>
+					{% if app.user %}<td class="center"><input type="checkbox" id="consoles[{{ console.id }}]"  name="consoles[{{ console.id }}]" value="{{ console.id }}" /></td>{% endif %}
 					</tr>
 				{% endfor %}
+				{% if app.user %}
+					<tr style="text-align: right"><td colspan=2><input type="submit" value="Ajouter les packs à votre collection" name="validerAjoutPossessionConsoles"></td></tr>
+				{% endif %}
 			</tbody>
 		</table>
 	</form>

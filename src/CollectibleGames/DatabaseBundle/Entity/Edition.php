@@ -39,6 +39,13 @@ class Edition
 	protected $imageUrl;
 	protected $image;
 
+	function __construct()
+	{
+		$this->imageUrl = "img/inconnu.png";
+		$this->description = "";
+		$this->valide = false;
+	}
+
 
     /**
      * Get id

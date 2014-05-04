@@ -68,7 +68,46 @@ input {
 			maxDate: "0"
 		});
 	  }
-	$('select').select2();
+	$('.plateforme').select2({
+		data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		blurOnChange: true,
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.region').select2({
+		data: [{% for p in autocomplete.regions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.editeur').select2({
+		data: [{% for p in autocomplete.editeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
 	$('.datepicker').datepicker({
 		yearRange: "1970:'.date('Y').'",
 		changeMonth: true,

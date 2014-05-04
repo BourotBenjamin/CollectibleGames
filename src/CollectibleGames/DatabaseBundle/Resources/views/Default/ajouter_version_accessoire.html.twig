@@ -24,7 +24,21 @@ input {
 	{{ parent() }}
 	<script type="text/javascript">
 	$(document).ready(function() {
-	$('select').select2();
+	$('.region').select2({
+		data: [{% for p in autocomplete.regions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.accessoires').select2({});
+	$('.jeux').select2({});
 	$('.datepicker').datepicker({
 		yearRange: "1970:'.date('Y').'",
 		changeMonth: true,

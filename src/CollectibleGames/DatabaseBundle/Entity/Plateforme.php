@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Plateforme
  *
  * @ORM\Table(name="bddjv_plateforme")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\PlateformeRepository")
  */
 class Plateforme
 {
@@ -52,7 +52,13 @@ class Plateforme
      */
 	protected $imageUrl;
 	protected $image;
-
+	
+	function __construct()
+	{
+		$this->imageUrl = "img/inconnu.png";
+		$this->description = "";
+		$this->valide = false;
+	}
 
     /**
      * Get id

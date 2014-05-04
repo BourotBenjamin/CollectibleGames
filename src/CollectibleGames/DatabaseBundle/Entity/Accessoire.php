@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Accessoire
  *
  * @ORM\Table(name="bddjv_accessoire")/
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\AccessoireRepository")
  */
 class Accessoire
 {
@@ -70,6 +70,11 @@ class Accessoire
         $this->valide = 0;
         $this->zone = 0;
         $this->remarque_accessoire = "";
+	}
+	
+	public function __toString()
+	{
+		return $this->getName()." ( de ".$this->getEditeur()->getName()." sur ".$this->getPlateforme()->getName()." )";
 	}
 	
     /**

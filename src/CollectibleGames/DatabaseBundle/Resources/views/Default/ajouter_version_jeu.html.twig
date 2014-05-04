@@ -24,7 +24,114 @@ input {
 	{{ parent() }}
 	<script type="text/javascript">
 	$(document).ready(function() {
-	$('select').select2();
+	$('.region').select2({
+		data: [{% for p in autocomplete.regions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.edition').select2({
+		data: [{% for p in autocomplete.editions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.editeur').select2({
+		data: [{% for p in autocomplete.editeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.support').select2({
+		data: [{% for p in autocomplete.supports %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.format').select2({
+		data: [{% for p in autocomplete.formats %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.langues').select2({
+		data: [{% for p in autocomplete.langues %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		multiple: true,
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.plateformes').select2({
+		data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		multiple: true,
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.commandes').select2({
+		data: [{% for p in autocomplete.commandes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+		multiple: true,
+		createSearchChoice: function(term, data) 
+		{
+			if ($(data).filter(function() 
+			{
+				return this.text.localeCompare(term)===0; 
+			} ).length===0) 
+			{
+				return {id:term, text:term};
+			} 
+		}
+	});
+	$('.accessoires').select2({});
 	$('.datepicker').datepicker({
 		yearRange: "1970:'.date('Y').'",
 		changeMonth: true,

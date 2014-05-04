@@ -1,0 +1,9 @@
+<div id="ListeJeux" style="display:none;">
+	<br><div class=titre>Liste des jeux</div>
+	<form action="{{ path('collection_add_games')}}" method=POST>
+		<div class="table-bordered">
+			{{ addDataTable(gameTable) }}
+		</div>
+	</form>
+	<br><br><a href="{{ path('create_jeu')}}">Le jeu que vous cherchez n'est pas dans la base de donnée ? Ajoutez le.</a>
+</div>

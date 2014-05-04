@@ -3,8 +3,75 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "59cea779d9ccf29c889790ac015f1485",
+    "hash": "2dc1772aa24c4d033ecd897aa01593cf",
     "packages": [
+        {
+            "name": "brown298/data-tables-bundle",
+            "version": "dev-master",
+            "target-dir": "Brown298/DataTablesBundle",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/brown298/datatablesbundle.git",
+                "reference": "726ffa24273c27230defadcf24fe426fbd53cd43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/brown298/datatablesbundle/get/726ffa24273c27230defadcf24fe426fbd53cd43.zip",
+                "reference": "726ffa24273c27230defadcf24fe426fbd53cd43",
+                "shasum": ""
+            },
+            "require": {
+                "datatables/datatables": "dev-master#36f2c2a7d6042ae003171deaacec9e6dc8c7fe1b",
+                "doctrine/orm": "~2.2,>=2.2.3",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.2.0",
+                "twig/twig": "1.14.*@dev"
+            },
+            "require-dev": {
+                "phake/phake": "2.0.*@dev",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Brown298\\DataTablesBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "description": "Adds DataTables functionality to Symfony2",
+            "homepage": "http://code.rbsolutions.us/datatables/",
+            "keywords": [
+                "Symfony2",
+                "datatables"
+            ],
+            "time": "2014-03-03 20:36:06"
+        },
+        {
+            "name": "datatables/datatables",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DataTables/DataTables.git",
+                "reference": "4feb8959d534cf38d179af881211891980d7a8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/4feb8959d534cf38d179af881211891980d7a8d3",
+                "reference": "4feb8959d534cf38d179af881211891980d7a8d3",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
+            "homepage": "http://www.datatables.net/",
+            "time": "2014-05-01 10:50:51"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.1.2",
@@ -625,18 +692,75 @@
             "time": "2014-02-08 16:35:09"
         },
         {
+            "name": "friendsofsymfony/jsrouting-bundle",
+            "version": "1.5.3",
+            "target-dir": "FOS/JsRoutingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+                "reference": "dade3bb0b21007e5c0fb40f203ed197841eb913c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/dade3bb0b21007e5c0fb40f203ed197841eb913c",
+                "reference": "dade3bb0b21007e5c0fb40f203ed197841eb913c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/console": "~2.0",
+                "symfony/framework-bundle": "~2.0",
+                "symfony/serializer": "~2.0",
+                "willdurand/jsonp-callback-validator": "~1.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "FOS\\JsRoutingBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                }
+            ],
+            "description": "A pretty nice way to expose your Symfony2 routing to client applications.",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing",
+                "javascript",
+                "routing"
+            ],
+            "time": "2014-01-23 21:25:39"
+        },
+        {
             "name": "friendsofsymfony/user-bundle",
             "version": "dev-master",
             "target-dir": "FOS/UserBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "fa6022638e10342f5244181675e4bcd4955fc2ff"
+                "reference": "e4c000a9b19096be0135d0773b56f7c757c93542"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/fa6022638e10342f5244181675e4bcd4955fc2ff",
-                "reference": "fa6022638e10342f5244181675e4bcd4955fc2ff",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e4c000a9b19096be0135d0773b56f7c757c93542",
+                "reference": "e4c000a9b19096be0135d0773b56f7c757c93542",
                 "shasum": ""
             },
             "require": {
@@ -691,7 +815,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2014-04-05 11:45:34"
+            "time": "2014-04-08 21:21:16"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -868,16 +992,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.8.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "392ef35fd470638e08d0160d6b1cbab63cb23174"
+                "reference": "65026b610f8c19e61d7242f600530677b0466aac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/392ef35fd470638e08d0160d6b1cbab63cb23174",
-                "reference": "392ef35fd470638e08d0160d6b1cbab63cb23174",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/65026b610f8c19e61d7242f600530677b0466aac",
+                "reference": "65026b610f8c19e61d7242f600530677b0466aac",
                 "shasum": ""
             },
             "require": {
@@ -905,7 +1029,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8.x-dev"
+                    "dev-master": "1.9.x-dev"
                 }
             },
             "autoload": {
@@ -932,7 +1056,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-03-23 19:50:26"
+            "time": "2014-04-24 13:29:03"
         },
         {
             "name": "psr/log",
@@ -971,6 +1095,341 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "ptachoire/cssembed",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krichprollsch/phpCssEmbed.git",
+                "reference": "406c6d5b846cafa9186f9944a6210d0e6fed154b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krichprollsch/phpCssEmbed/zipball/406c6d5b846cafa9186f9944a6210d0e6fed154b",
+                "reference": "406c6d5b846cafa9186f9944a6210d0e6fed154b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CssEmbed": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre Tachoire",
+                    "email": "pierre.tachoire@gmail.com"
+                }
+            ],
+            "description": "Css url embed library.",
+            "homepage": "https://github.com/krichprollsch/phpCssEmbed",
+            "keywords": [
+                "css",
+                "url"
+            ],
+            "time": "2013-07-22 20:01:48"
+        },
+        {
+            "name": "raulfraile/ladybug",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/ladybug.git",
+                "reference": "7878b0fec84041bc6791155b9ec357a1ff8cd3b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/ladybug/zipball/7878b0fec84041bc6791155b9ec357a1ff8cd3b1",
+                "reference": "7878b0fec84041bc6791155b9ec357a1ff8cd3b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "ptachoire/cssembed": "v1.0.2",
+                "raulfraile/ladybug-plugin-extra": "~1.0.0",
+                "raulfraile/ladybug-theme-modern": "~1.0.0",
+                "symfony/config": ">=2.0",
+                "symfony/console": ">=2.0",
+                "symfony/dependency-injection": ">=2.0",
+                "symfony/finder": ">=2.0",
+                "twig/twig": ">=1.7.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "0.2.0",
+                "jms/serializer": ">=0.11.0",
+                "mockery/mockery": "0.8.0",
+                "phpdocumentor/reflection-docblock": "2.0.0",
+                "symfony/dom-crawler": ">=2.0.4"
+            },
+            "suggest": {
+                "jms/serializer": "Required to serialize data to XML and JSON",
+                "phpdocumentor/reflection-docblock": "Required to display object methods description",
+                "symfony/yaml": "Required to serialize data to YAML format"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ladybug\\Theme": [
+                        "../ladybug-themes",
+                        "data/themes"
+                    ],
+                    "Ladybug\\Plugin": [
+                        "../ladybug-plugins",
+                        "data/plugins"
+                    ],
+                    "Ladybug": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raul Fraile",
+                    "email": "raulfraile@gmail.com",
+                    "homepage": "http://www.raulfb.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple and Extensible PHP Dumper",
+            "homepage": "https://github.com/raulfraile/ladybug",
+            "keywords": [
+                "dump",
+                "dumper",
+                "ladybug",
+                "print_r",
+                "var_dump"
+            ],
+            "time": "2013-10-15 09:36:24"
+        },
+        {
+            "name": "raulfraile/ladybug-bundle",
+            "version": "dev-master",
+            "target-dir": "RaulFraile/Bundle/LadybugBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/LadybugBundle.git",
+                "reference": "342f0be0df235e6b71d6ccc0ba4103ff9798073b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/LadybugBundle/zipball/342f0be0df235e6b71d6ccc0ba4103ff9798073b",
+                "reference": "342f0be0df235e6b71d6ccc0ba4103ff9798073b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "raulfraile/ladybug": "~1.0.0",
+                "raulfraile/ladybug-plugin-symfony2": "~1.0.0",
+                "symfony/framework-bundle": ">=2.0.0"
+            },
+            "replace": {
+                "raulfraile/ladybugbundle": "dev-master"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "RaulFraile\\Bundle\\LadybugBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raul Fraile",
+                    "email": "raulfraile@gmail.com",
+                    "homepage": "http://www.raulfrailebeneyto.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony2 bundle for Ladybug library (Simple and Extensible PHP Dumper)",
+            "homepage": "https://github.com/raulfraile/LadybugBundle",
+            "keywords": [
+                "dump",
+                "ladybug",
+                "tree",
+                "twig"
+            ],
+            "time": "2014-04-03 07:17:04"
+        },
+        {
+            "name": "raulfraile/ladybug-installer",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/ladybug-installer.git",
+                "reference": "04f38f50cac673d3ca93de9c0805889e37804b33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/ladybug-installer/zipball/04f38f50cac673d3ca93de9c0805889e37804b33",
+                "reference": "04f38f50cac673d3ca93de9c0805889e37804b33",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.*",
+                "mockery/mockery": "0.8.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "\\Ladybug\\LadybugPlugin"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ladybug": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Unified installer for ladybug addons",
+            "keywords": [
+                "installer",
+                "ladybug",
+                "plugins",
+                "themes"
+            ],
+            "time": "2013-09-21 23:28:23"
+        },
+        {
+            "name": "raulfraile/ladybug-plugin-extra",
+            "version": "v1.0.1",
+            "target-dir": "Ladybug/Plugin/Extra",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/ladybug-plugin-extra.git",
+                "reference": "d240770a4c610e26657e5edc0edaace6d07187b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/ladybug-plugin-extra/zipball/d240770a4c610e26657e5edc0edaace6d07187b2",
+                "reference": "d240770a4c610e26657e5edc0edaace6d07187b2",
+                "shasum": ""
+            },
+            "require": {
+                "raulfraile/ladybug-installer": "~1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.8.0",
+                "raulfraile/ladybug": "~1.0.0"
+            },
+            "type": "ladybug-plugin",
+            "extra": {
+                "ladybug_name": "Extra"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ladybug\\Plugin\\Extra\\": ""
+                },
+                "files": [
+                    "Resources/php/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Extra plugin for ladybug",
+            "keywords": [
+                "ladybug",
+                "plugin"
+            ],
+            "time": "2013-09-29 10:19:08"
+        },
+        {
+            "name": "raulfraile/ladybug-plugin-symfony2",
+            "version": "v1.0.1",
+            "target-dir": "Ladybug/Plugin/Symfony2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/ladybug-plugin-symfony2.git",
+                "reference": "81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/ladybug-plugin-symfony2/zipball/81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84",
+                "reference": "81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84",
+                "shasum": ""
+            },
+            "require": {
+                "raulfraile/ladybug-installer": "~1.0.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.8.0",
+                "raulfraile/ladybug": "~1.0.0",
+                "symfony/http-foundation": "*"
+            },
+            "type": "ladybug-plugin",
+            "extra": {
+                "ladybug_name": "Symfony2"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ladybug\\Plugin\\Symfony2\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony2 plugin for ladybug",
+            "keywords": [
+                "ladybug",
+                "plugin"
+            ],
+            "time": "2013-09-29 09:17:09"
+        },
+        {
+            "name": "raulfraile/ladybug-theme-modern",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raulfraile/ladybug-theme-modern.git",
+                "reference": "528c9114ca1a82860e8b7025d1fe4f64dc728b72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raulfraile/ladybug-theme-modern/zipball/528c9114ca1a82860e8b7025d1fe4f64dc728b72",
+                "reference": "528c9114ca1a82860e8b7025d1fe4f64dc728b72",
+                "shasum": ""
+            },
+            "require": {
+                "raulfraile/ladybug-installer": "~1.0.0"
+            },
+            "type": "ladybug-theme",
+            "extra": {
+                "ladybug_name": "Modern"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Theme 'modern' for ladybug",
+            "keywords": [
+                "dump",
+                "ladybug",
+                "print_r",
+                "theme",
+                "var_dump"
+            ],
+            "time": "2013-10-07 21:55:38"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -1404,16 +1863,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "3199b2e0d194f71fe2e13c95768b2ef22206682b"
+                "reference": "4697c33cdfb520dcf83fd6e4f7864fa26ddaebea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/3199b2e0d194f71fe2e13c95768b2ef22206682b",
-                "reference": "3199b2e0d194f71fe2e13c95768b2ef22206682b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4697c33cdfb520dcf83fd6e4f7864fa26ddaebea",
+                "reference": "4697c33cdfb520dcf83fd6e4f7864fa26ddaebea",
                 "shasum": ""
             },
             "require": {
@@ -1515,7 +1974,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-04-04 10:27:02"
+            "time": "2014-04-27 13:39:18"
         },
         {
             "name": "twig/extensions",
@@ -1566,16 +2025,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.15.1",
+            "version": "v1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "1fb5784662f438d7d96a541e305e28b812e2eeed"
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1fb5784662f438d7d96a541e305e28b812e2eeed",
-                "reference": "1fb5784662f438d7d96a541e305e28b812e2eeed",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ca445842fcea4f844d68203ffa2d00f5e3cdea64",
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64",
                 "shasum": ""
             },
             "require": {
@@ -1584,7 +2043,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -1604,14 +2063,9 @@
                     "role": "Lead Developer"
                 },
                 {
-                    "name": "Armin Ronacher",
+                    "name": "Armin Ronacher2",
                     "email": "armin.ronacher@active-4.com",
                     "role": "Project Founder"
-                },
-                {
-                    "name": "Twig Team",
-                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
-                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -1619,7 +2073,47 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-02-13 10:19:29"
+            "time": "2013-10-30 08:20:53"
+        },
+        {
+            "name": "willdurand/jsonp-callback-validator",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/JsonpCallbackValidator.git",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/JsonpCallbackValidator/zipball/1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonpCallbackValidator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                }
+            ],
+            "description": "JSONP callback validator.",
+            "time": "2014-01-20 22:35:06"
         }
     ],
     "packages-dev": [
@@ -1630,7 +2124,11 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "friendsofsymfony/jsrouting-bundle": 0,
+        "raulfraile/ladybug-bundle": 20,
+        "datatables/datatables": 20,
+        "brown298/data-tables-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

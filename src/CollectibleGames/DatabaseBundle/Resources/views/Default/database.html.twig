@@ -1,7 +1,9 @@
 {% extends '::layout.html.twig' %}
 {% block body_center %}			
 		<div id='center'> <h1>Base de donnée des jeux vidéos</h1> </div>
-		<div class='right'><a href='bddjv.php?action=find'><h3>Recherche avancée<h3></a></div><div class='clear'></div><div class='marques' id='center'>
+		<div class='right'><a href="{{path('search_game')}}"><h5>Rechercher un jeu</a> / 
+		<a href="{{path('search_accessoire')}}">un accessoire</a> / 
+		<a href="{{path('search_console')}}">une console</h5></a><br></div><div class='clear'></div><div class='marques' id='center'>
 		{% for editeur in editeurs %}
 			{% if editeur.id != 0 %}
 				<a href="{{ path('show_editeur', {'id': editeur.id }) }}"><img height=50 src='{{ img_root }}{{ editeur.imageUrl }}' title='{{ editeur.name }}' ></a>

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VersionConsole
  *
  * @ORM\Table(name="bddjv_version_console")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\VersionConsoleRepository")
  */
 class VersionConsole
 {
@@ -69,6 +69,34 @@ class VersionConsole
      * @ORM\Column(name="version_console_valide", type="boolean")
      */
 	protected $valide;
+	
+    /**
+	 * @ORM\ManyToMany(targetEntity="Jeu")
+	 * @ORM\JoinTable(name="bddjv_console_inclus_jeu",
+     *      joinColumns={@ORM\JoinColumn(name="id_version_console", referencedColumnName="id_version_console")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_jeu", referencedColumnName="id_jeu")}
+     *      )
+	 */
+    protected $jeux;	
+	
+    /**
+	 * @ORM\ManyToMany(targetEntity="Accessoire")
+	 * @ORM\JoinTable(name="bddjv_console_inclus_accessoire",
+     *      joinColumns={@ORM\JoinColumn(name="id_version_console", referencedColumnName="id_version_console")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_accessoire", referencedColumnName="id_accessoire")}
+     *      )
+	 */
+    protected $accessoires;	
+	
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return "Region : ".$this->region->getName();
+    }
 
 	public function __construct()
 	{
@@ -161,7 +189,7 @@ class VersionConsole
 	{
 		if(!is_dir($this->getUploadRootDir().'/img/consoles/'.$this->getConsole()->getPlateforme()->getId().'/'))
 		{
-			mkdir($this->getUploadRootDir().'/img/consoles/'.$this->getConsole()->getPlateforme()->getId().'/');
+			mkdir($this->getUploadRootDir().'/img/consoles/'.$this->getConsole()->getPlateforme()->getId().'/', 0777, true);
 		}
 		$caracteres_interdits = array("'", '"', ",", ".", ";", ":", "-", "é", "&", "ù", "à", "@", "è", "ê", "â", "ï", "ö", "ô", "$", "*", "µ", "%", "ç", "~", "§", "!", "?", "/","°");
 		$name = str_replace($caracteres_interdits, "", str_replace(" ", "_", strtolower(strip_tags($this->console->getName())))).'-'.$this->getId();
@@ -197,6 +225,6 @@ class VersionConsole
 	protected function getUploadRootDir()
 	{
 		// On retourne le chemin relatif vers l'image pour notre code PHP
-		return './../../../../'.$this->getUploadDir();
+		return __DIR__.'/../../../../'.$this->getUploadDir();
 	}
 }

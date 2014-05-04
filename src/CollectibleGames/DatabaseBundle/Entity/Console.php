@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Console
  *
  * @ORM\Table(name="bddjv_console")/
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\ConsoleRepository")
  */
 class Console
 {
@@ -52,24 +52,6 @@ class Console
      * @ORM\OneToMany(targetEntity="VersionConsole", mappedBy="console", cascade={"persist", "remove"})
      */
     protected $versions;	
-	
-    /**
-	 * @ORM\ManyToMany(targetEntity="Jeu")
-	 * @ORM\JoinTable(name="bddjv_console_inclus_jeu",
-     *      joinColumns={@ORM\JoinColumn(name="id_console", referencedColumnName="id_console")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_jeu", referencedColumnName="id_jeu")}
-     *      )
-	 */
-    protected $jeux;	
-	
-    /**
-	 * @ORM\ManyToMany(targetEntity="Accessoire")
-	 * @ORM\JoinTable(name="bddjv_console_inclus_accessoire",
-     *      joinColumns={@ORM\JoinColumn(name="id_console", referencedColumnName="id_console")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_accessoire", referencedColumnName="id_accessoire")}
-     *      )
-	 */
-    protected $accessoires;	
 
 	public function __construct()
 	{
