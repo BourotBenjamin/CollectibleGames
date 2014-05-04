@@ -1,0 +1,40 @@
+{% extends '::layout.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+<style>
+input {
+	width:200px;
+}
+.select2-container {
+	width:200px;
+}
+</style>
+{% endblock %}
+{% block body_center %}			
+	<h3>{{ jeu.name }} sur {{ jeu.plateforme.name }}</h3>
+
+	<div class="well">
+	  <form method="post" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+		<input type="hidden" name="jeu" value="1" class="btn btn-primary" />
+		{% for j in jeux %}
+			<input type="hidden" name="jeux[{{ j }}]" value="{{ j }}" class="btn btn-primary" />
+		{% endfor %}
+		<input type="submit" class="btn btn-primary" />
+		<input type="submit" name="applyToAll" value="Appliquer à tous" class="btn btn-primary" />
+	  </form>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').select2({
+			createSearchChoice: function(term) 
+			{ 
+				return {id:term, text:term}; 
+			},
+		});
+	});
+	</script>
+{% endblock %}

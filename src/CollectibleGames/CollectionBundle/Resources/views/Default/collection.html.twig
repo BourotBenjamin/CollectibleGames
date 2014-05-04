@@ -1,0 +1,183 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}
+	{% if user %}
+	<div class="Titre">Collection de {{ user.username }}</div><br>
+	<div class="Titre">Albums Photos 
+	{% if app.user and app.user.id == user.id %}
+		<a href="{{ path('create_album') }}">( Créer un nouvel album photo )</a>
+	{% endif %}
+	</div><br>
+	{% for album in albums %}
+		<a style=" display: inline-block; padding-right:10px;" href="{{ path('show_album', {'id':album.id}) }}"> 
+			<img height=100 src="{% if album.cover %}{{ img_root }}{{ album.cover.photoUrl }}{% endif %}" alt="{{ album.name }}" title="{{ album.name }}" /> 
+			<div class="titleAlbum">{{ album.name }}</div>
+		</a> 
+	{% endfor %}
+	<div class="Titre">Jeux</div><br>
+	{% for possession in jeux %}
+		{% set jeu = possession.version %}
+		{% if app.user.id == user.id %}
+			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+		{% else %}
+			<span class="infosPossession" id="Jeu{{ possession.id }}">
+		{% endif %}
+		{% if possession.boite %} 
+			<img height=100 src='{{ img_root }}{{ jeu.photoBoiteUrl }}'>
+		{% elseif possession.cartouche %} 
+			<img height=100 src='{{ img_root }}{{ jeu.photoCartoucheUrl }}'>
+		{% elseif possession.notice %} 
+			<img height=100 src='{{ img_root }}{{ jeu.photoNoticeUrl }}'>
+		{% else %} 
+			<img height=100 src='{{ img_root }}{{ jeu.photoBoiteUrl }}'>
+		{% endif %}
+		<span>
+		{% if app.user.id == user.id %}
+			<br><div class="edit"><a href="{{ path('collection_edit_games', { 'id':possession.id }) }}"><img src="{{ img_root }}./img/collection_edit.png" title="Modifier la possession"/></a></div>
+			<br><div class="suppr"><a href="#" class="remove_game" id="{{ possession.id }}" ><img src="{{ img_root }}./img/collection_suppr.png" title="Supprimer la possession"/></a></div>
+		{% endif %}
+		<table><tr><td><a href="{{ path('show_jeu', {'id':jeu.jeu.id}) }}">{{ jeu.jeu.name }}</a><br>
+		{% if possession.blisterRigide %}<img width=25 height=25 src="{{ img_root }}img/blister_rigide_present.png" title="Blister rigide présent">{% else %}<img width=25 height=25 src="{{ img_root }}img/blister_rigide_absent.png" title="Blister rigide absent">{% endif %}
+		{% if possession.blisterSouple %}<img width=25 height=25 src="{{ img_root }}img/blister_souple_present.png" title="Blister souple présent">{% else %}<img width=25 height=25 src="{{ img_root }}img/blister_souple_absent.png" title="Blister souple absent">{% endif %}
+		{% if possession.boite %}<img width=25 height=25 src="{{ img_root }}img/boite_presente.png" title="Boite présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/boite_absente.png" title="Boite absente">{% endif %}
+		{% if possession.notice %}<img width=25 height=25 src="{{ img_root }}img/notice_presente.png" title="Notice présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/notice_absente.png" title="Notice absente">{% endif %}
+		{% if possession.cale %}<img width=25 height=25 src="{{ img_root }}img/cale_presente.png" title="Cale présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/cale_absente.png" title="Cale absente">{% endif %}
+		{% if possession.cartouche %}<img width=25 height=25 src="{{ img_root }}img/cartouche_presente.png" title="Cartouche présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/cartouche_absente.png" title="Cartouche absente">{% endif %}
+		{% if possession.etat == 0 %} 
+			<br>Etat : Mauvais<br>
+		{% elseif possession.etat == 1 %} 
+			<br>Etat : Moyen<br>
+		{% elseif possession.etat == 2 %} 
+			<br>Etat : Bon<br>
+		{% elseif possession.etat == 3 %} 
+			<br>Etat : Très Bon<br>
+		{% elseif possession.etat == 4 %} 
+			<br>Etat : Neuf<br>
+		{% endif %}
+		{{ possession.commentaire }}
+		</td></tr></table></span></span>
+	{% endfor %}<br><br>
+	<div class="Titre">Consoles</div><br>
+	{% for possession in consoles %}
+		{% set console = possession.version %}
+		{% if app.user and app.user.id == user.id %}
+			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+		{% else %}
+			<span class="infosPossession" id="Jeu{{ possession.id }}">
+		{% endif %}
+		<img height=100 src='{{ img_root }}{{ console.photoUrl }}'>
+		<span>
+		{% if app.user and app.user.id == user.id %}
+			<br><div class="edit"><a href="{{ path('collection_edit_consoles', { 'id':possession.id }) }}"><img src="{{ img_root }}./img/collection_edit.png" title="Modifier la possession"/></a></div>
+			<br><div class="suppr"><a href="#" class="remove_console" id="{{ possession.id }}" ><img src="{{ img_root }}./img/collection_suppr.png" title="Supprimer la possession"/></a></div>
+		{% endif %}
+		<table><tr><td><a href="{{ path('show_console', {'id':console.console.id}) }}">{{ console.console.name }}</a><br>
+		{% if possession.consoleScelle %}<img width=25 height=25 src="{{ img_root }}img/console_scellee.png" title="Console scellée">{% else %}<img width=25 height=25 src="{{ img_root }}img/console_non_scellee.png" title="Console non scellée">{% endif %}
+		{% if possession.boite %}<img width=25 height=25 src="{{ img_root }}img/boite_presente.png" title="Boite présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/boite_absente.png" title="Boite absente">{% endif %}
+		{% if possession.notice %}<img width=25 height=25 src="{{ img_root }}img/notice_presente.png" title="Notice présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/notice_absente.png" title="Notice absente">{% endif %}
+		{% if possession.cale %}<img width=25 height=25 src="{{ img_root }}img/cale_presente.png" title="Cale présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/cale_absente.png" title="Cale absente">{% endif %}
+		{% if possession.machine %}<img width=25 height=25 src="{{ img_root }}img/machine_presente.png" title="Console présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/machine_absente.png" title="Console absente">{% endif %}
+		{% if possession.etat == 0 %} 
+			<br>Etat : Mauvais<br>
+		{% elseif possession.etat == 1 %} 
+			<br>Etat : Moyen<br>
+		{% elseif possession.etat == 2 %} 
+			<br>Etat : Bon<br>
+		{% elseif possession.etat == 3 %} 
+			<br>Etat : Très Bon<br>
+		{% elseif possession.etat == 4 %} 
+			<br>Etat : Neuf<br>
+		{% endif %}
+		{{ possession.commentaire }}
+		</td></tr></table></span></span>
+	{% endfor %}<br><br>
+	<div class="Titre">Accessoires</div><br>
+	{% for possession in accessoires %}
+		{% set accessoire = possession.version %}
+		{% if app.user and app.user.id == user.id %}
+			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+		{% else %}
+			<span class="infosPossession" id="Jeu{{ possession.id }}">
+		{% endif %}
+		<img height=100 src='{{ img_root }}{{ accessoire.photoUrl }}'>
+		<span>
+		{% if app.user and app.user.id == user.id %}
+			<br><div class="edit"><a href="{{ path('collection_edit_accessoires', { 'id':possession.id }) }}"><img src="{{ img_root }}./img/collection_edit.png" title="Modifier la possession"/></a></div>
+			<br><div class="suppr"><a href="#" class="remove_accessoire" id="{{ possession.id }}" ><img src="{{ img_root }}./img/collection_suppr.png" title="Supprimer la possession"/></a></div>
+		{% endif %}
+		<table><tr><td><a href="{{ path('show_accessoire', {'id':accessoire.accessoire.id}) }}">{{ accessoire.accessoire.name }}</a><br>
+		{% if possession.blisterRigide %}<img width=25 height=25 src="{{ img_root }}img/blister_rigide_present.png" title="Blister rigide présent">{% else %}<img width=25 height=25 src="{{ img_root }}img/blister_rigide_absent.png" title="Blister rigide absent">{% endif %}
+		{% if possession.blisterSouple %}<img width=25 height=25 src="{{ img_root }}img/blister_souple_present.png" title="Blister souple présent">{% else %}<img width=25 height=25 src="{{ img_root }}img/blister_souple_absent.png" title="Blister souple absent">{% endif %}
+		{% if possession.boite %}<img width=25 height=25 src="{{ img_root }}img/boite_presente.png" title="Boite présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/boite_absente.png" title="Boite absente">{% endif %}
+		{% if possession.notice %}<img width=25 height=25 src="{{ img_root }}img/notice_presente.png" title="Notice présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/notice_absente.png" title="Notice absente">{% endif %}
+		{% if possession.cale %}<img width=25 height=25 src="{{ img_root }}img/cale_presente.png" title="Cale présente">{% else %}<img width=25 height=25 src="{{ img_root }}img/cale_absente.png" title="Cale absente">{% endif %}
+		{% if possession.materiel %}<img width=25 height=25 src="{{ img_root }}img/materiel_present.png" title="Accessoire présent">{% else %}<img width=25 height=25 src="{{ img_root }}img/materiel_absent.png" title="Accessoire absent">{% endif %}
+		{% if possession.etat == 0 %} 
+			<br>Etat : Mauvais<br>
+		{% elseif possession.etat == 1 %} 
+			<br>Etat : Moyen<br>
+		{% elseif possession.etat == 2 %} 
+			<br>Etat : Bon<br>
+		{% elseif possession.etat == 3 %} 
+			<br>Etat : Très Bon<br>
+		{% elseif possession.etat == 4 %} 
+			<br>Etat : Neuf<br>
+		{% endif %}
+		{{ possession.commentaire }}
+		</td></tr></table></span></span>
+	{% endfor %}
+	<br><br><a href="{{ path('collection_export', {'id':user.id}) }}"> Export de la collection de {{ user.username }}</a>
+	{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(".remove_game").click( function(){
+	var j = $(this);
+	alertify.confirm("Êtes vous sûr de vouloir supprimer ce jeu de votre collection", function (e) {
+		if (e) {
+			j.parent().parent().parent().hide();
+			$.ajax( {
+				type: 'post',
+				url: Routing.generate('collection_remove_games', { id: j.attr('id') }),
+				data: 'json'
+			} );
+			alertify.success("Jeu supprimé");
+		} else {
+			alertify.error("Suppression annulée");
+		}
+	});
+});
+$(".remove_console").click( function(){
+	var j = $(this);
+	alertify.confirm("Êtes vous sûr de vouloir supprimer cette console de votre collection", function (e) {
+		if (e) {
+			j.parent().parent().parent().hide();
+			$.ajax( {
+				type: 'post',
+				url: Routing.generate('collection_remove_consoles', { id: j.attr('id') }),
+				data: 'json'
+			} );
+			alertify.success("Console supprimé");
+		} else {
+			alertify.error("Suppression annulée");
+		}
+	});
+});
+$(".remove_accessoire").click( function(){
+	var j = $(this);
+	alertify.confirm("Êtes vous sûr de vouloir supprimer cet accessoire de votre collection", function (e) {
+		if (e) {
+			j.parent().parent().parent().hide();
+			$.ajax( {
+				type: 'post',
+				url: Routing.generate('collection_remove_accessoires', { id: j.attr('id') }),
+				data: 'json'
+			} );
+			alertify.success("Accessoire supprimé");
+		} else {
+			alertify.error("Suppression annulée");
+		}
+	});
+});
+</script>
+{% endblock %}

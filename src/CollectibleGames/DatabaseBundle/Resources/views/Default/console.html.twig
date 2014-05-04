@@ -20,18 +20,6 @@
 					{% if console.remarqueConsole!="" %}
 						<br>Remarque : {{ console.remarqueConsole }}
 					{% endif %}
-					{% if console.jeux|length > 0 %}
-						<br>Jeux inclus :
-						{% for jeu in console.jeux %}
-							<a href="{{path('show_jeu', { 'id': jeu.id })}}">{{jeu.name.name}}</a>
-						{% endfor %}
-					{% endif %}
-					{% if console.accessoires|length > 0 %}
-						<br>Accessoire inclus :
-						{% for accessoire in console.accessoires %}
-							<a href="{{path('show_accessoire', { 'id': accessoire.id })}}">{{accessoire.name}}</a>
-						{% endfor %}
-					{% endif %}
 				</div>
 			</div><br><br>
 			{% for version in console.versions %}
@@ -48,22 +36,20 @@
 							{% if version.dateSortieConsole is not null %}
 								Date de sortie : {{version.dateSortieConsole|date('d/m/Y')}}<br>
 							{% endif %}
-							<!--if(sizeof($version['accessoires'])>0)
-							{
-								echo'<br>Accessoire(s) inclus : ';
-								foreach($version['accessoires'] as $accessoire)
-								{
-									echo'<a href="bddjv.php?action=viewAccessoire&id='.$accessoire['id_accessoire'].'" />'.$accessoire['nom_accessoire'].'</a> ';
-								}
-							}-->
+							{% if version.jeux|length > 0 %}
+								<br>Jeux inclus :
+								{% for jeu in version.jeux %}
+									<a href="{{path('show_jeu', { 'id': jeu.id })}}">{{jeu.name}}</a>
+								{% endfor %}
+							{% endif %}
+							{% if version.accessoires|length > 0 %}
+								<br>Accessoire inclus :
+								{% for accessoire in version.accessoires %}
+									<a href="{{path('show_accessoire', { 'id': accessoire.id })}}">{{accessoire.name}}</a>
+								{% endfor %}
+							{% endif %}
 							{% if version.remarqueVersionConsole!="" %}
 								<br>Remarque : {{version.remarqueVersionConsole}}
-							{% endif %}	
-							{% if modo %}
-								{% if version.valide ==0 %}
-									<br><a href=''>Valider la version</a>
-								{% endif %}
-								<br><a href=''>Supprimer la version</a>
 							{% endif %}	
 						</div>
 					</div>
@@ -77,11 +63,5 @@
 		</div>
 		<div class="clear"></div>
 		<br><div class="lienAdmin"><a href="{{ path('add_version_console', { 'id': console.id }) }}" >Ajouter une version au jeu</a></div>
-		{% if modo %}
-			<div class='lienAdmin'><a href='bddjv.php?action=adm&supprJeu='>Supprimer le jeu</a></div>
-			{% if modo %}
-				<div class='lienAdmin'><a href='bddjv.php?action=adm&validerJeu='>Valider le jeu</a></div>
-			{% endif %}	
-		{% endif %}	
 		<div class='lienAdmin'><a href="{{ path('modifier_console', { 'id': console.id }) }}">Modifier le jeu</a></div>
 {% endblock %}

@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -29,10 +29,17 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
+    globals:
+        fos_csrf_provider: "@form.csrf_provider"
         img_root: %img_root%
 
 # Assetic Configuration
 assetic:
+    assets:
+        data_tables:
+            inputs:
+                - %kernel.root_dir%/../vendor/datatables/datatables/media/js/jquery.js
+                - %kernel.root_dir%/../vendor/datatables/datatables/media/js/jquery.dataTables.js
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
@@ -74,3 +81,6 @@ fos_user:
     db_driver:     orm                        
     firewall_name: main                       
     user_class:    CollectibleGames\UserBundle\Entity\User 
+    registration:
+        form:
+            type: collectiblegames_user_registration

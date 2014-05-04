@@ -1,56 +1,30 @@
 <div id="ListeJeux" style="display:none;">
 	<br><div class=titre>Liste des jeux</div>
-	<form action="" method=POST>
+	<form action="{{ path('collection_add_games')}}" method=POST>
 		<table cellpadding="0" cellspacing="0" border="0" class="display" id="tableJeux" width="100%">
 			<thead>
 				<tr>
 					<th>Jeu</th>
-					<!---'.($canAdd==1?'<th>Ajouter</th>':'').'--->
+					{% if app.user %}<th>Ajouter</th>{% endif %}
 				</tr>
 			</thead>
 			<tbody>
+				{% set odd = false %}
 				{% for jeu in jeux %}
-					<tr class="gradeA odd">
+				{% set odd = not odd %}
+					<tr class="{% if jeu.id in collection.jeux %}gradeC{% else %}gradeA{% endif %} {% if odd %}odd{% else %}even{% endif %}">
 						<td> 
-							<a href="{{ path('show_jeu', { 'id': jeu.id }) }}">{{ jeu.name.name }}</a> 
+							<a href="{{ path('show_jeu', { 'id': jeu.id }) }}">{{ jeu.name }}</a> 
 						</td>
+					{% if app.user %}<td class="center"><input type="checkbox" id="jeux[{{ jeu.id }}]"  name="jeux[{{ jeu.id }}]" value="{{ jeu.id }}" /></td>{% endif %}
 					</tr>
 				{% endfor %}
+				{% if app.user %}
+					<tr style="text-align: right"><td colspan=2><input type="submit" value="Ajouter les jeux à votre collection" name="validerAjoutPossessionJeu"></td></tr>
+				{% endif %}
 			</tbody>
 		</table>
 	</form>
 	<br><br><a href="{{ path('create_jeu')}}">Le jeu que vous cherchez n'est pas dans la base de donnée ? Ajoutez le.</a>
 </div>
 		
-		<!---$odd = false;
-		foreach($jeux as $jeu)
-		{
-				$odd=!$odd;
-				if(in_array($jeu['id_jeu'], $collection))
-				{
-					if($odd)
-					{
-						echo '<tr class="gradeC odd">';
-					}
-					else
-					{
-						echo '<tr class="gradeC even">';
-					}
-				}
-				else
-				{
-					if($odd)
-					{
-						echo '<tr class="gradeA odd">';
-					}
-					else
-					{
-						echo '<tr class="gradeA even">';
-					}
-				}
-				echo '<td> <a href="bddjv.php?action=view&id='.$jeu['id_jeu'].'">'.$jeu['nom_jeu'].'</a> </td>
-					'.($canAdd==1?'<td class="center"><input type="checkbox" id="'.$jeu['id_jeu'].'"  name="'.$jeu['id_jeu'].'" value=1 /></td>':'').'
-					</tr>';
-
-		}
-			echo ($canAdd==1?'<tr style="text-align: right"><td colspan=2><input type="submit" value="Ajouter les jeux à votre collection" name="validerAjoutPossessionJeu"></td></tr>':'').'---->

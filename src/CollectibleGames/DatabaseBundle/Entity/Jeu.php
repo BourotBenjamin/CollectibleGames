@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Jeu
  *
  * @ORM\Table(name="bddjv_jeu")/
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\JeuRepository")
  */
 class Jeu
 {
@@ -21,9 +21,8 @@ class Jeu
      */
     private $id;
 	
-    /**
-     * @ORM\ManyToOne(targetEntity="NomJeu", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_nom_jeu", referencedColumnName="id_nom_jeu")
+	 /**
+     * @ORM\Column(name="nom_jeu",  type="string", length=255, nullable=false)
      */
     protected $name;
 	
@@ -90,15 +89,6 @@ class Jeu
      * @ORM\OneToMany(targetEntity="VersionJeu", mappedBy="jeu", cascade={"persist", "remove"})
      */
     protected $versions;	
-	
-    /**
-	 * @ORM\ManyToMany(targetEntity="Accessoire")
-	 * @ORM\JoinTable(name="bddjv_jeu_inclus_accessoire",
-     *      joinColumns={@ORM\JoinColumn(name="id_jeu", referencedColumnName="id_jeu")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_accessoire", referencedColumnName="id_accessoire")}
-     *      )
-	 */
-    protected $accessoires;	
 
 	public function __construct()
 	{
@@ -108,6 +98,11 @@ class Jeu
         $this->valide = 0;
         $this->nombre_joueurs = 0;
         $this->remarque_jeu = "";
+	}
+	
+	public function __toString()
+	{
+		return $this->getName()." (".$this->getPlateforme()->getName().")";
 	}
 	
     /**
@@ -167,19 +162,6 @@ class Jeu
 		$this->versions = $v;	
 	}
 	
-	public function getAccessoires()			
-	{	
-		return $this->accessoires;	
-	}
-	public function setAccessoires($j)		
-	{
-		$this->accessoires = $j;	
-	}
-	public function addAccessoires($j)		
-	{
-		$this->accessoires[] = $j;	
-	}
-	
 	public function getRemarqueJeu()			
 	{	
 		return $this->remarque_jeu;	
@@ -209,6 +191,13 @@ class Jeu
 	public function addCommande($c)		
 	{
 		$this->commandes[] = $c;	
+	}
+	public function removeCommande($c)		
+	{
+		$key = array_search($c, $this->commandes);
+		if($key!==false){
+			unset($this->commandes[$key]);
+		}
 	}
 	
 	public function getAutresPlateformes()			

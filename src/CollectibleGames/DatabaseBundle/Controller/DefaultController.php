@@ -30,7 +30,6 @@ class DefaultController extends Controller
     {
 		$sql = 'SELECT nom_jeu, id_jeu, photo_boite
 		FROM bddjv_jeu
-		NATURAL JOIN bddjv_nom_jeu
 		NATURAL JOIN bddjv_version_jeu
 		WHERE photo_boite != "img/inconnu.png"
 		ORDER BY RAND()
@@ -72,7 +71,7 @@ class DefaultController extends Controller
         return array(
 		'plateformes'=>$plateformes,
 		'editeur'=>$editeur,
-		'modo'=>true
+		'modo'=>false
 		);
     }
 	
@@ -88,13 +87,28 @@ class DefaultController extends Controller
         $jeux = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findByPlateforme($plateforme);
         $consoles = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findByPlateforme($plateforme);
         $accessoires = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findByPlateforme($plateforme);
+		$collection = array();
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if($user)
+		{
+			$collection['jeux'] = $user->getJeuxIdList();
+			$collection['consoles'] = $user->getConsolesIdList();
+			$collection['accessoires'] = $user->getAccessoiresIdList();
+		}
+		else
+		{	
+			$collection['jeux'] = array();
+			$collection['consoles'] = array();
+			$collection['accessoires'] = array();
+		}
         return array(
 		'plateforme'=>$plateforme,
 		'jeux'=>$jeux,
 		'consoles'=>$consoles,
 		'accessoires'=>$accessoires,
 		'editeur'=>$editeur,
-		'modo'=>true
+		'collection'=>$collection,
+		'modo'=>false
 		);
     }
 	

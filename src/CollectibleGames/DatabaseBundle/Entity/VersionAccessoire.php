@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VersionAccessoire
  *
  * @ORM\Table(name="bddjv_version_accessoire")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\VersionAccessoireRepository")
  */
 class VersionAccessoire
 {
@@ -69,6 +69,15 @@ class VersionAccessoire
      * @ORM\Column(name="version_accessoire_valide", type="boolean")
      */
 	protected $valide;
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return "Region : ".$this->region->getName();
+    }
 
 	public function __construct()
 	{
@@ -161,7 +170,7 @@ class VersionAccessoire
 	{
 		if(!is_dir($this->getUploadRootDir().'/img/accessoires/'.$this->getAccessoire()->getPlateforme()->getId().'/'))
 		{
-			mkdir($this->getUploadRootDir().'/img/accessoires/'.$this->getAccessoire()->getPlateforme()->getId().'/');
+			mkdir($this->getUploadRootDir().'/img/accessoires/'.$this->getAccessoire()->getPlateforme()->getId().'/', 0777, true);
 		}
 		$caracteres_interdits = array("'", '"', ",", ".", ";", ":", "-", "é", "&", "ù", "à", "@", "è", "ê", "â", "ï", "ö", "ô", "$", "*", "µ", "%", "ç", "~", "§", "!", "?", "/","°");
 		$name = str_replace($caracteres_interdits, "", str_replace(" ", "_", strtolower(strip_tags($this->accessoire->getName())))).'-'.$this->getId();
@@ -197,6 +206,6 @@ class VersionAccessoire
 	protected function getUploadRootDir()
 	{
 		// On retourne le chemin relatif vers l'image pour notre code PHP
-		return './../../../../'.$this->getUploadDir();
+		return __DIR__.'/../../../../'.$this->getUploadDir();
 	}
 }

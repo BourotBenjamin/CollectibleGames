@@ -5,13 +5,14 @@ namespace CollectibleGames\DatabaseBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use CollectibleGames\DatabaseBundle\Form\DataTransformer\RegionToNameTransformer;
 
 class VersionAccessoireType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-			->add('region',       'entity', array('class'    => 'CollectibleGamesDatabaseBundle:Region', 'property' => 'name', 'multiple' => false))
+			->add($builder->create('region', 'text', array('attr' => array('class'=>'region'), 'required' => false))->addModelTransformer(new RegionToNameTransformer($options['em'])))
 			->add('photo', 'file', array('required'  => false))
 			->add('reference_accessoire',        'text', array('required'  => false))
 			->add('code_barre_accessoire',        'text', array('required'  => false))

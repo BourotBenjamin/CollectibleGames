@@ -1,0 +1,7 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}
+	Liste des membres : <br>
+	{% for membre in membres %}
+		<a href="{{ path('show_collection', {'id':membre.id}) }}"><img src="{{ membre.avatarUrl }}" height=50 width=50 /> {{ membre.username }} - {{ membre.stats }} </a><br>
+	{% endfor %}
+{% endblock %}

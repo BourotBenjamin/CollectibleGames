@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VersionJeu
  *
  * @ORM\Table(name="bddjv_version_jeu")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\VersionJeuRepository")
  */
 class VersionJeu
 {
@@ -114,11 +114,7 @@ class VersionJeu
 	protected $valide;
 	
     /**
-	 * @ORM\ManyToMany(targetEntity="NomJeu")
-	 * @ORM\JoinTable(name="bddjv_autre_nom_jeu",
-     *      joinColumns={@ORM\JoinColumn(name="id_version_jeu", referencedColumnName="id_version_jeu")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_nom_jeu", referencedColumnName="id_nom_jeu")}
-     *      )
+     * @ORM\Column(name="autre_nom_jeu",  type="string", length=255, nullable=true)
 	 */
     protected $autre_nom_jeu;
 	
@@ -130,11 +126,19 @@ class VersionJeu
      *      )
 	 */
     protected $langues_jeu;	
+	
+    /**
+	 * @ORM\ManyToMany(targetEntity="Accessoire")
+	 * @ORM\JoinTable(name="bddjv_jeu_inclus_accessoire",
+     *      joinColumns={@ORM\JoinColumn(name="id_version_jeu", referencedColumnName="id_version_jeu")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_accessoire", referencedColumnName="id_accessoire")}
+     *      )
+	 */
+    protected $accessoires;	
 
 	public function __construct()
 	{
         $this->langues_jeu = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->autre_nom_jeu = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->photoBoiteUrl = 'img/inconnu.png';
 		$this->photoMiscUrl = 'img/inconnu.png';
 		$this->photoNoticeUrl = 'img/inconnu.png';
@@ -155,26 +159,13 @@ class VersionJeu
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return NomJeu
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * Get name
      *
      * @return string 
      */
     public function getName()
     {
-        return $this->name;
+        return "Region : ".$this->region->getName()." - Edition : ".$this->edition->getName();
     }
 	
 	public function getRegion()			
@@ -364,10 +355,10 @@ class VersionJeu
 	{
 		if(!is_dir($this->getUploadRootDir().'/img/jeux/'.$this->getJeu()->getPlateforme()->getId().'/'))
 		{
-			mkdir($this->getUploadRootDir().'/img/jeux/'.$this->getJeu()->getPlateforme()->getId().'/');
+			mkdir($this->getUploadRootDir().'/img/jeux/'.$this->getJeu()->getPlateforme()->getId().'/', 0777, true);
 		}
 		$caracteres_interdits = array("'", '"', ",", ".", ";", ":", "-", "é", "&", "ù", "à", "@", "è", "ê", "â", "ï", "ö", "ô", "$", "*", "µ", "%", "ç", "~", "§", "!", "?", "/","°");
-		$name = str_replace($caracteres_interdits, "", str_replace(" ", "_", strtolower(strip_tags($this->jeu->getName()->getName())))).'-'.$this->getId();
+		$name = str_replace($caracteres_interdits, "", str_replace(" ", "_", strtolower(strip_tags($this->jeu->getName())))).'-'.$this->getId();
 		$folder =  'img/jeux/'.$this->getJeu()->getPlateforme()->getId().'/';
 		if (null === $this->photoDosBoite) { if(!$this->photoDosBoiteUrl) { $this->photoDosBoiteUrl = 'img/inconnu.png'; } } else {
 		$this->photoDosBoite->move($this->getUploadRootDir().$folder, $name.'_dos_boite.png');
@@ -412,6 +403,19 @@ class VersionJeu
 	protected function getUploadRootDir()
 	{
 		// On retourne le chemin relatif vers l'image pour notre code PHP
-		return './../../../../'.$this->getUploadDir();
+		return __DIR__.'/../../../../'.$this->getUploadDir();
+	}
+	
+	public function getAccessoires()			
+	{	
+		return $this->accessoires;	
+	}
+	public function setAccessoires($j)		
+	{
+		$this->accessoires = $j;	
+	}
+	public function addAccessoires($j)		
+	{
+		$this->accessoires[] = $j;	
 	}
 }

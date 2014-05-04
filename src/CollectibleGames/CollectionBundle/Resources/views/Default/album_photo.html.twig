@@ -1,0 +1,51 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}	
+<h1>Album {{ album.name }} de {{ album.user.username }} <br></h1>{{ album.description }}<br><br>
+	{% for photo in album.photos %}
+		{% if app.user and album.user.id == app.user.id %}
+			<span class="photoAlbumUser">
+			<span class="editPhoto"><a href="{{ path('edit_photo', {'id': photo.id}) }}" ><img src="{{img_root}}img/edit.png" /></a></span>
+			<a title="{{ photo.name }}" description="{{ photo.description }}"   href="{{img_root}}{{ photo.photoUrl }}" class="zoombox zgallery1"><img title="{{ photo.name }}" height=100 src="{{img_root}}{{ photo.photoUrl }}" /></a>
+			<span class="remove_photo supprPhoto" id="{{ photo.id }}"><img src="{{img_root}}img/close.png" /></span>
+		{% else %}
+			<span class="photoAlbum">
+			<a title="{{ photo.name }}" description="{{ photo.description }}"   href="{{img_root}}{{ photo.photoUrl }}" class="zoombox zgallery1"><img title="{{ photo.name }}" height=100 src="{{img_root}}{{ photo.photoUrl }}" /></a>
+		{% endif %}
+		</span>
+	{% endfor %}
+	<br><br>Cliquez sur les images pour les agrandir
+	<script type="text/javascript">
+        jQuery(function($){
+            $("a.zoombox").zoombox();
+        });
+    </script>
+		{% if app.user and album.user.id == app.user.id %}
+			<br><br><h2>Ajouter des images à l'album:</h2>
+			<br><form action="{{path('add_photo')}}" class="dropzone">
+			<input type=hidden name="user_id" value="{{ album.user.id }}">
+			<input type=hidden name="id_album" value="{{ album.id }}">
+			</form><br>
+			<a href="{{ path('edit_album', {'id': album.id}) }}">Modifier les informations de l'album</a>
+		{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(".remove_photo").click( function(){
+	var j = $(this);
+	alertify.confirm("Êtes vous sûr de vouloir supprimer cette photo de votre album", function (e) {
+		if (e) {
+			j.parent().hide();
+			$.ajax( {
+				type: 'post',
+				url: Routing.generate('collection_remove_photo', { id: j.attr('id') }),
+				data: 'json'
+			} );
+			alertify.success("Photo supprimé");
+		} else {
+			alertify.error("Suppression annulée");
+		}
+	});
+});
+</script>
+{% endblock %}

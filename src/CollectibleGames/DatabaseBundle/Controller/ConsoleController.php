@@ -19,9 +19,46 @@ use CollectibleGames\DatabaseBundle\Entity\VersionAccessoire;
 use CollectibleGames\DatabaseBundle\Form\VersionAccessoireType;
 use CollectibleGames\DatabaseBundle\Entity\Suggestion;
 use CollectibleGames\DatabaseBundle\Form\SuggestionType;
+use CollectibleGames\DatabaseBundle\Form\SearchByNameType;
 
 class ConsoleController extends Controller
 {
+	
+	/**
+     * @Route("/bddjv/search-console/", name="search_console")
+     * @Template("CollectibleGamesDatabaseBundle:Default:simple_form.html.twig")
+     */
+    public function searchAction()
+    {
+		$request = $this->get('request');
+		$form = $this->createForm(new SearchByNameType);
+		if ($request->getMethod() == 'POST') {
+			$em = $this->getDoctrine()->getManager();
+			$src = $request->request->get('collectiblegames_databasebundle_searchtype')['name'];
+			$consoles = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findByPartialName($src);
+			$collection = array();
+			$user = $this->container->get('security.context')->getToken()->getUser();
+			if($user)
+			{
+				$collection['consoles'] = $user->getConsolesIdList();
+			}
+			else
+			{	
+				$collection['consoles'] = array();
+			}
+			return $this->render('CollectibleGamesDatabaseBundle:Default:search_results_console.html.twig', array(
+				'consoles' => $consoles,
+				'src' => $src,
+				'collection' => $collection
+			));
+		}
+		return array
+		(
+			'title' => "Rechercher une console",
+			'form' => $form->createView()
+		);
+    }
+	
    /**
      * @Route("/bddjv/console/{id}", name="show_console")
      * @Template("CollectibleGamesDatabaseBundle:Default:console.html.twig")
@@ -46,13 +83,17 @@ class ConsoleController extends Controller
      */
     public function createConsoleAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['plateformes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findAll();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
+        $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
 		$console = new Console();
 		$form = $this->createForm(new ConsoleType, $console);
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
 		  if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($console);
 			$em->flush();
 			foreach($console->getVersions() as $version)
@@ -76,6 +117,8 @@ class ConsoleController extends Controller
     public function addVersionConsoleAction($id)
     {
 		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
 		$version = new VersionConsole();
         $console = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findOneById($id);
 		$version->setConsole($console);
@@ -105,6 +148,10 @@ class ConsoleController extends Controller
     public function editConsoleAction($id)
     {
 		$em = $this->getDoctrine()->getManager();
+		$autocomplete = array();
+        $autocomplete['plateformes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findAll();
+        $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
+        $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
         $console = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findOneById($id);
 		$form = $this->createForm(new ConsoleType, $console);
 		$request = $this->get('request');

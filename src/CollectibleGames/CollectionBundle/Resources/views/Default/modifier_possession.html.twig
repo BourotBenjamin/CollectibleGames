@@ -1,0 +1,35 @@
+{% extends '::layout.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+<style>
+input {
+	width:200px;
+}
+.select2-container {
+	width:200px;
+}
+</style>
+{% endblock %}
+{% block body_center %}			
+	<h3>{{ title }}</h3>
+
+	<div class="well">
+	  <form method="post" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+		<input type="submit" class="btn btn-primary" />
+	  </form>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').select2({
+			createSearchChoice: function(term) 
+			{ 
+				return {id:term, text:term}; 
+			},
+		});
+	});
+	</script>
+{% endblock %}

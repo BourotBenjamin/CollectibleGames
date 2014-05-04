@@ -25,34 +25,25 @@
     </head>
 {% endblock %}
 {% block page %}
-	<body id="home" onLoad="waitPreloadPage();">
-	<DIV id="prepage" style="z-index:30000; position:absolute; font-family:arial; font-size:16; left:0px; top:0px; background-color:white; layer-background-color:white; height:1000%; width:100%;"> 
-	<TABLE height=400px></TABLE>
-	<TABLE width=100% style="text-align:center;"><TR><TD><B>Chargement en cours ... Veuillez patienter.</B></TD></TR></TABLE>
-	</DIV>
+	<body id="home">
         {% block body %}
 			{% block body_head %}
-			<div id="templatemo_header_wrapper">';
-					<!----if(isset($user->data['user_id']) && $user->data['user_id']!=1)
-					{
-						echo '<br><div class="connectRight"><br><form action="" method=POST> 
-						Bienvenue '.$user->data['username'].'<br>
-						<a href="./forum/ucp.php?i=pm&folder=inbox">'.$user->data['user_new_privmsg'].' nouveaux MP<br>'.$user->data['user_unread_privmsg'].' non lus</a><br>
+			<div id="templatemo_header_wrapper">
+					{% if app.user %}
+						<br><div class="connectRight"><br><form action="{{ path('fos_user_security_logout') }}" method=POST> 
+						Bienvenue {{ app.user.username }}<br>
+						<a href="./forum/ucp.php?i=pm&folder=inbox">0 nouveaux MP<br>0 non lus</a><br>
 						<input type=submit name=logout value="Déconnexion">
-						</form></div>';
-					}
-					else
-					{
-					
-						echo '----->
-						</ul><br><div class="connectRight"><br>
-						<form action="" method=POST> 
-						<input type=TEXT name=username value="Pseudo" size=15 onclick="this.value='';" /><br>
-						<input type=password name=password value="password" size=15 onclick="this.value='';" /><br>
-						<input type=submit name=login value="Connexion">
 						</form></div>
-						<!----';
-					}----->
+					{% else %}
+						</ul><br><div class="connectRight"><br>
+						<form action="{{ path('fos_user_security_check') }}" method=POST> 
+						<input type="text" id="username" name="_username" value="Pseudo" size=15 onclick="this.value='';" /><br>
+						<input type="password" id="password" name="_password" value="password" size=15 onclick="this.value='';" /><br>
+						<input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />
+						<input type="submit" name="login" value="Connexion">
+						</form></div>
+					{% endif %}
 					<div id="site_title"><h1><a href="{{ path('index')}}">Collectible Games</a></h1></div>
 						<div class="cleaner"></div>
 						<div id="templatemo_menu" class="ddsmoothmenu">
@@ -66,15 +57,15 @@
 									<li><a href="{{ path('create_accessoire')}}">Ajouter un accessoire</a></li>
 								</ul>
 							</li>
-							<li><a href="collection.php">Collection</a>                
+							<li><a href="{{ path('own_collection') }}">Collection</a>                
 								<ul>
 									<li><span class="top"></span><span class="bottom"></span></li>
-									<li><a rel="nofollow" href="collection.php">Votre collection</a></li>
-									<li><a rel="nofollow" href="collection.php?action=listMembers">Liste des membres</a></li>
+									<li><a href="{{ path('own_collection') }}">Votre collection</a></li>
+									<li><a href="{{ path('memberlist') }}">Liste des membres</a></li>
 								</ul>
 							</li>
 							<li><a href="{{ path('index')}}../../forum/index.php">Forum</a></li>
-							<li><a href="{{ path('index')}}../../forum/ucp.php?mode=register" style="text-align=center" >Inscription</a></li>
+							{% if not app.user %}<li><a href="{{ path('fos_user_registration_register')}}" style="text-align=center" >Inscription</a></li>{% endif %}
 						</ul>
 						<br />
 					</div> <!-- end of templatemo_menu -->
@@ -86,7 +77,7 @@
 				<div id="templatemo_main">
 				<!---if(is_array($navbits))
 				{
-					echo 'Vous êtes ici';
+					echo 'Vous Ãªtes ici';
 					foreach($navbits as $url=>$description)
 					{
 						echo ' > <a href="'.$url.'">'.$description.'</a>';
@@ -150,8 +141,12 @@
 			{% endblock %}
 		{% endblock %}
         {% block javascripts %}
+			<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+			<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/ddsmoothmenu.js') }}"></script> 
-			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-1.9.1.js') }}"></script> 
+			{% javascripts '@data_tables' %}
+				<script type="text/javascript" src="{{ asset_url }}"></script>
+			{% endjavascripts %}
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-ui.js') }}"></script> 
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-migrate-1.2.1.min.js') }}"></script> 
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery.mousewheel.js') }}"></script> 
@@ -194,26 +189,6 @@
 				ga("create", "UA-48763424-1", "collectible-games.com");
 				ga("send", "pageview");
 			</script>
-			<SCRIPT TYPE="text/javascript" LANGUAGE="javascript">
-				function waitPreloadPage() {
-				  if (document.getElementById){
-					document.getElementById('prepage').style.visibility='hidden';
-					  $("#prepage").css("height", '1%');
-				window.scrollTo(0,0);
-				  }else{
-					if (document.layers){ //NS4
-					  document.prepage.visibility = 'hidden';
-					  $("#prepage").css("height", '1%');
-				window.scrollTo(0,0);
-					}
-					else { //IE4
-					  document.all.prepage.style.visibility = 'hidden';
-					  $("#prepage").css("height", '1%');
-				window.scrollTo(0,0);
-					}
-				  }
-				}
-			</SCRIPT>
 			{% if headeralerts is defined %}
 				{{headeralerts}}
 			{% endif %}
