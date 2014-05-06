@@ -18,15 +18,15 @@ class JeuType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-			->add('name',        'text', array('required'    => true))
-			->add($builder->create('plateforme', 'text', array('attr' => array('class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
-			->add($builder->create('type', 'text', array('attr' => array('class'=>'type'), 'required' => false))->addModelTransformer(new TypeJeuToNameTransformer($options['em'])))
-			->add($builder->create('groupe', 'text', array('attr' => array('class'=>'groupe'), 'required' => false))->addModelTransformer(new GroupeToNameTransformer($options['em'])))
-			->add($builder->create('developpeur', 'text', array('attr' => array('class'=>'developpeur'), 'required' => false))->addModelTransformer(new DeveloppeurToNameTransformer($options['em'])))
-			->add($builder->create('commandes', 'text', array('attr' => array('class'=>'commandes'), 'required' => false))->addModelTransformer(new CommandesToNameTransformer($options['em'])))
-			->add($builder->create('autres_plateformes', 'text', array('attr' => array('class'=>'plateformes'), 'required' => false))->addModelTransformer(new PlateformesToNameTransformer($options['em'])))
-			->add('nombre_joueurs',        'integer', array('required'  => false))
-			->add('remarque_jeu',        'textarea', array('required'  => false))
+			->add('name',        'text', array('label'=>" ", 'attr' => array('placeholder'=>'Nom du jeu'), 'required'    => true))
+			->add($builder->create('plateforme', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Plateforme', 'class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
+			->add($builder->create('type', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Type de jeu','class'=>'type'), 'required' => false))->addModelTransformer(new TypeJeuToNameTransformer($options['em'])))
+			->add($builder->create('groupe', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Groupe','class'=>'groupe'), 'required' => false))->addModelTransformer(new GroupeToNameTransformer($options['em'])))
+			->add($builder->create('developpeur', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Développeur','class'=>'developpeur'), 'required' => false))->addModelTransformer(new DeveloppeurToNameTransformer($options['em'])))
+			->add($builder->create('commandes', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Jouable avec ...','class'=>'commandes'), 'required' => false))->addModelTransformer(new CommandesToNameTransformer($options['em'])))
+			->add($builder->create('autres_plateformes', 'text', array('label'=>" ", 'attr' => array('placeholder'=>'Existe aussi sur ...','class'=>'plateformes'), 'required' => false))->addModelTransformer(new PlateformesToNameTransformer($options['em'])))
+			->add('nombre_joueurs',        'integer', array('label'=>"Nombre de joueurs ", 'attr' => array('placeholder'=>'Nombre de joueurs', 'class'=>'nbj'),'required'  => false))
+			->add('remarque_jeu',        'textarea', array('label'=>" ", 'attr' => array('placeholder'=>'Remarque sur le jeu'),'required'  => false))
 			->add('versions', 'collection', array('type' => new VersionJeuType(), 'options'  => array('em'=>$options['em']), 'allow_add' => true))
     ;
   }

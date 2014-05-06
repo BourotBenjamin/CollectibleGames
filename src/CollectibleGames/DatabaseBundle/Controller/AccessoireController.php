@@ -38,7 +38,7 @@ class AccessoireController extends Controller
 			$accessoires = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findByPartialName($src);
 			$collection = array();
 			$user = $this->container->get('security.context')->getToken()->getUser();
-			if($user)
+			if($user && $user!="anon.")
 			{
 				$collection['accessoires'] = $user->getAccessoiresIdList();
 			}
@@ -91,7 +91,7 @@ class AccessoireController extends Controller
         $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
         $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
 		$accessoire = new Accessoire();
-		$form = $this->createForm(new AccessoireType, $accessoire);
+		$form = $this->createForm(new AccessoireType, $accessoire, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -125,7 +125,7 @@ class AccessoireController extends Controller
 		$version = new VersionAccessoire();
         $accessoire = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findOneById($id);
 		$version->setAccessoire($accessoire);
-		$form = $this->createForm(new VersionAccessoireType, $version);
+		$form = $this->createForm(new VersionAccessoireType, $version, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -158,7 +158,7 @@ class AccessoireController extends Controller
         $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
         $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
         $accessoire = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findOneById($id);
-		$form = $this->createForm(new AccessoireType, $accessoire);
+		$form = $this->createForm(new AccessoireType, $accessoire, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);

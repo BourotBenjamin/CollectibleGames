@@ -56,7 +56,6 @@ class Console
 	public function __construct()
 	{
         $this->versions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->jeux = new \Doctrine\Common\Collections\ArrayCollection();
         $this->valide = 0;
         $this->remarque_console = "";
 	}
@@ -127,31 +126,6 @@ class Console
 		$this->remarque_console = $r;	
 	}
 	
-	public function getJeux()			
-	{	
-		return $this->jeux;	
-	}
-	public function setJeux($j)		
-	{
-		$this->jeux = $j;	
-	}
-	public function addJeux($j)		
-	{
-		$this->jeux[] = $j;	
-	}
-	
-	public function getAccessoires()			
-	{	
-		return $this->accessoires;	
-	}
-	public function setAccessoires($j)		
-	{
-		$this->accessoires = $j;	
-	}
-	public function addAccessoires($j)		
-	{
-		$this->accessoires[] = $j;	
-	}
 	
 	public function getEditeur()			
 	{	

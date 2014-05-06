@@ -16,7 +16,7 @@
 	<div class="Titre">Jeux</div><br>
 	{% for possession in jeux %}
 		{% set jeu = possession.version %}
-		{% if app.user.id == user.id %}
+		{% if app.user and app.user.id == user.id %}
 			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
 		{% else %}
 			<span class="infosPossession" id="Jeu{{ possession.id }}">
@@ -24,14 +24,14 @@
 		{% if possession.boite %} 
 			<img height=100 src='{{ img_root }}{{ jeu.photoBoiteUrl }}'>
 		{% elseif possession.cartouche %} 
-			<img height=100 src='{{ img_root }}{{ jeu.photoCartoucheUrl }}'>
+			<img height=100 src='{{ img_root }}{{ jeu.photoLooseUrl }}'>
 		{% elseif possession.notice %} 
 			<img height=100 src='{{ img_root }}{{ jeu.photoNoticeUrl }}'>
 		{% else %} 
 			<img height=100 src='{{ img_root }}{{ jeu.photoBoiteUrl }}'>
 		{% endif %}
 		<span>
-		{% if app.user.id == user.id %}
+		{% if app.user and app.user.id == user.id %}
 			<br><div class="edit"><a href="{{ path('collection_edit_games', { 'id':possession.id }) }}"><img src="{{ img_root }}./img/collection_edit.png" title="Modifier la possession"/></a></div>
 			<br><div class="suppr"><a href="#" class="remove_game" id="{{ possession.id }}" ><img src="{{ img_root }}./img/collection_suppr.png" title="Supprimer la possession"/></a></div>
 		{% endif %}

@@ -46,7 +46,7 @@ class DefaultController extends Controller
     public function databaseAction()
     {
 		$em = $this->getDoctrine()->getManager();
-        $editeurs = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
+        $editeurs = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findByExistingPlateformes();
         return array(
 		'editeurs'=>$editeurs, 
 		"counts" => array ("nbPlateformes" => 0, 
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         $accessoires = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findByPlateforme($plateforme);
 		$collection = array();
 		$user = $this->container->get('security.context')->getToken()->getUser();
-		if($user)
+		if($user && $user!="anon.")
 		{
 			$collection['jeux'] = $user->getJeuxIdList();
 			$collection['consoles'] = $user->getConsolesIdList();

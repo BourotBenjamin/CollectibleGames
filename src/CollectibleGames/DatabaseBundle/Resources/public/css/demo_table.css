@@ -213,11 +213,11 @@ table.display thead td:active {
  * DataTables row classes
  */
 table.display tr.odd.gradeA {
-	background-color: #ccccff;
+	background-color: #ececec;
 }
 
 table.display tr.even.gradeA {
-	background-color: #bbbbee;
+	background-color: #fafafa;
 }
 
 table.display tr.odd.gradeC {
@@ -341,27 +341,27 @@ table.display tr.odd.row_selected td {
 
 
 tr.odd.gradeA td.sorting_1 {
-	background-color: #ccccff;
+	background-color: #ececec;
 }
 
 tr.odd.gradeA td.sorting_2 {
-	background-color: #ccccff;
+	background-color: #ececec;
 }
 
 tr.odd.gradeA td.sorting_3 {
-	background-color: #ccccff;
+	background-color: #ececec;
 }
 
 tr.even.gradeA td.sorting_1 {
-	background-color: #bbbbee;
+	background-color: #fafafa;
 }
 
 tr.even.gradeA td.sorting_2 {
-	background-color: #bbbbee;
+	background-color: #fafafa;
 }
 
 tr.even.gradeA td.sorting_3 {
-	background-color: #bbbbee;
+	background-color: #fafafa;
 }
 tr.odd.gradeC td.sorting_1 {
 	background-color: #bbeebb;
@@ -441,7 +441,7 @@ table.KeyTable td.focus {
 }
 
 table.display tr.gradeA {
-	background-color: #ccccff;
+	background-color: #ececec;
 }
 table.display tr.gradeC {
 	background-color: #bbeebb;
@@ -1349,7 +1349,7 @@ a:hover
 }
 .infosPossessionUser:hover span
 {
-	background-image: url('/CollectibleGames/img/collection_back.png');
+	background-image: url('/img/collection_back.png');
 	display: inline;
 	z-index: 100;
 	position: absolute;
@@ -1392,7 +1392,7 @@ a:hover
 }
 .infosPossession:hover span
 {
-	background-image: url('/CollectibleGames/img/collection_back.png');
+	background-image: url('/img/collection_back.png');
 	display: inline;
 	z-index: 100;
 	position: absolute;

@@ -1,4 +1,13 @@
 {% extends '::layout.html.twig' %}
+{% block head_content %}
+{{ parent() }}
+<div id="fb-root"></div>
+	<meta property="fb:app_id" content="1422333361348579" />
+	<meta property="og:image" content="http://collectible-games.com/{{ jeu.versions.0.photoBoiteUrl }}" />
+	<meta property="og:site_name" content="Collectible Games" />
+	<meta property="og:title" content="{{ jeu.name }} sur {{ jeu.plateforme.name }}" />
+	<meta property="og:description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de donné des jeux vidéos" />
+{% endblock %}
 {% block body_center %}			
 		<div>
 			<div id="infos">
@@ -7,6 +16,9 @@
 						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
 					{% endif %}
 					<span class="GrosTitre">{{ jeu.name }}</span><br>
+					<span><a href="https://www.facebook.com/sharer/sharer.php?u=http://collectible-games.com{{ path('show_jeu', {'id':jeu.id})}}" target="_blank">
+					 Partager sur Facebook
+					</a></span><br>
 					{% if jeu.plateforme.imageUrl!="img/inconnu.png" %}
 							Plateforme : <img height=35 src="{{ img_root }}{{jeu.plateforme.imageUrl}}" title="{{jeu.plateforme.name}}" /><br>
 					{% else %}
