@@ -101,10 +101,37 @@ class VersionConsole
 	public function __construct()
 	{
 		$this->photoUrl = 'img/inconnu.png';
+        $this->jeux = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accessoires = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->valide = 0;
         $this->remarque_version_console = "";
 	}
 
+	public function getJeux()			
+	{	
+		return $this->jeux;	
+	}
+	public function setJeux($j)		
+	{
+		$this->jeux = $j;	
+	}
+	public function addJeux($j)		
+	{
+		$this->jeux[] = $j;	
+	}
+	
+	public function getAccessoires()			
+	{	
+		return $this->accessoires;	
+	}
+	public function setAccessoires($j)		
+	{
+		$this->accessoires = $j;	
+	}
+	public function addAccessoires($j)		
+	{
+		$this->accessoires[] = $j;	
+	}
     /**
      * Get id
      *

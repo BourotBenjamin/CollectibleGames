@@ -84,3 +84,6 @@ fos_user:
     registration:
         form:
             type: collectiblegames_user_registration
+    profile:
+        form:
+            type: collectiblegames_user_profile

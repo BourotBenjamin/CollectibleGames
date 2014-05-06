@@ -14,11 +14,11 @@ class ConsoleType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-			->add('name',        'text')
-			->add($builder->create('plateforme', 'text', array('attr' => array('class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
-			->add($builder->create('editeur', 'text', array('attr' => array('class'=>'editeur'), 'required' => false))->addModelTransformer(new EditeurToNameTransformer($options['em'])))
-			->add('remarque_console',        'textarea', array('required'  => false))
-			->add('versions', 'collection', array('type' => new VersionConsoleType(), 'allow_add' => true))
+			->add('name',        'text', array('label'=>" ", 'attr' => array('placeholder'=>"Nom de la console")))
+			->add($builder->create('plateforme', 'text', array('label'=>" ", 'attr' => array('placeholder'=>"Plateforme", 'class'=>'plateforme'), 'required' => false))->addModelTransformer(new PlateformeToNameTransformer($options['em'])))
+			->add($builder->create('editeur', 'text', array('label'=>" ", 'attr' => array('placeholder'=>"Editeur", 'class'=>'editeur'), 'required' => false))->addModelTransformer(new EditeurToNameTransformer($options['em'])))
+			->add('remarque_console',        'textarea', array('label'=>" ", 'attr' => array('placeholder'=>"Remarque sur la console"), 'required'  => false))
+			->add('versions', 'collection', array('type' => new VersionConsoleType(), 'options'  => array('em'=>$options['em']), 'allow_add' => true))
     ;
   }
 
@@ -26,6 +26,13 @@ class ConsoleType extends AbstractType
   {
     $resolver->setDefaults(array(
       'data_class' => 'CollectibleGames\DatabaseBundle\Entity\Console'
+    ));
+    $resolver->setRequired(array(
+        'em',
+    ));
+
+    $resolver->setAllowedTypes(array(
+        'em' => 'Doctrine\Common\Persistence\ObjectManager',
     ));
   }
 

@@ -38,7 +38,7 @@ class ConsoleController extends Controller
 			$consoles = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findByPartialName($src);
 			$collection = array();
 			$user = $this->container->get('security.context')->getToken()->getUser();
-			if($user)
+			if($user && $user!="anon.")
 			{
 				$collection['consoles'] = $user->getConsolesIdList();
 			}
@@ -89,7 +89,7 @@ class ConsoleController extends Controller
         $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
         $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
 		$console = new Console();
-		$form = $this->createForm(new ConsoleType, $console);
+		$form = $this->createForm(new ConsoleType, $console, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -105,9 +105,10 @@ class ConsoleController extends Controller
 			$em->flush();
 			return $this->redirect($this->generateUrl('show_console', array('id' => $console->getId())));
 		  }
-		}	
+		}
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_console.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 	/**
@@ -122,7 +123,7 @@ class ConsoleController extends Controller
 		$version = new VersionConsole();
         $console = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findOneById($id);
 		$version->setConsole($console);
-		$form = $this->createForm(new VersionConsoleType, $version);
+		$form = $this->createForm(new VersionConsoleType, $version, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -138,6 +139,7 @@ class ConsoleController extends Controller
 		}	
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_version_console.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 	
@@ -153,7 +155,7 @@ class ConsoleController extends Controller
         $autocomplete['regions'] = $em->getRepository('CollectibleGamesDatabaseBundle:Region')->findAll();
         $autocomplete['editeurs'] = $em->getRepository('CollectibleGamesDatabaseBundle:Editeur')->findAll();
         $console = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findOneById($id);
-		$form = $this->createForm(new ConsoleType, $console);
+		$form = $this->createForm(new ConsoleType, $console, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -172,6 +174,7 @@ class ConsoleController extends Controller
 		}	
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_console.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 }

@@ -12,15 +12,14 @@ class VersionConsoleType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-			->add($builder->create('region', 'text', array('attr' => array('class'=>'region'), 'required' => false))->addModelTransformer(new RegionToNameTransformer($options['em'])))
-			->add('photo', 'file', array('required'  => false))
-			->add('reference_console',        'text', array('required'  => false))
-			->add('code_barre_console',        'text', array('required'  => false))
-			->add('date_sortie_console',        'text', array('required'  => false,'attr' => array('class' => 'datepicker', 'type' => 'text')))
-			->add('prix',        'integer', array('required'  => false))
-			->add('remarque_version_console',        'textarea', array('required'  => false))
-			->add('jeux',       'entity', array('attr' => array('class'=>'jeux'), 'class'    => 'CollectibleGamesDatabaseBundle:Jeu', 'multiple' => true))
-			->add('accessoires',       'entity', array('attr' => array('class'=>'accessoires'), 'class'    => 'CollectibleGamesDatabaseBundle:Accessoire', 'multiple' => true))
+			->add($builder->create('region', 'text', array('label'=>" ",'attr' => array('placeholder'=>'Region','class'=>'region'), 'required' => false))->addModelTransformer(new RegionToNameTransformer($options['em'])))
+			->add('photo', 'file', array('label'=>"Photo ", 'required'  => false))
+			->add('reference_console',        'text', array('label'=>" ",'attr' => array('placeholder'=>"Référence"), 'required'  => false))
+			->add('code_barre_console',        'text', array('label'=>" ",'attr' => array('placeholder'=>"Code barre"), 'required'  => false))
+			->add('date_sortie_console',        'text', array('label'=>"Date de sortie ",'attr' => array('class'=>'date'), 'required'  => false,'attr' => array('class' => 'datepicker', 'type' => 'text')))
+			->add('prix',        'integer', array('label'=>" ",'attr' => array('placeholder'=>"Prix de vente d'origine"), 'required'  => false))
+			->add('remarque_version_console',        'textarea', array('label'=>" ",'attr' => array('placeholder'=>"Remarque sur la version"), 'required'  => false))
+			->add('accessoires',       'entity', array('label'=>" ",'attr' => array('placeholder'=>"Accessoires inclus", 'class'=>'accessoires'), 'class'    => 'CollectibleGamesDatabaseBundle:Accessoire', 'multiple' => true, 'required'  => false))
 			;
   }
 
@@ -28,6 +27,13 @@ class VersionConsoleType extends AbstractType
   {
     $resolver->setDefaults(array(
       'data_class' => 'CollectibleGames\DatabaseBundle\Entity\VersionConsole'
+    ));
+    $resolver->setRequired(array(
+        'em',
+    ));
+
+    $resolver->setAllowedTypes(array(
+        'em' => 'Doctrine\Common\Persistence\ObjectManager',
     ));
   }
 

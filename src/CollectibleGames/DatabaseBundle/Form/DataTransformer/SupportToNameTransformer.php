@@ -32,7 +32,7 @@ class SupportToNameTransformer implements DataTransformerInterface
 
     public function reverseTransform($name)
     {
-        if (!$name || $name="") {
+        if (!$name || $name=="") {
             return $this->om->getRepository('CollectibleGamesDatabaseBundle:Support')->find(0);
         }
 

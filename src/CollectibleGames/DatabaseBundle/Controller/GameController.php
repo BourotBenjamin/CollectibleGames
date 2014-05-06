@@ -38,7 +38,7 @@ class GameController extends Controller
 			$jeux = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findByPartialName($src);
 			$collection = array();
 			$user = $this->container->get('security.context')->getToken()->getUser();
-			if($user)
+			if($user && $user!="anon.")
 			{
 				$collection['jeux'] = $user->getJeuxIdList();
 			}
@@ -159,6 +159,7 @@ class GameController extends Controller
 		}	
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_jeu.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 	/**
@@ -176,10 +177,11 @@ class GameController extends Controller
         $autocomplete['supports'] = $em->getRepository('CollectibleGamesDatabaseBundle:Support')->findAll();
         $autocomplete['langues'] = $em->getRepository('CollectibleGamesDatabaseBundle:Langue')->findAll();
         $autocomplete['commandes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Commande')->findAll();
+        $autocomplete['plateformes'] = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findAll();
 		$version = new VersionJeu();
         $jeu = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findOneById($id);
 		$version->setJeu($jeu);
-		$form = $this->createForm(new VersionJeuType, $version);
+		$form = $this->createForm(new VersionJeuType, $version, array('em' =>$em));
 		$request = $this->get('request');
 		if ($request->getMethod() == 'POST') {
 		  $form->bind($request);
@@ -195,6 +197,7 @@ class GameController extends Controller
 		}	
 		return $this->render('CollectibleGamesDatabaseBundle:Default:ajouter_version_jeu.html.twig', array(
 			'form' => $form->createView(),
+			'autocomplete' => $autocomplete,
 		));
     }
 	

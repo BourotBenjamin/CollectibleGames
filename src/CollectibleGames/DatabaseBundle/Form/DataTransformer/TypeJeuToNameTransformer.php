@@ -32,7 +32,7 @@ class TypeJeuToNameTransformer implements DataTransformerInterface
 
     public function reverseTransform($name)
     {
-        if (!$name || $name="") {
+        if (!$name || $name=="") {
             return $this->om->getRepository('CollectibleGamesDatabaseBundle:TypeJeu')->find(0);
         }
 

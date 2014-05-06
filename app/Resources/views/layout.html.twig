@@ -57,6 +57,7 @@
 									<li><a href="{{ path('create_accessoire')}}">Ajouter un accessoire</a></li>
 								</ul>
 							</li>
+							{% if app.user %}
 							<li><a href="{{ path('own_collection') }}">Collection</a>                
 								<ul>
 									<li><span class="top"></span><span class="bottom"></span></li>
@@ -64,8 +65,26 @@
 									<li><a href="{{ path('memberlist') }}">Liste des membres</a></li>
 								</ul>
 							</li>
-							<li><a href="{{ path('index')}}../../forum/index.php">Forum</a></li>
-							{% if not app.user %}<li><a href="{{ path('fos_user_registration_register')}}" style="text-align=center" >Inscription</a></li>{% endif %}
+							{% else %}
+							<li><a href="{{ path('memberlist') }}">Collection</a>                
+								<ul>
+									<li><span class="top"></span><span class="bottom"></span></li>
+									<li><a href="{{ path('memberlist') }}">Liste des membres</a></li>
+								</ul>
+							</li>
+							{% endif %}
+							{% if app.user %}
+								<li><a href="{{ path('fos_user_profile_show')}}" style="text-align=center" >Profil</a>                
+								<ul>
+									<li><span class="top"></span><span class="bottom"></span></li>
+									<li><a href="{{ path('fos_user_profile_show')}}">Voir votre profil</a></li>
+									<li><a href="{{ path('fos_user_profile_edit')}}">Editer votre profil</a></li>
+									<li><a href="{{ path('fos_user_change_password')}}">Changer de mot de passe</a></li>
+								</ul>
+							</li>
+							{% else %}
+								<li><a href="{{ path('fos_user_registration_register')}}" style="text-align=center" >Inscription</a></li>
+							{% endif %}
 						</ul>
 						<br />
 					</div> <!-- end of templatemo_menu -->

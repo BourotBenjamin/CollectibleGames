@@ -658,7 +658,6 @@ class DefaultController extends Controller
 				$em->persist($album);
 				ld($album);
 				$em->flush();
-				die();
 			}
 		}
 		return new Response('Ok');

@@ -32,7 +32,7 @@ class FormatToNameTransformer implements DataTransformerInterface
 
     public function reverseTransform($name)
     {
-        if (!$name || $name="") {
+        if (!$name || $name=="") {
             return $this->om->getRepository('CollectibleGamesDatabaseBundle:Format')->find(0);
         }
 

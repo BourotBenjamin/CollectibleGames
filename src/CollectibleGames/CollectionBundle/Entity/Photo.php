@@ -24,14 +24,14 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="nom_album", type="string", length=255)
+     * @ORM\Column(name="nom_photo", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description_album", type="string", length=255)
+     * @ORM\Column(name="description_photo", type="string", length=255)
      */
     private $description;
 	

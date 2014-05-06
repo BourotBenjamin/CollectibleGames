@@ -32,7 +32,7 @@ class TypeAccessoireToNameTransformer implements DataTransformerInterface
 
     public function reverseTransform($name)
     {
-        if (!$name || $name="") {
+        if (!$name || $name=="") {
             return $this->om->getRepository('CollectibleGamesDatabaseBundle:TypeAccessoire')->find(0);
         }
 

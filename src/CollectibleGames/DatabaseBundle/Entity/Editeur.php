@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Editeur
  *
  * @ORM\Table(name="bddjv_editeur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\DatabaseBundle\Entity\EditeurRepository")
  */
 class Editeur
 {
