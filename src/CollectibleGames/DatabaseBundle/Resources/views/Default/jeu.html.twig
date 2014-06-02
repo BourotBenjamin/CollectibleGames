@@ -1,12 +1,23 @@
 {% extends '::layout.html.twig' %}
 {% block head_content %}
 {{ parent() }}
-<div id="fb-root"></div>
 	<meta property="fb:app_id" content="1422333361348579" />
 	<meta property="og:image" content="http://collectible-games.com/{{ jeu.versions.0.photoBoiteUrl }}" />
 	<meta property="og:site_name" content="Collectible Games" />
 	<meta property="og:title" content="{{ jeu.name }} sur {{ jeu.plateforme.name }}" />
-	<meta property="og:description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de donné des jeux vidéos" />
+	<meta property="og:description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta property="og:url" content="http://collectible-games.com{{ path('show_jeu', {'id':jeu.id})}}" />
+	<meta property="og:type" content="article" />
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@CollectibleGame">
+	<meta name="twitter:creator" content="@CollectibleGame">
+	<meta name="twitter:title" content="{{ jeu.name }} sur {{ jeu.plateforme.name }}">
+	<meta name="twitter:description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta name="twitter:image:src" content="http://collectible-games.com/{{ jeu.versions.0.photoBoiteUrl }}">
+	<meta name="mail:description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de données des jeux vidéos. Pour cela, une seule adresse : http://collectible-games.com{{ path('show_jeu', {'id':jeu.id})}}" />
+	<meta itemprop="name" content="{{ jeu.name }} sur {{ jeu.plateforme.name }}">
+	<meta itemprop="description" content="Découvrez la fiche de {{ jeu.name }} sur {{ jeu.plateforme.name }} ainsi que celles de beaucoup d'autres jeux, consoles et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta itemprop="image"  content="http://collectible-games.com/{{ jeu.versions.0.photoBoiteUrl }}" />
 {% endblock %}
 {% block body_center %}			
 		<div>
@@ -16,9 +27,7 @@
 						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
 					{% endif %}
 					<span class="GrosTitre">{{ jeu.name }}</span><br>
-					<span><a href="https://www.facebook.com/sharer/sharer.php?u=http://collectible-games.com{{ path('show_jeu', {'id':jeu.id})}}" target="_blank">
-					 Partager sur Facebook
-					</a></span><br>
+					<div id="mydiv3"></div><br>
 					{% if jeu.plateforme.imageUrl!="img/inconnu.png" %}
 							Plateforme : <img height=35 src="{{ img_root }}{{jeu.plateforme.imageUrl}}" title="{{jeu.plateforme.name}}" /><br>
 					{% else %}
@@ -147,4 +156,16 @@
 		<div class="clear"></div>
 		<br><div class="lienAdmin"><a href="{{ path('add_version_jeu', { 'id': jeu.id }) }}" >Ajouter une version au jeu</a></div>
 		<div class='lienAdmin'><a href="{{ path('modifier_jeu', { 'id': jeu.id }) }}">Modifier le jeu</a></div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+					$('#mydiv3').share({
+						networks: ['facebook','pinterest','googleplus','twitter','tumblr','email'],
+						orientation: 'vertical',
+						urlToShare: "http://collectible-games.com{{ path('show_jeu', {'id':jeu.id})}}",
+						affix: 'right up'
+					});
+</script>
 {% endblock %}

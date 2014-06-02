@@ -18,6 +18,7 @@
 				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/css/demo_table.css') }}"/>
 				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/js/zoombox/zoombox.css') }}"/>
 				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/js/select2/select2.css') }}"/>
+				<link rel="stylesheet" type="text/css" href="{{ asset('bundles/collectiblegamesdatabase/js/share/jquery.share.css') }}"/>
 				<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 			{% endblock %}
 			<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -41,7 +42,7 @@
 						<input type="text" id="username" name="_username" value="Pseudo" size=15 onclick="this.value='';" /><br>
 						<input type="password" id="password" name="_password" value="password" size=15 onclick="this.value='';" /><br>
 						<input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />
-						<input type="submit" name="login" value="Connexion">
+						<input type="submit" id="login_button" name="login" value="Connexion">
 						</form></div>
 					{% endif %}
 					<div id="site_title"><h1><a href="{{ path('index')}}">Collectible Games</a></h1></div>
@@ -49,7 +50,7 @@
 						<div id="templatemo_menu" class="ddsmoothmenu">
 						<ul>
 							<li><a href="{{ path('index')}}">Accueil</a></li>
-							<li><a href="{{ path('bddjv')}}">Base de donnÃ©e</a>
+							<li><a href="{{ path('bddjv')}}">Base de donnée</a>
 								<ul>
 									<li><a href="{{ path('bddjv')}}">Voir la base</a></li>
 									<li><a href="{{ path('create_jeu')}}">Ajouter un jeu</a></li>
@@ -82,6 +83,9 @@
 									<li><a href="{{ path('fos_user_change_password')}}">Changer de mot de passe</a></li>
 								</ul>
 							</li>
+							{% if app.user.granted('ROLE_ADMIN') %}
+								<li><a href="{{ path('sonata_admin_dashboard')}}" style="text-align=center" >Administration</a></li>
+							{% endif %}
 							{% else %}
 								<li><a href="{{ path('fos_user_registration_register')}}" style="text-align=center" >Inscription</a></li>
 							{% endif %}
@@ -121,7 +125,7 @@
 							<h4><span></span>Infos pratiques</h4>
 							<div class="bottom_box">
 								<ul class="twitter_post">
-									<li><a href="{{ path('team')}}">L'Ã©quipe</a></li>
+									<li><a href="{{ path('team')}}">L'équipe</a></li>
 									<li><a target="_blank" href="mailto:admin@collectible-games.com">Contact</a></li>
 									<li><a href="{{ path('faq')}}">FAQ</a></li>
 									<li><a href="{{ path('suggestion')}}">Une suggestion ? Un bug ?</a></li>
@@ -155,17 +159,14 @@
 					</div> <!-- END of templatemo_footer_wrapper -->
 				</div> <!-- END of templatemo_footer -->
 
-				</body>
-				</html>
 			{% endblock %}
 		{% endblock %}
         {% block javascripts %}
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery.js') }}"></script> 
 			<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 			<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/ddsmoothmenu.js') }}"></script> 
-			{% javascripts '@data_tables' %}
-				<script type="text/javascript" src="{{ asset_url }}"></script>
-			{% endjavascripts %}
+			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/share/jquery.share.js') }}"></script> 
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-ui.js') }}"></script> 
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery-migrate-1.2.1.min.js') }}"></script> 
 			<script type="text/javascript" src="{{ asset('bundles/collectiblegamesdatabase/js/jquery.mousewheel.js') }}"></script> 
@@ -217,6 +218,21 @@
 						alertify.alert("Vous avez un nouveau MP");
 					});
 				</script>
+			{% endif %}
+			{% if not app.user or app.user=='anon.' %}
+			<script>
+			$("#login_button").click( function(){
+				console.log("Connect");
+				var uname = $("#username").attr("value");
+				var pass = $("#password").attr("value");
+				$.ajax( {
+					type: 'post',
+					async: true,
+					url: "/CollectibleGames/forum/connect.php",
+					data: {'username':uname , 'password':pass }
+				} );
+			});
+			</script>			
 			{% endif %}
 		{% endblock %}
     </body>

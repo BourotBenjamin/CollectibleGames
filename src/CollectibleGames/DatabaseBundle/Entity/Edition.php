@@ -45,6 +45,10 @@ class Edition
 		$this->description = "";
 		$this->valide = false;
 	}
+    public function __toString()
+    {
+        return $this->name;
+    }
 
 
     /**

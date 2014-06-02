@@ -1,6 +1,8 @@
 <?php
+ini_set( 'memory_limit', '1024M' );
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
+
 
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
@@ -20,6 +22,15 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 Debug::enable();
 
 require_once __DIR__.'/../app/AppKernel.php';
+global $user, $auth;
+$phpbb_root_path = __DIR__.'/../forum/';
+define ('IN_PHPBB', true);
+$phpEx = "php";
+require_once ($phpbb_root_path.'config.php');
+include($phpbb_root_path . 'common.' . $phpEx);
+// Start session management
+$user->session_begin();
+$auth->acl($user->data);
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();

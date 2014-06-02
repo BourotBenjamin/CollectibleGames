@@ -20,5 +20,9 @@
             <argument>%fos_user.model.user.class%</argument>
         </service>
 
+	<service id="collectiblegames_user.login" class="CollectibleGames\UserBundle\EventListener\LoginListener">
+		<tag name="kernel.event_subscriber"/>
+		<argument type="service" id="router"/>
+	</service>
     </services>
 </container>

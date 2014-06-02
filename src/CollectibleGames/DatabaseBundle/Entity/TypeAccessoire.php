@@ -47,6 +47,11 @@ class TypeAccessoire
 		$this->valide = false;
 	}
 
+	public function __toString()
+	{
+        return $this->name;
+	}
+
     /**
      * Get id
      *
