@@ -37,6 +37,8 @@ class User extends BaseUser
 	protected $avatarUrl;
 	protected $avatar;
   
+	protected $phpbbPassword;
+  
 	public function __construct()
 	{
 		parent::__construct();
@@ -160,6 +162,32 @@ class User extends BaseUser
 		if (null === $this->avatar) { if(!$this->avatarUrl) { $this->avatarUrl = 'img/inconnu.png'; } } else {
 		$this->avatar->move($this->getUploadRootDir().$folder, $name.'.png');
 		$this->avatarUrl = $folder.$name.'.png'; }
+	}
+	
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
+	
+	/**
+	* @ORM\PrePersist()
+	*/
+	public function registerPhpbb()
+	{ 
+		global $db,$cache,$phpEx,$config,$phpbb_root_path;
+		include ($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+		include_once ($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+		include_once ($phpbb_root_path . 'includes/functions.' . $phpEx);
+		$user_row = array(
+			'username'				=> $this->getUsername(),
+			'user_password'			=> phpbb_hash($this->getPassword()),
+			'user_email'			=> $this->getEmail(),
+			'group_id'				=> 2,
+			'user_type'				=> USER_NORMAL,
+			'user_avatar'			=> $this->getAvatarUrl(),
+		);
+		// Register user...
+		$user_id = user_add($user_row);
 	}
 }
 ?>

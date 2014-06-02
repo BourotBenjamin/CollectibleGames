@@ -59,6 +59,10 @@ class Console
         $this->valide = 0;
         $this->remarque_console = "";
 	}
+    public function __toString()
+    {
+        return $this->name;
+    }
 	
     /**
      * Get id

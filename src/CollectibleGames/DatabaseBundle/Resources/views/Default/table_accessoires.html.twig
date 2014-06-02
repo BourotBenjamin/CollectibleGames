@@ -14,7 +14,7 @@
 				{% set odd = not odd %}
 					<tr class="{% if accessoire.id in collection.accessoires %}gradeC{% else %}gradeA{% endif %} {% if odd %}odd{% else %}even{% endif %}">
 						<td> 
-							<a href="{{ path('show_accessoire', { 'id': accessoire.id }) }}">{{ accessoire.name }}</a> 
+							<a href="{{ path('show_accessoire', { 'id': accessoire.id }) }}">{{ accessoire.name }} ( de {{ accessoire.editeur.name }} )</a> 
 						</td>
 					{% if app.user %}<td class="center"><input type="checkbox" id="accessoires[{{ accessoire.id }}]"  name="accessoires[{{ accessoire.id }}]" value="{{ accessoire.id }}" /></td>{% endif %}
 					</tr>

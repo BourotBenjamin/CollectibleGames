@@ -6,7 +6,19 @@
 	<meta property="og:image" content="http://collectible-games.com/{{ console.versions.0.photoUrl }}" />
 	<meta property="og:site_name" content="Collectible Games" />
 	<meta property="og:title" content="{{ console.name }}" />
-	<meta property="og:description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de donné des jeux vidéos" />
+	<meta property="og:description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta property="og:url" content="http://collectible-games.com{{ path('show_console', {'id':console.id})}}" />
+	<meta property="og:type" content="article" />
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@CollectibleGame">
+	<meta name="twitter:creator" content="@CollectibleGame">
+	<meta name="twitter:title" content="{{ console.name }}" />
+	<meta name="twitter:description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta name="twitter:image:src" content="http://collectible-games.com/{{ console.versions.0.photoUrl }}">
+	<meta name="mail:description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos.  Pour cela, une seule adresse : http://collectible-games.com{{ path('show_console', {'id':console.id})}}" />
+	<meta itemprop="name" content="{{ console.name }}">
+	<meta itemprop="description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos" />
+	<meta itemprop="image"  content="http://collectible-games.com/{{ accessoire.versions.0.photoBoiteUrl }}" />
 {% endblock %}
 {% block body_center %}			
 		<div>
@@ -16,9 +28,7 @@
 						<img src="{{ img_root }}img/info_valide_small.png" title="Informations vérifiés par Collectible Games">
 					{% endif %}
 					<span class="GrosTitre">{{ console.name}}</span><br>
-					<span><a href="https://www.facebook.com/sharer/sharer.php?u=http://collectible-games.com{{ path('show_console', {'id':console.id})}}" target="_blank">
-					 Partager sur Facebook
-					</a></span><br>
+					<div id="mydiv3"></div><br>
 					{% if console.plateforme.imageUrl!="img/inconnu.png" %}
 							Plateforme : <img height=35 src="{{ img_root }}{{console.plateforme.imageUrl}}" title="{{console.plateforme.name}}" /><br>
 					{% else %}
@@ -76,4 +86,16 @@
 		<div class="clear"></div>
 		<br><div class="lienAdmin"><a href="{{ path('add_version_console', { 'id': console.id }) }}" >Ajouter une version à la console</a></div>
 		<div class='lienAdmin'><a href="{{ path('modifier_console', { 'id': console.id }) }}">Modifier la console</a></div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+					$('#mydiv3').share({
+						networks: ['facebook','pinterest','googleplus','twitter','tumblr','email'],
+						orientation: 'vertical',
+						urlToShare: "http://collectible-games.com{{ path('show_console', {'id':console.id})}}",
+						affix: 'right up'
+					});
+</script>
 {% endblock %}

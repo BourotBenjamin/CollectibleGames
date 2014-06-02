@@ -22,7 +22,11 @@ class AppKernel extends Kernel
             new CollectibleGames\CollectionBundle\CollectibleGamesCollectionBundle(),
 			new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-			new Brown298\DataTablesBundle\Brown298DataTablesBundle(),
+			new Sonata\CoreBundle\SonataCoreBundle(),
+			new Sonata\BlockBundle\SonataBlockBundle(),
+			new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+			new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+			new Sonata\AdminBundle\SonataAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

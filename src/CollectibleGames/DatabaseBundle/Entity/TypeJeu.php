@@ -47,6 +47,11 @@ class TypeJeu
 		$this->valide = false;
 	}
 
+	public function __toString()
+	{
+        return $this->name;
+	}
+	
     /**
      * Get id
      *
@@ -56,7 +61,7 @@ class TypeJeu
     {
         return $this->id;
     }
-
+	
     /**
      * Set name
      *

@@ -55,6 +55,11 @@ class Region
 		$this->ordre_region = 100;
 	}
 
+	public function __toString()
+	{
+        return $this->name;
+	}
+
     /**
      * Get id
      *

@@ -1,0 +1,181 @@
+services:
+    sonata.admin.jeu:
+        class: CollectibleGames\DatabaseBundle\Admin\JeuAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Jeu", label: "Jeu" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Jeu
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.version_jeu:
+        class: CollectibleGames\DatabaseBundle\Admin\VersionJeuAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Jeu", label: "Version de jeu" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\VersionJeu
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.console:
+        class: CollectibleGames\DatabaseBundle\Admin\ConsoleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Console", label: "Console" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Console
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.version_console:
+        class: CollectibleGames\DatabaseBundle\Admin\VersionConsoleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Console", label: "Version de console" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\VersionConsole
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.accessoire:
+        class: CollectibleGames\DatabaseBundle\Admin\AccessoireAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Accessoire", label: "Accessoire" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Accessoire
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.version_accessoire:
+        class: CollectibleGames\DatabaseBundle\Admin\VersionAccessoireAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Accessoire", label: "Version d'un accessoire" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\VersionAccessoire
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.editeur:
+        class: CollectibleGames\DatabaseBundle\Admin\EditeurAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Editeur" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Editeur
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.plateforme:
+        class: CollectibleGames\DatabaseBundle\Admin\PlateformeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Plateforme" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Plateforme
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.commande:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Commande" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Commande
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.dev:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Développeur" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Developpeur
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.format:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Format" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Format
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.groupe:
+        class: CollectibleGames\DatabaseBundle\Admin\GroupeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Groupe" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Groupe
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.langue:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Langue" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Langue
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.region:
+        class: CollectibleGames\DatabaseBundle\Admin\RegionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Région" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Region
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.support:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Support" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Support
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.type_jeu:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Type de jeu" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\TypeJeu
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.type_accessoire:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Type d'accessoire" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\TypeAccessoire
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
+    sonata.admin.edition:
+        class: CollectibleGames\DatabaseBundle\Admin\SimpleClassAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Petites classes", label: "Édition" }
+        arguments:
+            - ~
+            - CollectibleGames\DatabaseBundle\Entity\Edition
+            - ~
+        calls:
+            - [ setTranslationDomain, [CollectibleGamesDatabaseBundle]]
