@@ -33,16 +33,7 @@ class LoginListener implements EventSubscriberInterface
 
     public function onLoginSuccess($event)
     {
-		global $user, $auth;
-		$u = $event->getAuthenticationToken()->getUser();
 
-		$username = $u->getUsername();
-		$password = $u->getPassword();
-
-		if(isset($username) && isset($password))
-		{
-		  $auth->login($username, $password, true);
-		}
     }
 }
 ?>

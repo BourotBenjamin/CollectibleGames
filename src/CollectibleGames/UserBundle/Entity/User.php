@@ -168,26 +168,5 @@ class User extends BaseUser
     {
         return in_array($role, $this->getRoles());
     }
-	
-	/**
-	* @ORM\PrePersist()
-	*/
-	public function registerPhpbb()
-	{ 
-		global $db,$cache,$phpEx,$config,$phpbb_root_path;
-		include ($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-		include_once ($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-		include_once ($phpbb_root_path . 'includes/functions.' . $phpEx);
-		$user_row = array(
-			'username'				=> $this->getUsername(),
-			'user_password'			=> phpbb_hash($this->getPassword()),
-			'user_email'			=> $this->getEmail(),
-			'group_id'				=> 2,
-			'user_type'				=> USER_NORMAL,
-			'user_avatar'			=> $this->getAvatarUrl(),
-		);
-		// Register user...
-		$user_id = user_add($user_row);
-	}
 }
 ?>
