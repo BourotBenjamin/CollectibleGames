@@ -18,7 +18,7 @@
 	<meta name="mail:description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos.  Pour cela, une seule adresse : http://collectible-games.com{{ path('show_console', {'id':console.id})}}" />
 	<meta itemprop="name" content="{{ console.name }}">
 	<meta itemprop="description" content="Découvrez la fiche du pack {{ console.name }} de la {{ console.plateforme.name }} ainsi que celles de beaucoup d'autres consoles, jeux et accessoires sur Collectible Games, la base de données des jeux vidéos" />
-	<meta itemprop="image"  content="http://collectible-games.com/{{ accessoire.versions.0.photoBoiteUrl }}" />
+	<meta itemprop="image"  content="http://collectible-games.com/{{ console.versions.0.photoUrl }}" />
 {% endblock %}
 {% block body_center %}			
 		<div>

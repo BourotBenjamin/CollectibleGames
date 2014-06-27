@@ -18,7 +18,7 @@
 	<meta name="mail:description" content="Découvrez la fiche de l'accessoire {{ accessoire.name }} sur {{ accessoire.plateforme.name }} ainsi que celles de beaucoup d'autres accessoires, jeux et consoles sur Collectible Games, la base de données des jeux vidéos. Pour cela, une seule adresse : http://collectible-games.com{{ path('show_accessoire', {'id':accessoire.id})}}" />
 	<meta itemprop="name" content="{{ accessoire.name }} sur {{ accessoire.plateforme.name }}">
 	<meta itemprop="description" content="Découvrez la fiche de l'accessoire {{ accessoire.name }} sur {{ accessoire.plateforme.name }} ainsi que celles de beaucoup d'autres accessoires, jeux et consoles sur Collectible Games, la base de données des jeux vidéos" />
-	<meta itemprop="image"  content="http://collectible-games.com/{{ accessoire.versions.0.photoBoiteUrl }}" />
+	<meta itemprop="image"  content="http://collectible-games.com/{{ accessoire.versions.0.photoUrl }}" />
 {% endblock %}
 {% block body_center %}			
 		<div>

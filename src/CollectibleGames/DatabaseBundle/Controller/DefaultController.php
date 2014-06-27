@@ -84,9 +84,9 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getManager();
         $plateforme = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findOneById($id);
         $editeur = $plateforme->getEditeur();
-        $jeux = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findByPlateforme($plateforme);
-        $consoles = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findByPlateforme($plateforme);
-        $accessoires = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findByPlateforme($plateforme);
+        $jeux = $em->getRepository('CollectibleGamesDatabaseBundle:Jeu')->findBy(array('plateforme' => $plateforme), array('name' =>'ASC'));
+        $consoles = $em->getRepository('CollectibleGamesDatabaseBundle:Console')->findBy(array('plateforme' => $plateforme), array('name' =>'ASC'));
+        $accessoires = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findBy(array('plateforme' => $plateforme), array('name' =>'ASC'));
 		$collection = array();
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		if($user && $user!="anon.")

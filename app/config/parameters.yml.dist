@@ -12,5 +12,5 @@ parameters:
     mailer_password:   ~
 
     locale:            fr
-    secret:            
+    secret:            thisisyoursecret
     img_root:          /

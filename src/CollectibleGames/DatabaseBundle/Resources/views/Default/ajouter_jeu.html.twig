@@ -50,220 +50,222 @@ textarea {
 {% block javascripts %}
 	{{ parent() }}
 	<script type="text/javascript">
-	$(document).ready(function() {
-	  // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-	  var $container = $('div#collectiblegames_databasebundle_jeutype_versions');
-
-	  // On ajoute un lien pour ajouter une nouvelle catégorie
-	  var $lienAjout = $('<a href="#" id="ajout_version" class="btn">Ajouter une version</a>');
-	  $container.append($lienAjout);
-
-	  // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-	  $lienAjout.click(function(e) {
-		ajouterCategorie($container);
-		e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-		return false;
-	  });
-
-	  // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-	  var index = $container.find(':input').length;
-
-	  // On ajoute un premier champ directement s'il n'en existe pas déjà un (cas d'un nouvel article par exemple).
-	  if (index == 0) {
-		ajouterCategorie($container);
-	  }
-
-	  // La fonction qui ajoute un formulaire Categorie
-	  function ajouterCategorie($container) {
-		// Dans le contenu de l'attribut « data-prototype », on remplace :
-		// - le texte "__name__label__" qu'il contient par le label du champ
-		// - le texte "__name__" qu'il contient par le numéro du champ
-		var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Version n°' + (index+1))
-															.replace(/__name__/g, index));
-
-		// On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-
-		// On ajoute le prototype modifié à la fin de la balise <div>
-		$container.append($prototype);
-
-		// Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-		index++;
-		$('.datepicker').datepicker({
-			yearRange: "1970:'.date('Y').'",
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: "yy-mm-dd",
-			maxDate: "0"
+	$(document).ready(function() 
+	{
+		var $container = $('div#collectiblegames_databasebundle_jeutype_versions');
+		var $lienAjout = $('<a href="#" id="ajout_version" class="btn">Ajouter une version</a>');
+		$container.append($lienAjout);
+		$lienAjout.click(function(e) 
+		{
+			ajouterVersion($container);
+			autocompleteVersion();
+			e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+			return false;
 		});
-	  }
-	$('.plateforme').select2({
-		data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		blurOnChange: true,
-		createSearchChoice: function(term, data) 
+		autocompleteVersion();
+		// On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+		var index = $container.find('.region').length /2;
+
+		// On ajoute un premier champ directement s'il n'en existe pas déjà un (cas d'un nouvel article par exemple).
+		if (index == 0) 
 		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
+			ajouterVersion($container);
 		}
-	});
-	$('.type').select2({
-		data: [{% for p in autocomplete.types %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
+
+		  // La fonction qui ajoute un formulaire Categorie
+		  function ajouterVersion($container) {
+			// Dans le contenu de l'attribut « data-prototype », on remplace :
+			// - le texte "__name__label__" qu'il contient par le label du champ
+			// - le texte "__name__" qu'il contient par le numéro du champ
+			var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, (index))
+																.replace(/__name__/g, index));
+
+			// On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+			// On ajoute le prototype modifié à la fin de la balise <div>
+			$prototype.insertBefore($('#ajout_version'));
+
+			// Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+			index++;
+			$('.datepicker').datepicker({
+				yearRange: "1970:'.date('Y').'",
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "yy-mm-dd",
+				maxDate: "0"
+			});
+		  }
+		$('.plateforme').select2({
+			data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+			blurOnChange: true,
+			createSearchChoice: function(term, data) 
+			{
+				if ($(data).filter(function() 
+				{
+					return this.text.localeCompare(term)===0; 
+				} ).length===0) 
+				{
+					return {id:term, text:term};
+				} 
+			}
+		});
+		$('.type').select2({
+			data: [{% for p in autocomplete.types %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+			createSearchChoice: function(term, data) 
+			{
+				if ($(data).filter(function() 
+				{
+					return this.text.localeCompare(term)===0; 
+				} ).length===0) 
+				{
+					return {id:term, text:term};
+				} 
+			}
+		});
+		$('.developpeur').select2({
+			data: [{% for p in autocomplete.developpeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+			createSearchChoice: function(term, data) 
+			{
+				if ($(data).filter(function() 
+				{
+					return this.text.localeCompare(term)===0; 
+				} ).length===0) 
+				{
+					return {id:term, text:term};
+				} 
+			}
+		});
+		$('.groupe').select2({
+			data: [{% for p in autocomplete.groupes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+			createSearchChoice: function(term, data) 
+			{
+				if ($(data).filter(function() 
+				{
+					return this.text.localeCompare(term)===0; 
+				} ).length===0) 
+				{
+					return {id:term, text:term};
+				} 
+			}
+		});
+		function autocompleteVersion()
 		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
+			$('.region').select2({
+				data: [{% for p in autocomplete.regions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.edition').select2({
+				data: [{% for p in autocomplete.editions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.editeur').select2({
+				data: [{% for p in autocomplete.editeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.support').select2({
+				data: [{% for p in autocomplete.supports %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.format').select2({
+				data: [{% for p in autocomplete.formats %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.langues').select2({
+				data: [{% for p in autocomplete.langues %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				multiple: true,
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.plateformes').select2({
+				data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				multiple: true,
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('.commandes').select2({
+				data: [{% for p in autocomplete.commandes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
+				multiple: true,
+				createSearchChoice: function(term, data) 
+				{
+					if ($(data).filter(function() 
+					{
+						return this.text.localeCompare(term)===0; 
+					} ).length===0) 
+					{
+						return {id:term, text:term};
+					} 
+				}
+			});
+			$('select').select2({});
+			$('.datepicker').datepicker({
+				yearRange: "1970:'.date('Y').'",
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: "yy-mm-dd",
+				maxDate: "0"
+			});
 		}
-	});
-	$('.developpeur').select2({
-		data: [{% for p in autocomplete.developpeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.groupe').select2({
-		data: [{% for p in autocomplete.groupes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.region').select2({
-		data: [{% for p in autocomplete.regions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.edition').select2({
-		data: [{% for p in autocomplete.editions %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.editeur').select2({
-		data: [{% for p in autocomplete.editeurs %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.support').select2({
-		data: [{% for p in autocomplete.supports %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.format').select2({
-		data: [{% for p in autocomplete.formats %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.langues').select2({
-		data: [{% for p in autocomplete.langues %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		multiple: true,
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.plateformes').select2({
-		data: [{% for p in autocomplete.plateformes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		multiple: true,
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.commandes').select2({
-		data: [{% for p in autocomplete.commandes %}{id:"{{ p.name }}",text:"{{ p.name }}"},{% endfor %}],
-		multiple: true,
-		createSearchChoice: function(term, data) 
-		{
-			if ($(data).filter(function() 
-			{
-				return this.text.localeCompare(term)===0; 
-			} ).length===0) 
-			{
-				return {id:term, text:term};
-			} 
-		}
-	});
-	$('.accessoires').select2({});
-	$('.datepicker').datepicker({
-		yearRange: "1970:'.date('Y').'",
-		changeMonth: true,
-		changeYear: true,
-		dateFormat: "yy-mm-dd",
-		maxDate: "0"
-    });
 	});
 	</script>
 {% endblock %}
