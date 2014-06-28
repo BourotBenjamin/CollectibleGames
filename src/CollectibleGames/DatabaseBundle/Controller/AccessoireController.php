@@ -67,7 +67,7 @@ class AccessoireController extends Controller
     public function accessoireAction($id)
     {
 		$em = $this->getDoctrine()->getManager();
-        $accessoire = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findOneBy($id);
+        $accessoire = $em->getRepository('CollectibleGamesDatabaseBundle:Accessoire')->findOneById($id);
         $plateforme = $accessoire->getPlateforme();
         $editeur = $plateforme->getEditeur();
         return array(
