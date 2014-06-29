@@ -9,7 +9,6 @@ Ercans larges bandes inférieures
 Rm Another World NOE  
 500 @ edit -> logs  
 Si pas de desc, logo plateforme  
-Listes (dans plateforme) mode graphique  
 
 Autre
 ======================
