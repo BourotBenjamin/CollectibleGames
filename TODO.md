@@ -21,6 +21,7 @@ Tableau avancé ->Choix de l'utilisateur (colonnes / Resultats / ...)
 Affichage tableau images  
 Tags  
 Multi-types  
+Untel à cette version
 
 COLLECTION   
 ---------
