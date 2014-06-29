@@ -1,6 +1,12 @@
 {% extends '::layout.html.twig' %}
-{% block body_center %}			
+{% block body_center %}		
+	{% if editeur.description != null and editeur.description!='' %}	
+		{% autoescape false %}
 		<div id='description'>{{ editeur.description }}</div>
+		{% endautoescape %}
+	{% else %}
+		<div id='description'><img height=100 src='{{ img_root }}{{ editeur.imageUrl }}' title='{{ editeur.name }}' ></div>
+	{% endif %}
 		<div class="listPlateformes" id="center">
 		{% for plateforme in plateformes %}
 			<span class='logoPlateforme'><a href="{{ path('show_plateforme', { 'id': plateforme.id }) }}" ><img height=100 src='{{ img_root }}{{ plateforme.imageUrl }}' title='{{ plateforme.name }}' ></a>
