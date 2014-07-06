@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CollectionAccessoire
  *
  * @ORM\Table(name="collection_possede_accessoire")/
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectibleGames\CollectionBundle\Entity\CollectionAccessoireRepository")
  */
 class CollectionAccessoire
 {

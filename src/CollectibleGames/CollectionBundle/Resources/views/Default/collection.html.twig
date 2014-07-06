@@ -1,8 +1,18 @@
 {% extends '::layout.html.twig' %}
 {% block body_center %}
 	{% if user %}
-	<div class="Titre">Collection de {{ user.username }}</div><br>
-	<div class="Titre">Albums Photos 
+	<div class="Titre" style="float:left">Collection de {{ user.username }}</div>
+	<div style="float:right; width:160px;"  id="templatemo_menu" class="ddsmoothmenu_white">
+		<ul>
+			<li>Filtrer par plateforme <ul>
+			{% for p in plateformes %} 
+				<li ><span class="filter_plateforme" data-plateforme="{{ p.id }}">{{ p.name }}</span></li>
+			{% endfor %}
+				<li ><span class="filter_plateforme" data-plateforme="-1">Afficher tout</span></li>
+			</ul></li>
+		</ul>
+	</div>
+	<br><br><div class="Titre">Albums Photos 
 	{% if app.user and app.user.id == user.id %}
 		<a href="{{ path('create_album') }}">( Créer un nouvel album photo )</a>
 	{% endif %}
@@ -13,13 +23,13 @@
 			<div class="titleAlbum">{{ album.name }}</div>
 		</a> 
 	{% endfor %}
-	<div class="Titre">Jeux</div><br>
+	<div class="Titre">Jeux <span id="nbJeux">({{ jeux|length }})</span></div><br>
 	{% for possession in jeux %}
 		{% set jeu = possession.version %}
 		{% if app.user and app.user.id == user.id %}
-			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{jeu.jeu.plateforme.id}}" class="infosPossessionUser jeu" id="Jeu{{ possession.id }}">
 		{% else %}
-			<span class="infosPossession" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{jeu.jeu.plateforme.id}}" class="infosPossession jeu" id="Jeu{{ possession.id }}">
 		{% endif %}
 		{% if possession.boite %} 
 			<img height=100 src='{{ img_root }}{{ jeu.photoBoiteUrl }}'>
@@ -56,13 +66,13 @@
 		{{ possession.commentaire }}
 		</td></tr></table></span></span>
 	{% endfor %}<br><br>
-	<div class="Titre">Consoles</div><br>
+	<div class="Titre">Consoles <span id="nbConsoles">({{ consoles|length }})</span></div><br>
 	{% for possession in consoles %}
 		{% set console = possession.version %}
 		{% if app.user and app.user.id == user.id %}
-			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{console.console.plateforme.id}}" class="infosPossessionUser console" id="Console{{ possession.id }}">
 		{% else %}
-			<span class="infosPossession" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{console.console.plateforme.id}}" class="infosPossession console" id="Console{{ possession.id }}">
 		{% endif %}
 		<img height=100 src='{{ img_root }}{{ console.photoUrl }}'>
 		<span>
@@ -90,13 +100,13 @@
 		{{ possession.commentaire }}
 		</td></tr></table></span></span>
 	{% endfor %}<br><br>
-	<div class="Titre">Accessoires</div><br>
+	<div class="Titre">Accessoires <span id="nbAccessoires">({{ accessoires|length }})</span></div><br>
 	{% for possession in accessoires %}
 		{% set accessoire = possession.version %}
 		{% if app.user and app.user.id == user.id %}
-			<span class="infosPossessionUser" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{accessoire.accessoire.plateforme.id}}"  class="infosPossessionUser accessoire" id="Accessoire{{ possession.id }}">
 		{% else %}
-			<span class="infosPossession" id="Jeu{{ possession.id }}">
+			<span data-plateforme="{{accessoire.accessoire.plateforme.id}}" class="infosPossession accessoire" id="Accessoire{{ possession.id }}">
 		{% endif %}
 		<img height=100 src='{{ img_root }}{{ accessoire.photoUrl }}'>
 		<span>
@@ -131,6 +141,24 @@
 {% block javascripts %}
 {{ parent() }}
 <script>
+$('.filter_plateforme').click( function(){
+	$('.infosPossession').show();
+	$('.infosPossessionUser').show();
+	if($(this).data('plateforme')!=-1)
+	{
+		$(".infosPossession:not([data-plateforme='"+$(this).data('plateforme')+"'])").hide();
+		$(".infosPossessionUser:not([data-plateforme='"+$(this).data('plateforme')+"'])").hide();
+		$("#nbJeux").html("("+$(".jeu:visible").length+"/"+$(".jeu").length+")");
+		$("#nbConsoles").html("("+$(".console:visible").length+"/"+$(".console").length+")");
+		$("#nbAccessoires").html("("+$(".accessoire:visible").length+"/"+$(".accessoire").length+")");
+	}
+	else
+	{
+		$("#nbJeux").html("("+$(".jeu").length+")");
+		$("#nbConsoles").html("("+$(".console").length+")");
+		$("#nbAccessoires").html("("+$(".accessoire").length+")");
+	}
+});
 $(".remove_game").click( function(){
 	var j = $(this);
 	alertify.confirm("Êtes vous sûr de vouloir supprimer ce jeu de votre collection", function (e) {

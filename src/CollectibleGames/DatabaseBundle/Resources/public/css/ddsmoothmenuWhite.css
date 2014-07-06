@@ -1,0 +1,95 @@
+.ddsmoothmenu_white{
+	margin-top: 20px;
+	text-align: center;
+}
+
+.ddsmoothmenu_white ul{
+	z-index:100;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/*Top level list items*/
+.ddsmoothmenu_white ul li{
+	position: relative;
+	display: inline;
+	float: left;
+}
+
+/*Top level menu link items style*/
+.ddsmoothmenu_white ul li a {
+	display: block;
+	height: 23px;
+	width: 120px;
+	margin-left: 5px;
+	line-height: 23px;
+	font-size: 13px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #a9a2a2;	
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	outline: none;
+}
+
+* html .ddsmoothmenu_white ul li a{ /*IE6 hack to get sub menu links to behave correctly*/
+display: inline-block;
+}
+
+.ddsmoothmenu_white ul li a.selected, .ddsmoothmenu_white ul li a:hover { /*CSS class that's dynamically added to the currently active menu items' LI A element*/
+	color: #f00;
+	background: #fff;
+}
+
+/*1st sub level menu*/
+.ddsmoothmenu_white ul li ul {
+	position: absolute;
+	width: 160px;
+	margin: 10px 0 0 5px;
+	left: 0;
+	display: none; /*collapse all sub menus to begin with*/
+	visibility: hidden;
+	background: #fff;
+}
+
+.ddsmoothmenu_white ul li ul span.top { position: absolute; width: 160px; height: 5px; top: -5px; left: 0;  background: #fff; }
+.ddsmoothmenu_white ul li ul span.bottom { position: absolute; width: 160px; height: 5px; bottom: -5px; left: 0; 	background: #fff; }
+
+/*Sub level menu list items (undo style from Top level List Items)*/
+.ddsmoothmenu_white ul li ul li{
+display: list-item;
+float: none;
+}
+
+/*All subsequent sub menu levels vertical offset after 1st level sub menu */
+.ddsmoothmenu_white ul li ul li ul{
+top: 0;
+}
+
+/* Sub level menu links style */
+.ddsmoothmenu_white ul li ul li a{
+	font-weight: 500;
+	width: 175px; /*width of sub menus*/
+	height: 28px;
+	line-height: 28px;
+	margin: 0 10px;
+	font-size: 12px;
+	text-align: left;
+	background: none;
+	color: #a9a2a2;
+	border-bottom: 0px solid #151515
+}
+
+.ddsmoothmenu_white ul li ul li .last {
+	border-bottom: none;
+}
+
+.ddsmoothmenu_white ul li ul li a.selected, .ddsmoothmenu_white ul li ul li a:hover {
+	color: #f00;
+	margin-left: 11px;
+	background: none;
+}
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu_white{height: 1%;} /*Holly Hack for IE7 and below*/

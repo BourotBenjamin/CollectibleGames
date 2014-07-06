@@ -573,15 +573,17 @@ class DefaultController extends Controller
 		$u = $this->container->get('security.context')->getToken()->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$albums = $em->getRepository('CollectibleGamesCollectionBundle:Album')->findByUser($u);
-		$jeux = $em->getRepository('CollectibleGamesCollectionBundle:CollectionJeu')->findByUser($u);
-		$accessoires = $em->getRepository('CollectibleGamesCollectionBundle:CollectionAccessoire')->findByUser($u);
-		$consoles = $em->getRepository('CollectibleGamesCollectionBundle:CollectionConsole')->findByUser($u);
+		$jeux = $em->getRepository('CollectibleGamesCollectionBundle:CollectionJeu')->findByUserOrdered($u);
+		$accessoires = $em->getRepository('CollectibleGamesCollectionBundle:CollectionAccessoire')->findByUserOrdered($u);
+		$consoles = $em->getRepository('CollectibleGamesCollectionBundle:CollectionConsole')->findByUserOrdered($u);
+		$plateformes = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findByCollection($u);
 		return array(
 			'user' => $u,
 			'albums' => $albums,
 			'jeux' => $jeux,
 			'accessoires' => $accessoires,
-			'consoles' => $consoles
+			'consoles' => $consoles,
+			'plateformes' => $plateformes
 		);
 	}
 	
@@ -594,15 +596,17 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$u = $em->getRepository('CollectibleGamesUserBundle:User')->find($id);
 		$albums = $em->getRepository('CollectibleGamesCollectionBundle:Album')->findByUser($u);
-		$jeux = $em->getRepository('CollectibleGamesCollectionBundle:CollectionJeu')->findByUser($u);
-		$accessoires = $em->getRepository('CollectibleGamesCollectionBundle:CollectionAccessoire')->findByUser($u);
-		$consoles = $em->getRepository('CollectibleGamesCollectionBundle:CollectionConsole')->findByUser($u);
+		$jeux = $em->getRepository('CollectibleGamesCollectionBundle:CollectionJeu')->findByUserOrdered($u);
+		$accessoires = $em->getRepository('CollectibleGamesCollectionBundle:CollectionAccessoire')->findByUserOrdered($u);
+		$consoles = $em->getRepository('CollectibleGamesCollectionBundle:CollectionConsole')->findByUserOrdered($u);
+		$plateformes = $em->getRepository('CollectibleGamesDatabaseBundle:Plateforme')->findByCollection($u);
 		return array(
 			'user' => $u,
 			'albums' => $albums,
 			'jeux' => $jeux,
 			'accessoires' => $accessoires,
-			'consoles' => $consoles
+			'consoles' => $consoles,
+			'plateformes' => $plateformes
 		);
 	}
 	
