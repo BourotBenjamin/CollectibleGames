@@ -1,7 +1,9 @@
 {% extends '::layout.html.twig' %}
 {% block body_center %}
+<div>Vous êtes ici : <a href="{{path('forum_index')}}">Index du forum</a> >> <a href="{{path('show_forum', {'id':topic.forum.id})}}">{{topic.forum.name}}</a> >> <a href="{{path('show_topic', {'id':topic.id})}}">{{topic.name}}</a></div>
 	{% for message in topic.messages %}
 	<div class="message">
+		<div class="edit_message"><a href="{% if loop.index==1 %}{{path('edit_topic', {'id':topic.id})}}{% else %}{{path('edit_message', {'id':message.id})}}{% endif %}">Editer</a></div>
 		<div class="users_infos">
 			<div class="photo"><img src="{{message.createdBy.avatarUrl}}"></div>
 			<div class="pseudo">{{message.createdBy}}</div>
@@ -49,6 +51,9 @@ height: 200px;
 }
 .message_body {
     padding: 0 0 0 160px;
+}
+.edit_message {
+float: right;
 }
 </style>
 {% endblock %}

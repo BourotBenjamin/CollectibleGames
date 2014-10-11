@@ -83,6 +83,12 @@ class Topic
      * @ORM\Column(name="replied_at", type="datetime")
      */
     private $repliedAt;
+	
+    /**
+	* @ORM\OneToOne(targetEntity="Message")
+	* @ORM\JoinColumn(name="lastMessage", referencedColumnName="id")
+     */
+    protected $lastMessage;
 
 
     /**
@@ -244,6 +250,7 @@ class Topic
 	public function addMessages($f)		
 	{
 		$this->messages[] = $f;	
+		$this->lastMessage = $f;
 	}
 	public function removeMessages($f)		
 	{
@@ -295,4 +302,8 @@ class Topic
         return $this->repliedAt;
     }
 	
+    public function getLastMessage()
+    {
+        return $this->lastMessage;
+    }
 }

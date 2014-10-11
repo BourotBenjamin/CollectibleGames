@@ -1,17 +1,18 @@
 {% extends '::layout.html.twig' %}
 {% block body_center %}
+<div>Vous êtes ici : <a href="{{path('forum_index')}}">Index du forum</a> >> <a href="{{path('show_forum', {'id':forum.id})}}">{{forum.name}}</a></div>
 	<div class="forum_head">{{forum.name}}</div>
 	{% if app.user is defined and app.user != null and app.user != 'anon.' %}
 	<div><a href="{{path('new_topic', {'id':forum.id})}}"><div class="new_subject">Nouveau sujet</div></a></div>
 	{% endif %}
 	<div class="categorie_background">
-		<div class="categorie_header right"> Dernière réponse </div><div class="categorie_header"> Sujets </div>
+		<div class="last_replies_label"> Dernière réponse </div><div class="categorie_header"> Sujets </div>
 		<div class="categorie_content">
-		{% for topic in forum.topics %}
+		{% for topic in topics %}
 			<div class="forum_infos"> 
 				<div class="forum_icon"></div>
 				<div class="forum_text">
-					<div class="forum_description right">{{topic.repliedAt|localizeddate('full', 'none')}} à {{topic.repliedAt|localizeddate('none', 'short')}}</div>
+					{% if topic.lastMessage != null %} <div class="last_reply">Le {{topic.lastMessage.createdAt|localizeddate('full', 'none')}} à {{topic.lastMessage.createdAt|localizeddate('none', 'short')}} <br> par {{topic.lastMessage.createdBy}}</div>{% endif %}
 					<div class="forum_name"><a href="{{path('show_topic', {'id':topic.id})}}">{{topic.name}}</a></div>
 					<div class="forum_description">par {{topic.createdBy}} le {{topic.createdAt|localizeddate('full', 'none')}} à {{topic.createdAt|localizeddate('none', 'short')}}</div>
 				</div>
@@ -77,14 +78,25 @@ padding: 5px;
 .new_subject {
 color: white;
 background-color: black;
-width: 150px;
+width: 110px;
 text-align: center;
-font-size: 20px;
-padding: 10px 0;
+font-size: 14px;
+padding: 4px 0;
 border-radius: 5px;
 left: 15px;
 top: 5px;
 position: relative;
+}
+.last_reply{
+float: right;
+color: black;
+padding: 5px 0 0 0;
+}
+.last_replies_label {
+float: right;
+color: white;
+font-size: 15px;
+padding: 0 55px 5px 0px;
 }
 </style>
 {% endblock %}

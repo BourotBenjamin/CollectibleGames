@@ -62,7 +62,6 @@ textarea {
 			e.preventDefault(); // évite qu'un # apparaisse dans l'URL
 			return false;
 		});
-		autocompleteVersion();
 		// On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
 		var index = $container.find('.region').length /2;
 
@@ -148,6 +147,7 @@ textarea {
 				} 
 			}
 		});
+		$('select').select2({});
 		function autocompleteVersion()
 		{
 			$('.region').select2({
@@ -266,6 +266,7 @@ textarea {
 				maxDate: "0"
 			});
 		}
+			autocompleteVersion();
 	});
 	</script>
 {% endblock %}

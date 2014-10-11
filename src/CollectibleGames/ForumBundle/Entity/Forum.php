@@ -62,6 +62,12 @@ class Forum
      * @ORM\OneToMany(targetEntity="Topic", mappedBy="forum", cascade={"persist", "remove"})
      */
     protected $topics;
+	
+    /**
+	* @ORM\OneToOne(targetEntity="Message")
+	* @ORM\JoinColumn(name="lastMessage", referencedColumnName="id")
+     */
+    protected $lastMessage;
 
 
     /**
@@ -205,4 +211,14 @@ class Forum
 	{
 		$this->topics->removeElement($f);	
 	}
+	
+    public function setLastMessage($lastMessage)
+    {
+        $this->lastMessage = $lastMessage;
+        return $this;
+    }
+    public function getLastMessage()
+    {
+        return $this->lastMessage;
+    }
 }

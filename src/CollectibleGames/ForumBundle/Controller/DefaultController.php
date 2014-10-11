@@ -29,7 +29,8 @@ class DefaultController extends Controller
     {
 		$em = $this->getDoctrine()->getManager();
 		$forum = $em->getRepository("CollectibleGamesForumBundle:Forum")->find($id);
-        return array('forum' => $forum);
+		$topics = $em->getRepository("CollectibleGamesForumBundle:Topic")->findBy(array('forum'=>$forum), array('repliedAt'=>'DESC'));
+        return array('forum' => $forum,'topics' => $topics);
     }
 	
     /**
@@ -54,6 +55,9 @@ class DefaultController extends Controller
 				$em->persist($message);
 				$topic->addMessages($message);
 				$em->persist($topic);
+				$forum = $topic->getForum();
+				$forum->setLastMessage($message);
+				$em->persist($forum);
 				$em->flush();
 			}
 		}
@@ -91,10 +95,77 @@ class DefaultController extends Controller
 				$em->persist($message);
 				$topic->addMessages($message);
 				$em->persist($topic);
+				$forum->setLastMessage($message);
+				$em->persist($forum);
 				$em->flush();
 				return $this->redirect($this->generateUrl('show_topic', array('id'=>$topic->getId())));
 			}
 		}
         return array();
     }
+    /**
+     * @Route("/forum/edit-topic/{id}", name="edit_topic")
+     * @Template()
+     */
+    public function editTopicAction($id)
+    {
+		$em = $this->getDoctrine()->getManager();
+		$topic = $em->getRepository("CollectibleGamesForumBundle:Topic")->find($id);
+		$message = $em->getRepository("CollectibleGamesForumBundle:Message")->findByTopic($id)[0];
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if($user == $topic->getCreatedBy())
+		{
+			if($this->getRequest()->getMethod() == 'POST')
+			{
+				if(is_object($user))
+				{
+					$req = $this->getRequest()->request;
+					$topic->setName($req->get('title'));
+					$topic->setDescription($req->get('description'));
+					$message->setText($req->get('message'));
+					$em->persist($message);
+					$em->persist($topic);
+					$em->flush();
+					return $this->redirect($this->generateUrl('show_topic', array('id'=>$id)));
+				}
+			}
+			return array('topic'=>$topic, 'message'=>$message);
+		}
+		else
+		{
+			$fuck->you();
+		}
+    }
+	
+    /**
+     * @Route("/forum/edit-message/{id}", name="edit_message")
+     * @Template()
+     */
+    public function editMessageAction($id)
+    {
+		$em = $this->getDoctrine()->getManager();
+		$message = $em->getRepository("CollectibleGamesForumBundle:Message")->find($id);
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if($user == $message->getCreatedBy())
+		{
+			if($this->getRequest()->getMethod() == 'POST')
+			{
+				if(is_object($user))
+				{
+					$req = $this->getRequest()->request;
+					$message->setText($req->get('message'));
+					$em->persist($message);
+					$em->flush();
+					return $this->redirect($this->generateUrl('show_topic', array('id'=>$message->getTopic()->getId())));
+				}
+			}
+			return array('message'=>$message);
+		}
+		else
+		{
+			$fuck->you();
+		}
+    }
+	
+	
 }

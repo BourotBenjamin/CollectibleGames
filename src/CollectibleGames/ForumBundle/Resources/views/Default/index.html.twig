@@ -1,13 +1,15 @@
 {% extends '::layout.html.twig' %}
 {% block body_center %}
+<div>Vous êtes ici : <a href="{{path('forum_index')}}">Index du forum</a></div>
 {% for categorie in categories %}
 	<div class="categorie_background">
-		<div class="categorie_header"> {{ categorie.name }} </div>
+		<div class="last_replies_label"> Dernière réponse </div><div class="categorie_header"> {{ categorie.name }} </div>
 		<div class="categorie_content">
 		{% for forum in categorie.forums %}
 			<div class="forum_infos"> 
 				<div class="forum_icon"></div>
 				<div class="forum_text">
+					{% if forum.lastMessage != null %} <div class="last_reply">Le {{forum.lastMessage.createdAt|localizeddate('full', 'none')}} à {{forum.lastMessage.createdAt|localizeddate('none', 'short')}} <br> par {{forum.lastMessage.createdBy}}</div>{% endif %}
 					<div class="forum_name"><a href="{{path('show_forum', {'id':forum.id})}}">{{forum.name}}</a></div>
 					<div class="forum_description">{{forum.description}}</div>
 				</div>
@@ -56,6 +58,20 @@ padding: 5px;
     color: white;
     font-size: 15px;
     padding: 0 0 5px 15px;
+}
+.right{
+	float:right;
+}
+.last_reply{
+float: right;
+color: black;
+padding: 5px 0 0 0;
+}
+.last_replies_label {
+float: right;
+color: white;
+font-size: 15px;
+padding: 0 55px 5px 0px;
 }
 </style>
 {% endblock %}

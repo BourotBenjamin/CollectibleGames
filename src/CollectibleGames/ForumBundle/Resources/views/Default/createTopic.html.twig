@@ -1,0 +1,57 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}
+	<div class="categorie_background">
+		<div class="categorie_header"> Créer un sujet </div>
+		<div class="categorie_content">
+			<form action="" method="POST">
+				<div class="forum_infos"> 
+					<input type="text" name="title" placeholder="Choisissez un titre pour votre sujet"/>
+					<input type="text" name="description" placeholder="Description (facultative)" />
+					<textarea class="body_textarea" name="message"></textarea>
+					<input type="submit" value="Répondre">
+				</div>
+			</form>
+		</div>
+	</div>
+<style>
+.categorie_background {
+border-radius: 8px;
+background-color: black;
+margin: 10px;
+padding: 5px;
+}
+.categorie_content {
+background-color: #ddd;
+}
+.categorie_header {
+    color: white;
+    font-size: 15px;
+    padding: 0 0 5px 15px;
+}
+.forum_infos {
+border-bottom: solid black 1px;
+padding: 0 40px;
+min-height: 60px;
+position: relative;
+}
+input {
+	width: 80%;
+}
+.body_textarea{
+width: 80%;
+height: 400px;
+}
+</style>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/collectiblegamesforum/js/sceditor/minified/themes/default.min.css') }}" type="text/css" media="all" />
+<script type="text/javascript" src="{{ asset('bundles/collectiblegamesforum/js/sceditor/minified/jquery.sceditor.bbcode.min.js') }}"></script>
+<script>
+
+    $("textarea").sceditor({
+        plugins: "bbcode",
+		style: "minified/jquery.sceditor.default.min.css"
+    });
+</script>
+{% endblock %}
