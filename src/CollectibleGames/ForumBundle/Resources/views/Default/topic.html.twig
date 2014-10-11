@@ -1,0 +1,71 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}
+	{% for message in topic.messages %}
+	<div class="message">
+		<div class="users_infos">
+			<div class="photo"><img src="{{message.createdBy.avatarUrl}}"></div>
+			<div class="pseudo">{{message.createdBy}}</div>
+		</div>
+		<div class="message_body">
+			<div class="message_title"> {{topic.name}} </div>
+			<div class="message_infos"> par {{message.createdBy}} le {{message.createdAt|localizeddate('full', 'none')}} à {{message.createdAt|localizeddate('none', 'short')}}</div>
+			<div class="message_text">{{message.text}}</div>
+		</div>
+	</div>
+	{% endfor %}
+	{% if app.user is defined and app.user != null and app.user != 'anon.' %}
+	<div class="reply">
+		<form action="" method="POST">
+			<textarea class="reply_textarea" name="message"></textarea>
+			<input type="submit" value="Répondre">
+		</form>
+	</div>
+	{% else %}
+			<div style="display:none;"><textarea></textarea></div>
+	{% endif %}
+	
+<style>
+.reply_textarea{
+width: 99%;
+height: 200px;
+}
+.message {
+	color: black;
+    background-color: #ddd;
+    padding: 15px;
+	border-bottom: solid 2px white;
+}
+.users_infos {
+	float:left;
+	position: absolute;
+	width: 150px;
+	border-right: solid 1px white;
+}
+.message_text {
+    padding: 10px 0 0 0;
+}
+.message_title {
+    color: darkred;  font-size: 20px;
+}
+.message_body {
+    padding: 0 0 0 160px;
+}
+</style>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/collectiblegamesforum/js/sceditor/minified/themes/default.min.css') }}" type="text/css" media="all" />
+<script type="text/javascript" src="{{ asset('bundles/collectiblegamesforum/js/sceditor/minified/jquery.sceditor.bbcode.min.js') }}"></script>
+<script>
+
+    $("textarea").sceditor({
+        plugins: "bbcode",
+		style: "minified/jquery.sceditor.default.min.css"
+    });
+	$('.message_text').each(function()
+	{
+		console.log($(this).text());
+		$(this).html( $("textarea").sceditor('instance').fromBBCode($(this).text(), false));
+	});
+</script>
+{% endblock %}

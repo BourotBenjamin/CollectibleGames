@@ -147,10 +147,14 @@ class Album
 	}
 	public function setPhotos($p)		
 	{
-		$this->photos = $j;	
+		$this->photos = $p;	
 	}
 	public function addPhotos($p)		
 	{
 		$this->photos[] = $p;	
+	}
+	public function removePhoto($p)		
+	{
+		$this->photos->removeElement($p);	
 	}
 }

@@ -1,3 +1,8 @@
+collectible_games_forum:
+    resource: "@CollectibleGamesForumBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 collectible_games_collection:
     resource: "@CollectibleGamesCollectionBundle/Controller/"
     type:     annotation

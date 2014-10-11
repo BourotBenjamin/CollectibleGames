@@ -1,0 +1,61 @@
+{% extends '::layout.html.twig' %}
+{% block body_center %}
+{% for categorie in categories %}
+	<div class="categorie_background">
+		<div class="categorie_header"> {{ categorie.name }} </div>
+		<div class="categorie_content">
+		{% for forum in categorie.forums %}
+			<div class="forum_infos"> 
+				<div class="forum_icon"></div>
+				<div class="forum_text">
+					<div class="forum_name"><a href="{{path('show_forum', {'id':forum.id})}}">{{forum.name}}</a></div>
+					<div class="forum_description">{{forum.description}}</div>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+{% endfor %}
+<style>
+.categorie_content {
+background-color: #ddd;
+}
+.forum_infos {
+border-bottom: solid black 1px;
+padding: 0 40px;
+min-height: 60px;
+position: relative;
+}
+.forum_icon {
+height: 100%;
+position: absolute;
+left: 0;
+width:40px;
+background: url('http://collectible-games.com/forum/styles/DarkyGray/imageset/forum_read.png');
+background-repeat: no-repeat;
+background-position: 10px 50%;
+}
+.categorie_background {
+border-radius: 8px;
+background-color: black;
+margin: 10px;
+padding: 5px;
+}
+.forum_name {
+    font-size: 19px;
+    padding: 5px;
+    color: darkred;
+}
+.forum_description {
+    color: black;
+}
+.forum_text {
+padding: 5px;
+}
+.categorie_header {
+    color: white;
+    font-size: 15px;
+    padding: 0 0 5px 15px;
+}
+</style>
+{% endblock %}
